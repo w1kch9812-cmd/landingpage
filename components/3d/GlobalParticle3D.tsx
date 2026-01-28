@@ -25,17 +25,17 @@ interface SectionConfig {
 const sectionConfigs: SectionConfig[] = [
   { id: 'section-hero',         shape: 'wave',      position: { x: 50, y: 50 }, scale: 1.0, opacity: 0.95 },
   { id: 'section-partners',     shape: 'wave',      position: { x: 50, y: 50 }, scale: 0.9, opacity: 0.9 },
-  { id: 'section-datacount',    shape: 'wave',      position: { x: 50, y: 50 }, scale: 0.85, opacity: 0.85 },
-  { id: 'section-stats',        shape: 'chart',     position: { x: 50, y: 50 }, scale: 0.65, opacity: 0.8 },
+  { id: 'section-data-count',   shape: 'wave',      position: { x: 50, y: 50 }, scale: 0.85, opacity: 0.85 },
+  { id: 'section-community',    shape: 'chart',     position: { x: 50, y: 50 }, scale: 0.65, opacity: 0.8 },
   // CoreFeatures 서브섹션들 (anchorId로 particleAnchor 위치 참조)
   { id: 'section-corefeature-1', shape: 'gear',    position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 제조 현장 맞춤 필터 - 톱니바퀴
   { id: 'section-corefeature-2', shape: 'city',    position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 물류/입지 최적화 - 도시
   { id: 'section-corefeature-3', shape: 'chart',   position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 실거래가 통계 - 차트
   { id: 'section-corefeature-4', shape: 'network', position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 스마트 매칭 - 네트워크
-  { id: 'section-security',     shape: 'lock',      position: { x: 50, y: 50 }, scale: 0.7, opacity: 0.85 },
+  { id: 'section-private-listing', shape: 'lock',   position: { x: 50, y: 50 }, scale: 0.7, opacity: 0.85 },
   { id: 'section-testimonials', shape: 'info',      position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.7 },
   { id: 'section-faq',          shape: 'megaphone', position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.7 },
-  // section-contact는 Spline 배경을 사용하므로 파티클 제외
+  // section-launch-notify는 Spline 배경을 사용하므로 파티클 제외
 ];
 
 const sectionIds = sectionConfigs.map(c => c.id);

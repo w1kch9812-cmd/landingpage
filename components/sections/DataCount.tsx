@@ -34,7 +34,7 @@ const stats = [
 
 export default function DataCount() {
   return (
-    <section id="section-datacount" className={styles.section}>
+    <section id="section-data-count" className={styles.section}>
       {/* 3D 파티클 앵커 (좌측 영역) */}
       <div id="datacount-particle-anchor" className={styles.particleAnchor} />
 

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/ScrollToTop";
-// import { Scene3DProvider } from "@/components/3d/Scene3DManager";
 import "./globals.css";
 
 // Hanwha 폰트 패밀리
@@ -95,10 +94,6 @@ export default function RootLayout({
           {children}
         </SmoothScroll>
         <ScrollToTop />
-        {/* TODO: Add Scene3DProvider when 3D features are enabled */}
-        {/* <Scene3DProvider>
-          {children}
-        </Scene3DProvider> */}
       </body>
     </html>
   );

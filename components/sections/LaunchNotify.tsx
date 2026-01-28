@@ -1,17 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import SectionHeader from '@/components/ui/SectionHeader';
 import CTAButton from '@/components/ui/CTAButton';
-import styles from './ContactForm.module.css';
+import styles from './LaunchNotify.module.css';
 
-const SplineScene = dynamic(() => import('@/components/3d/SplineScene'), {
-  ssr: false,
-  loading: () => <div className={styles.splineFallback} />,
-});
-
-export default function ContactForm() {
+export default function LaunchNotify() {
   const [formData, setFormData] = useState({
     email: '',
     phone: '',
@@ -49,19 +43,10 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="section-contact" className={styles.section}>
+    <section id="section-launch-notify" className={styles.section}>
       <div className={styles.darkCard}>
-        {/* Spline 배경 */}
-        <div className={styles.splineWrapper}>
-          <SplineScene
-            sceneUrl="/spline/glass.splinecode"
-            interactive={false}
-          />
-        </div>
-
-        {/* Left Content */}
         <div className={styles.content}>
-          <SectionHeader sectionName="Contact" sectionNumber="07">
+          <SectionHeader sectionName="Launch Notify" sectionNumber="07">
             출시 알림 신청
           </SectionHeader>
           <p className={styles.description}>
@@ -70,7 +55,6 @@ export default function ContactForm() {
           </p>
         </div>
 
-        {/* Right Form */}
         <div className={styles.formWrapper}>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formInputs}>

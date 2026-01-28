@@ -4,13 +4,6 @@ import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import styles from './Hero.module.css';
 
-// Spline 임시 비활성화
-// import dynamic from 'next/dynamic';
-// const SplineScene = dynamic(() => import('@/components/3d/SplineScene'), {
-//   ssr: false,
-//   loading: () => <div className={styles.splineFallback} />,
-// });
-
 interface HeroProps {
   isPreloaderDone?: boolean;
 }
@@ -18,20 +11,6 @@ interface HeroProps {
 export default function Hero({ isPreloaderDone = true }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Spline preload 임시 비활성화
-  // useEffect(() => {
-  //   const link = document.createElement('link');
-  //   link.rel = 'preload';
-  //   link.href = '/spline/scene.splinecode';
-  //   link.as = 'fetch';
-  //   link.crossOrigin = 'anonymous';
-  //   document.head.appendChild(link);
-  //   return () => {
-  //     document.head.removeChild(link);
-  //   };
-  // }, []);
-
-  // Body background color
   useEffect(() => {
     document.body.style.transition = 'background-color 0.4s ease';
     document.body.style.backgroundColor = '#ffffff';
@@ -39,14 +18,6 @@ export default function Hero({ isPreloaderDone = true }: HeroProps) {
 
   return (
     <section id="section-hero" ref={sectionRef} className={styles.hero}>
-      {/* Spline 임시 비활성화 */}
-      {/* <div className={styles.splineWrapper}>
-        <SplineScene
-          sceneUrl="/spline/scene.splinecode"
-          interactive={false}
-        />
-      </div> */}
-
       <div className={styles.heroContent}>
         <motion.h1
           className={styles.heroTitle}

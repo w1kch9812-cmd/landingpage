@@ -5,13 +5,13 @@ import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import DataCount from '@/components/sections/DataCount';
-import Stats from '@/components/sections/Stats';
+import Community from '@/components/sections/Community';
 import CoreFeatures from '@/components/sections/CoreFeatures';
-import Security from '@/components/sections/Security';
+import PrivateListing from '@/components/sections/PrivateListing';
 import Partners from '@/components/sections/Partners';
 import Testimonials from '@/components/sections/Testimonials';
 import FAQ from '@/components/sections/FAQ';
-import ContactForm from '@/components/sections/ContactForm';
+import LaunchNotify from '@/components/sections/LaunchNotify';
 import Footer from '@/components/sections/Footer';
 import Preloader from '@/components/Preloader';
 import styles from './page.module.css';
@@ -75,12 +75,12 @@ export default function LandingPage() {
         <Hero isPreloaderDone={isPreloaderDone} />
         <Partners />
         <DataCount />
-        <Stats />
+        <Community />
         <CoreFeatures />
-        <Security />
+        <PrivateListing />
         <Testimonials />
         <FAQ />
-        <ContactForm />
+        <LaunchNotify />
         <Footer />
       </main>
 

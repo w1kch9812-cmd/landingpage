@@ -39,7 +39,7 @@
   font-family: var(--font-hanwha);
   font-size: 28px;
   font-weight: 400;
-  color: #001530;
+  color: var(--color-text-primary);
 }
 
 .navMenu {
@@ -58,21 +58,21 @@
 
 .navbar.scrolled .navMenu {
   padding: 12px 24px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--color-bg-overlay);
   backdrop-filter: blur(15px);
   box-shadow: none;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--color-border);
 }
 
 .navLink {
   font-family: var(--font-hanwha);
   font-size: 16px;
   font-weight: 500;
-  color: #001530;
+  color: var(--color-text-primary);
   background: none;
   border: none;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: color var(--transition-fast);
   position: relative;
 }
 
@@ -110,7 +110,7 @@
   display: none;
   background: none;
   border: none;
-  color: #001530;
+  color: var(--color-text-primary);
   cursor: pointer;
   padding: 8px;
 }

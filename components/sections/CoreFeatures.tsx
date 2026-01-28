@@ -68,8 +68,8 @@ export default function CoreFeatures() {
 
     const handleScroll = () => {
       const rect = section.getBoundingClientRect();
-      const securitySection = document.getElementById('section-security');
-      const securityRect = securitySection?.getBoundingClientRect();
+      const privateListingSection = document.getElementById('section-private-listing');
+      const privateListingRect = privateListingSection?.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
       // Dark zone: from CoreFeatures top to Security bottom
@@ -79,7 +79,7 @@ export default function CoreFeatures() {
       const exitEnd = 0;
 
       // 다크 섹션 영역에 있는지 확인
-      const inDarkZone = rect.top < enterStart && (!securityRect || securityRect.bottom > exitEnd);
+      const inDarkZone = rect.top < enterStart && (!privateListingRect || privateListingRect.bottom > exitEnd);
 
       // 다크 섹션 영역 밖이면 Hero/다른 섹션이 배경색 제어하도록 건드리지 않음
       if (!inDarkZone) return;
@@ -92,12 +92,12 @@ export default function CoreFeatures() {
         progress = (enterStart - rect.top) / (enterStart - enterEnd);
       }
       // Inside dark zone
-      else if (!securityRect || securityRect.bottom >= exitStart) {
+      else if (!privateListingRect || privateListingRect.bottom >= exitStart) {
         progress = 1;
       }
-      // Exiting dark zone (Security leaving view)
-      else if (securityRect.bottom > exitEnd) {
-        progress = securityRect.bottom / exitStart;
+      // Exiting dark zone (PrivateListing leaving view)
+      else if (privateListingRect.bottom > exitEnd) {
+        progress = privateListingRect.bottom / exitStart;
       }
 
       progress = Math.max(0, Math.min(1, progress));
@@ -119,7 +119,7 @@ export default function CoreFeatures() {
   }, []);
 
   return (
-    <section id="section-corefeatures" ref={containerRef} className={styles.section}>
+    <section id="section-core-features" ref={containerRef} className={styles.section}>
       <div className={styles.container}>
         {/* Left: 파티클 Anchor 영역 (sticky) */}
         <div id="corefeatures-particle-anchor" className={styles.particleAnchor}>

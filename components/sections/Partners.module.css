@@ -60,15 +60,9 @@
   width: 120px;
   height: 40px;
   object-fit: contain;
-  opacity: 0.5;
+  opacity: 1;
   /* 흑백 + 높은 대비 */
   filter: grayscale(100%) contrast(1.2) brightness(0.9);
-  transition: opacity 0.2s ease, filter 0.2s ease;
-}
-
-.logoCard:hover .logoImage {
-  opacity: 1;
-  filter: grayscale(0%);
 }
 
 /* Tablet (810px - 1199px) */
