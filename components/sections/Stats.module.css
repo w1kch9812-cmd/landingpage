@@ -1,0 +1,166 @@
+/* Section */
+.section {
+  width: 100%;
+  background: transparent;
+  padding: 0 8px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Container */
+.container {
+  max-width: 1520px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Section Header */
+.sectionHeader {
+  text-align: center;
+}
+
+.title {
+  font-family: var(--font-hanwha);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: -0.04em;
+  color: rgb(0, 21, 48);
+  margin: 0;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Stat Description */
+.statDescription {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: -0.02em;
+  color: #757575;
+  margin: 0;
+}
+
+.mutedText {
+  color: #757575;
+}
+
+/* Anchor Cell - Column 4 */
+.anchorCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 100%; /* textCol 높이에 맞춤 */
+}
+
+/* Particle Anchor */
+.particleAnchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* Stat Item */
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Stat Number */
+.statNumber {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.number {
+  font-family: var(--font-hanwha);
+  font-size: 72px;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 1;
+  color: rgb(0, 21, 48);
+}
+
+.suffix {
+  font-family: var(--font-hanwha);
+  font-size: 72px;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 1;
+  color: rgb(0, 21, 48);
+}
+
+/* Stat Label */
+.statLabel {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #001530;
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    gap: 48px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .number,
+  .suffix {
+    font-size: 56px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .container {
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .number,
+  .suffix {
+    font-size: 48px;
+  }
+
+  .statLabel {
+    font-size: 14px;
+  }
+
+  .anchorCell {
+    display: none;
+  }
+}

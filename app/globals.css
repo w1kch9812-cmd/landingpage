@@ -1,26 +1,172 @@
 @import "tailwindcss";
 
+/* ======================
+   Global Reset & Base Styles
+   ====================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+    width: 100%;
+    height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
+    min-height: 100%;
+    font-family: var(--font-hanwha-gothic), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #001530;
+    background-color: #f0f3f7;
 }
+
+/* 한글 텍스트 어색한 줄바꿈 방지 */
+h1, h2, h3, h4, h5, h6,
+p, span, li, a, label,
+.title, .subtitle, .description,
+[class*="Text"], [class*="title"], [class*="desc"] {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure {
+    margin: 0;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ======================
+   Font Utility Classes
+   ====================== */
+
+.font-hanwha-light {
+    font-family: var(--font-hanwha);
+    font-weight: 300;
+}
+
+.font-hanwha {
+    font-family: var(--font-hanwha);
+    font-weight: 500;
+}
+
+.font-hanwha-bold {
+    font-family: var(--font-hanwha);
+    font-weight: 700;
+}
+
+.font-hanwha-gothic {
+    font-family: var(--font-hanwha-gothic);
+    font-weight: 400;
+}
+
+.font-hanwha-gothic-light {
+    font-family: var(--font-hanwha-gothic);
+    font-weight: 300;
+}
+
+.font-gmarket-sans {
+    font-family: var(--font-gmarket-sans);
+    font-weight: 400;
+}
+
+.font-gmarket-sans-bold {
+    font-family: var(--font-gmarket-sans);
+    font-weight: 700;
+}
+
+.font-pretendard {
+    font-family: var(--font-pretendard);
+}
+
+/* ======================
+   Display P3 Color Support
+   ====================== */
+
+@supports (color: color(display-p3 1 1 1)) {
+    :root {
+        color-scheme: light dark;
+    }
+}
+
+@supports (aspect-ratio: 1) {
+    body {
+        --framer-aspect-ratio-supported: auto;
+    }
+}
+
+/* ======================
+   Form Input Focus States
+   ====================== */
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.1);
+    border-color: rgb(10, 10, 10);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(10, 10, 10, 0.4);
+    transition: color 0.2s ease;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: rgba(10, 10, 10, 0.3);
+}
+
+/* ======================
+   Button Active States
+   ====================== */
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* ======================
+   Selection Style
+   ====================== */
+
+::selection {
+    background-color: rgba(10, 10, 10, 0.1);
+    color: rgb(10, 10, 10);
+}
+

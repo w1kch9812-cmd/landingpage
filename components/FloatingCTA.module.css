@@ -1,0 +1,63 @@
+/* Floating CTA Button */
+.ctaButton {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 20px;
+  background-color: #0571ff;
+  border: none;
+  border-radius: 1000px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(5, 113, 255, 0.2);
+}
+
+.ctaButton:hover {
+  background-color: #0461df;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 113, 255, 0.3);
+}
+
+.ctaButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(5, 113, 255, 0.2);
+}
+
+.ctaText {
+  font-family: var(--font-hanwha);
+  font-weight: 300;
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  white-space: nowrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ctaButton {
+    top: 20px;
+    right: 20px;
+    padding: 12px 16px;
+  }
+
+  .ctaText {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ctaButton {
+    top: 16px;
+    right: 16px;
+    padding: 10px 14px;
+    gap: 6px;
+  }
+
+  .ctaText {
+    font-size: 13px;
+  }
+}

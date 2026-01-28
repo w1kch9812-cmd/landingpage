@@ -1,0 +1,201 @@
+/* Section */
+.section {
+  width: 100%;
+  position: relative;
+  background: transparent;
+  padding: 120px 36px;
+}
+
+/* Container */
+.container {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Numbers */
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(50px, 1fr));
+  gap: 4px;
+  width: 100%;
+  position: relative;
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-4px);
+}
+
+.metricNumber {
+  display: flex;
+  gap: 0;
+  align-items: center;
+  font-family: var(--font-hanwha);
+  font-size: 85px;
+  font-weight: 400;
+  color: rgb(10, 10, 10);
+  letter-spacing: -0.07em;
+}
+
+.metricNumber span:last-child {
+  color: rgb(10, 10, 10);
+}
+
+.metricDescription p {
+  font-family: var(--font-hanwha);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 140%;
+  color: rgb(10, 10, 10);
+  margin: 0;
+}
+
+.metricDetail {
+  opacity: 0.6;
+}
+
+.metricDetail p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 160%;
+  color: rgb(10, 10, 10);
+  margin: 0;
+}
+
+/* Bottom Content */
+.bottomContent {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  width: 100%;
+}
+
+.intro {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brandText p {
+  font-family: var(--font-hanwha);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 110%;
+  color: rgb(10, 10, 10);
+  margin: 0;
+}
+
+.textContainer {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.descriptionText p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: -0.02em;
+  color: rgb(10, 10, 10);
+  margin: 0;
+}
+
+.mutedText {
+  color: rgba(10, 10, 10, 0.6);
+}
+
+.subText {
+  opacity: 0.6;
+}
+
+.subText p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: -0.02em;
+  color: rgb(10, 10, 10);
+  margin: 0;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 100px 32px;
+  }
+
+  .numbers {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .metricNumber {
+    font-size: 72px;
+  }
+
+  .bottomContent {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 20px;
+  }
+
+  .numbers {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .metricNumber {
+    font-size: 64px;
+  }
+
+  .metricDescription p {
+    font-size: 15px;
+  }
+
+  .bottomContent {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .descriptionText p {
+    font-size: 15px;
+  }
+
+  .subText p {
+    font-size: 13px;
+  }
+}

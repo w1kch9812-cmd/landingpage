@@ -1,0 +1,195 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background-color: rgb(3, 7, 18);
+  border: none;
+  border-radius: 99px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow:
+    0px 4px 16px -6px rgba(66, 75, 87, 0.2),
+    0px 2.35px 0.94px -0.625px rgba(41, 49, 61, 0.1),
+    0px 5.57px 2.23px -1.25px rgba(41, 49, 61, 0.1),
+    0px 10.17px 4.07px -1.875px rgba(41, 49, 61, 0.09),
+    0px 16.9px 6.76px -2.5px rgba(41, 49, 61, 0.09),
+    0px 27.29px 10.92px -3.125px rgba(41, 49, 61, 0.08);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0px 8px 24px -6px rgba(66, 75, 87, 0.25),
+    0px 4px 2px -0.625px rgba(41, 49, 61, 0.12),
+    0px 8px 4px -1.25px rgba(41, 49, 61, 0.12),
+    0px 14px 6px -1.875px rgba(41, 49, 61, 0.11),
+    0px 22px 10px -2.5px rgba(41, 49, 61, 0.1),
+    0px 34px 16px -3.125px rgba(41, 49, 61, 0.09);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* Text */
+.text {
+  font-family: var(--font-hanwha);
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  letter-spacing: -0.02em;
+}
+
+/* Icon Wrapper */
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(22, 29, 39);
+  border: 1px solid rgb(66, 75, 87);
+  border-radius: 99px;
+  color: rgb(255, 255, 255);
+  transition: all 0.2s ease;
+}
+
+.button:hover .iconWrapper {
+  background-color: rgb(40, 50, 65);
+}
+
+/* Sizes */
+.small {
+  padding: 8px 8px 8px 16px;
+  gap: 10px;
+}
+
+.small .text {
+  font-size: 13px;
+}
+
+.small .iconWrapper {
+  width: 28px;
+  height: 28px;
+}
+
+.small .iconWrapper svg {
+  width: 14px;
+  height: 14px;
+}
+
+.medium {
+  padding: 10px 10px 10px 22px;
+  gap: 14px;
+}
+
+.medium .text {
+  font-size: 14px;
+}
+
+.medium .iconWrapper {
+  width: 36px;
+  height: 36px;
+}
+
+.medium .iconWrapper svg {
+  width: 16px;
+  height: 16px;
+}
+
+.large {
+  padding: 12px 12px 12px 28px;
+  gap: 18px;
+}
+
+.large .text {
+  font-size: 16px;
+}
+
+.large .iconWrapper {
+  width: 42px;
+  height: 42px;
+}
+
+.large .iconWrapper svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Secondary Variant */
+.secondary {
+  background-color: rgb(255, 255, 255);
+  box-shadow:
+    0px 4px 12px 0px rgba(63, 63, 70, 0.15),
+    0px 1px 0.6px -0.625px rgba(39, 39, 42, 0.05),
+    0px 2.39px 1.43px -1.25px rgba(39, 39, 42, 0.05);
+}
+
+.secondary .text {
+  color: rgb(3, 7, 18);
+}
+
+.secondary .iconWrapper {
+  background-color: rgb(240, 243, 247);
+  border-color: rgb(220, 225, 230);
+  color: rgb(3, 7, 18);
+}
+
+.secondary:hover .iconWrapper {
+  background-color: rgb(230, 235, 240);
+}
+
+/* Accent Variant (Blue/Primary Color) */
+.accent {
+  background-color: #0571ff;
+  box-shadow:
+    0px 4px 16px -6px rgba(5, 113, 255, 0.4),
+    0px 2.35px 0.94px -0.625px rgba(5, 113, 255, 0.2),
+    0px 5.57px 2.23px -1.25px rgba(5, 113, 255, 0.18),
+    0px 10.17px 4.07px -1.875px rgba(5, 113, 255, 0.15);
+}
+
+.accent:hover {
+  background-color: #0461df;
+  box-shadow:
+    0px 8px 24px -6px rgba(5, 113, 255, 0.5),
+    0px 4px 2px -0.625px rgba(5, 113, 255, 0.25),
+    0px 8px 4px -1.25px rgba(5, 113, 255, 0.22);
+}
+
+.accent .text {
+  color: rgb(255, 255, 255);
+}
+
+.accent .iconWrapper {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgb(255, 255, 255);
+}
+
+.accent:hover .iconWrapper {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Full Width */
+.fullWidth {
+  width: 100%;
+  justify-content: center;
+}
+
+.fullWidth .text {
+  flex: 1;
+  text-align: center;
+}
+
+.fullWidth .iconWrapper {
+  position: absolute;
+  right: 8px;
+}
+
+.fullWidth.small .iconWrapper {
+  right: 6px;
+}
+
+.fullWidth.large .iconWrapper {
+  right: 10px;
+}

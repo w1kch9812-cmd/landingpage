@@ -1,0 +1,152 @@
+/* Section */
+.section {
+  width: 100%;
+  background: transparent;
+  padding: 0 8px;
+  position: relative;
+  z-index: 10;
+}
+
+/* Container */
+.container {
+  max-width: 1520px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.description {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  max-width: 720px;
+}
+
+/* Cards - Wafer style */
+.cards {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  background: #f0f3f7;
+  padding: 4px;
+  border-radius: 20px;
+  width: 100%;
+}
+
+/* Card */
+.card {
+  flex: 1;
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardIcon {
+  width: 48px;
+  height: 48px;
+  background: rgb(0, 21, 48);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cardTitle {
+  font-family: var(--font-hanwha);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 140%;
+  color: rgb(0, 21, 48);
+  margin: 0;
+}
+
+.cardDescription {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 160%;
+  color: #757575;
+  margin: 0;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .container {
+    gap: 48px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .container {
+    gap: 40px;
+  }
+
+  .header {
+    gap: 16px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .cards {
+    flex-direction: column;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .cardIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .cardIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+  }
+
+  .cardDescription {
+    font-size: 13px;
+  }
+}

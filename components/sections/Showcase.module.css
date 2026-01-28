@@ -1,0 +1,124 @@
+.showcase {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.splineWrapper {
+  position: absolute;
+  inset: 0;
+  padding: 8px;
+}
+
+.splineWrapper > div {
+  border-radius: 16px;
+  overflow: hidden;
+  height: 100%;
+}
+
+.splineFallback {
+  position: absolute;
+  inset: 0;
+  background: #f0f3f7;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 900px;
+  padding: 0 80px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 21, 48, 0.6);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.title {
+  font-family: var(--font-hanwha);
+  font-size: 56px;
+  font-weight: 600;
+  color: #001530;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.muted {
+  color: rgba(0, 21, 48, 0.5);
+}
+
+.description {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0, 21, 48, 0.7);
+  line-height: 1.7;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.cta {
+  margin-top: 16px;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .showcase {
+    min-height: 550px;
+  }
+
+  .content {
+    padding: 0 48px;
+  }
+
+  .eyebrow {
+    font-size: 15px;
+  }
+
+  .title {
+    font-size: 48px;
+  }
+
+  .description {
+    font-size: 17px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .showcase {
+    min-height: 500px;
+  }
+
+  .content {
+    padding: 0 24px;
+    gap: 16px;
+  }
+
+  .eyebrow {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+}

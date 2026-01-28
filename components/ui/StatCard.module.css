@@ -1,0 +1,466 @@
+.cardContainer {
+  flex: 1 0 0;
+  width: 1px;
+  min-width: 0;
+  height: auto;
+}
+
+.card {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: gap 0.3s ease;
+}
+
+.card:hover {
+  gap: 0;
+}
+
+/* Card Top */
+.cardTop {
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: border-radius 0.3s ease;
+}
+
+.card:hover .cardTop {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.numberContainer {
+  flex: 1;
+}
+
+.number {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-hanwha);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  color: rgb(0, 21, 48);
+}
+
+.cardId {
+  flex: none;
+}
+
+.cardId p {
+  font-family: var(--font-hanwha);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 110%;
+  text-align: right;
+  color: rgb(9, 9, 9);
+  opacity: 0.5;
+  margin: 0;
+}
+
+/* Card Bottom - 좌측정렬, 라벨→인포그래피→설명 순서 */
+.cardBottom {
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-radius 0.3s ease;
+  flex: 1 1 0;
+}
+
+.card:hover .cardBottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.cardLabel p {
+  font-family: var(--font-hanwha);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 140%;
+  text-align: left;
+  color: rgb(0, 21, 48);
+  margin: 0;
+}
+
+/* Visual Wrapper - 인포그래픽 영역 */
+.visualWrapper {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100px;
+}
+
+
+/* ========== Chart Visual (실거래가 누적) ========== */
+.visualChart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.chartSvg {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+}
+
+.chartBar {
+  fill: #e0e8f0;
+  opacity: 0;
+  transform-origin: bottom;
+  animation: barGrow 0.4s ease-out forwards;
+  transition: fill 0.2s ease;
+}
+
+.card:hover .chartBar {
+  fill: #0066cc;
+}
+
+@keyframes barGrow {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.chartLabel {
+  font-family: var(--font-hanwha);
+  font-size: 9px;
+  fill: #a0a8b0;
+}
+
+/* ========== Map Visual (필지 분포) ========== */
+.visualMap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.mapRow {
+  display: flex;
+  gap: 3px;
+}
+
+.mapCell {
+  width: 14px;
+  height: 12px;
+  border-radius: 3px;
+  opacity: 0;
+  animation: cellFadeIn 0.3s ease-out forwards;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.mapCell.empty {
+  background: transparent;
+}
+
+.mapCell.density1 {
+  background: #e8ecf0;
+}
+
+.mapCell.density2 {
+  background: #c8d4e0;
+}
+
+.mapCell.density3 {
+  background: #a0b8d0;
+}
+
+.card:hover .mapCell.density1 {
+  background: #b8d4f0;
+}
+
+.card:hover .mapCell.density2 {
+  background: #70a8e0;
+}
+
+.card:hover .mapCell.density3 {
+  background: #0066cc;
+  transform: scale(1.1);
+}
+
+@keyframes cellFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.mapLegend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.legendDot[data-density="1"] {
+  background: #e8ecf0;
+}
+
+.legendDot[data-density="3"] {
+  background: #a0b8d0;
+}
+
+.legendText {
+  font-family: var(--font-hanwha);
+  font-size: 10px;
+  color: #a0a8b0;
+  margin-right: 8px;
+}
+
+/* ========== Cluster Visual (산업단지 클러스터) ========== */
+.visualCluster {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.clusterSvg {
+  width: 100%;
+  max-width: 160px;
+  height: auto;
+}
+
+.clusterLine {
+  stroke: #d8e0e8;
+  stroke-width: 1.5;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: drawClusterLine 0.6s ease-out forwards;
+  transition: stroke 0.2s ease;
+}
+
+.card:hover .clusterLine {
+  stroke: #90b8e0;
+}
+
+@keyframes drawClusterLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.clusterGroup {
+  opacity: 0;
+  animation: clusterAppear 0.4s ease-out forwards;
+}
+
+@keyframes clusterAppear {
+  to {
+    opacity: 1;
+  }
+}
+
+.clusterNode {
+  fill: #c0d0e0;
+  transition: fill 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover .clusterNode {
+  fill: #0066cc;
+}
+
+.clusterLabel {
+  font-family: var(--font-hanwha);
+  font-size: 8px;
+  fill: #909090;
+}
+
+/* ========== Feed Visual (실시간 업데이트) ========== */
+.visualFeed {
+  width: 100%;
+}
+
+.feedList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feedItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: #f5f7f9;
+  border-radius: 8px;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: feedSlideIn 0.3s ease-out forwards;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover .feedItem {
+  background: #eef2f6;
+}
+
+.feedItem.feedLive {
+  background: linear-gradient(90deg, #e8f4ff 0%, #f0f8ff 100%);
+  border: 1px solid #c8e0f8;
+}
+
+@keyframes feedSlideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.feedTime {
+  font-family: var(--font-hanwha);
+  font-size: 11px;
+  color: #909090;
+  min-width: 36px;
+}
+
+.feedType {
+  font-family: var(--font-hanwha);
+  font-size: 11px;
+  color: #606870;
+  padding: 3px 8px;
+  background: #e8ecf0;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.feedType.feedNew {
+  background: #d8f0e0;
+  color: #208050;
+}
+
+.feedLive .feedType {
+  background: #0066cc;
+  color: white;
+}
+
+.feedPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0066cc;
+  margin-left: auto;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.4);
+  }
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .number {
+    font-size: 28px;
+  }
+
+  .visualWrapper {
+    min-height: 80px;
+  }
+
+  .mapCell {
+    width: 12px;
+    height: 10px;
+  }
+
+  .feedItem {
+    padding: 4px 8px;
+  }
+
+  .feedTime {
+    font-size: 10px;
+  }
+
+  .feedType {
+    font-size: 10px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .cardContainer {
+    flex: none;
+    width: 100%;
+  }
+
+  .card {
+    height: auto;
+    min-height: 280px;
+  }
+
+  .number {
+    font-size: 28px;
+  }
+
+  .cardLabel p {
+    font-size: 15px;
+  }
+
+
+  .visualWrapper {
+    min-height: 100px;
+  }
+
+  .mapCell {
+    width: 16px;
+    height: 14px;
+  }
+
+  .mapRow {
+    gap: 4px;
+  }
+
+  .feedItem {
+    padding: 8px 12px;
+  }
+
+  .feedTime {
+    font-size: 12px;
+  }
+
+  .feedType {
+    font-size: 12px;
+  }
+
+  .chartSvg {
+    max-width: 200px;
+  }
+
+  .clusterSvg {
+    max-width: 180px;
+  }
+}

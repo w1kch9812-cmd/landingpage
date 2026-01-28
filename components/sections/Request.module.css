@@ -1,0 +1,665 @@
+/* Section */
+.section {
+  width: 100%;
+  background: transparent;
+  position: relative;
+  padding: 120px 36px;
+  overflow: hidden;
+}
+
+/* Container */
+.container {
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 80px 64px;
+  position: relative;
+  background-color: rgb(10, 10, 10);
+  border-radius: 25px;
+}
+
+/* Heading */
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 64px;
+  gap: 40px;
+}
+
+.headingForm {
+  flex: none;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  padding: 8px 16px;
+}
+
+.plusIconWrapper {
+  flex: none;
+}
+
+.plusIcon {
+  width: 32px;
+  height: 32px;
+  background-color: rgb(10, 10, 10);
+  border-radius: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plusV {
+  width: 2px;
+  height: 12px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+}
+
+.plusH {
+  width: 12px;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  transform: rotate(90deg);
+}
+
+.badgeText p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 110%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.headingContent {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.headingText h2 {
+  font-family: var(--font-hanwha);
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: rgb(255, 255, 255);
+  margin: 0;
+  text-align: right;
+}
+
+/* Table Container */
+.tableContainer {
+  width: 100%;
+}
+
+/* Top Section */
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.filler {
+  height: 40px;
+}
+
+/* Toggle Option */
+.optionWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.pricingOption {
+  display: inline-flex;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 50px;
+  padding: 4px;
+  gap: 0;
+}
+
+.toggleButton {
+  padding: 12px 32px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50px;
+  position: relative;
+}
+
+.toggleButton.selected {
+  background-color: rgb(255, 255, 255);
+}
+
+.toggleButton.notSelected {
+  background-color: transparent;
+}
+
+.toggleButton p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 100%;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.toggleButton.selected p {
+  color: rgb(10, 10, 10);
+}
+
+.toggleButton.notSelected p {
+  color: rgb(255, 255, 255);
+}
+
+/* Cards Container */
+.cardsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Card 1 */
+.card1 {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+  min-height: 280px;
+}
+
+.planDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.planSubtitle p {
+  font-family: var(--font-hanwha);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 110%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.planDetails p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 150%;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.toggleInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deliveryTimeValue p {
+  font-family: var(--font-hanwha);
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 100%;
+  text-align: right;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.planToggle {
+  width: 60px;
+  height: 32px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  position: relative;
+  padding: 4px;
+}
+
+.toggleEllipse {
+  width: 24px;
+  height: 24px;
+  background-color: rgb(19, 19, 19);
+  border-radius: 100%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(0);
+}
+
+.toggleRight {
+  transform: translateX(24px);
+}
+
+/* Card 2 */
+.card2 {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cardTop {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  flex: 1;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.priceAmount p {
+  font-family: var(--font-hanwha);
+  font-size: 56px;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 100%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.priceUnit p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 110%;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+/* Feature List */
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.featureIconWrapper {
+  flex-shrink: 0;
+}
+
+.featureIcon {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.featureIconV {
+  width: 2px;
+  height: 8px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+}
+
+.featureIconH {
+  width: 8px;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  transform: rotate(90deg);
+}
+
+.featureDescription p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 150%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+/* Card Bottom */
+.cardBottom {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.delivery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.deliveryLabel p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.deliveryValue p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 150%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.progressBar {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  width: 0%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ctaButtonWrapper {
+  width: 100%;
+}
+
+.ctaButton {
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  padding: 18px 32px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaButton:hover {
+  transform: scale(1.02);
+}
+
+.ctaText1 {
+  position: absolute;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+}
+
+.ctaText1 p,
+.ctaText2 p {
+  font-family: var(--font-hanwha);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: rgb(10, 10, 10);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ctaText2 {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover .ctaText1 {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ctaButton:hover .ctaText2 {
+  opacity: 0;
+  transform: translateX(50%);
+}
+
+/* Quote Section */
+.quote {
+  display: flex;
+  gap: 60px;
+  margin-top: 80px;
+  align-items: flex-start;
+}
+
+.quoteLeft {
+  flex: none;
+  min-width: 200px;
+}
+
+.quoteText p {
+  font-family: var(--font-hanwha);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 140%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.quoteRight {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.quoteDescription p {
+  font-family: var(--font-hanwha-gothic);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 170%;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.highlight {
+  color: rgb(255, 255, 255);
+}
+
+.contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.contactImage {
+  width: 84px;
+  height: 85px;
+  border-radius: 11px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+}
+
+.contactText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contactName p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 110%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+.contactRole p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 100%;
+  color: rgb(255, 255, 255);
+  margin: 0;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 100px 32px;
+  }
+
+  .container {
+    padding: 64px 48px;
+  }
+
+  .heading {
+    margin-bottom: 48px;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .headingContent {
+    justify-content: flex-start;
+  }
+
+  .headingText h2 {
+    font-size: 72px;
+    text-align: left;
+  }
+
+  .cardsContainer {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card1 {
+    min-height: auto;
+  }
+
+  .quote {
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 60px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 20px;
+  }
+
+  .container {
+    padding: 48px 28px;
+    border-radius: 20px;
+  }
+
+  .heading {
+    margin-bottom: 40px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .headingContent {
+    justify-content: flex-start;
+  }
+
+  .headingText h2 {
+    font-size: 48px;
+    text-align: left;
+  }
+
+  .filler {
+    height: 20px;
+  }
+
+  .optionWrapper {
+    justify-content: center;
+  }
+
+  .toggleButton {
+    padding: 10px 24px;
+  }
+
+  .toggleButton p {
+    font-size: 13px;
+  }
+
+  .cardsContainer {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card1,
+  .cardTop,
+  .cardBottom {
+    padding: 28px;
+  }
+
+  .card1 {
+    min-height: auto;
+  }
+
+  .priceAmount p {
+    font-size: 42px;
+  }
+
+  .quote {
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .quoteLeft {
+    min-width: auto;
+  }
+
+  .quoteDescription p {
+    font-size: 15px;
+  }
+
+  .contactImage {
+    width: 64px;
+    height: 64px;
+  }
+}

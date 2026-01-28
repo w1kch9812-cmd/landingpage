@@ -1,0 +1,81 @@
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.badge.dark {
+  /* no background */
+}
+
+.badge.light {
+  /* no background */
+}
+
+.plusIconWrapper {
+  flex: none;
+}
+
+.plusIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .plusIcon {
+  background-color: #0571ff;
+}
+
+.light .plusIcon {
+  background-color: #0571ff;
+}
+
+.plusV {
+  width: 2px;
+  height: 12px;
+  position: absolute;
+}
+
+.dark .plusV {
+  background-color: rgb(255, 255, 255);
+}
+
+.light .plusV {
+  background-color: rgb(255, 255, 255);
+}
+
+.plusH {
+  width: 12px;
+  height: 2px;
+  position: absolute;
+}
+
+.dark .plusH {
+  background-color: rgb(255, 255, 255);
+}
+
+.light .plusH {
+  background-color: rgb(255, 255, 255);
+}
+
+.badgeText p {
+  font-family: var(--font-hanwha);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 110%;
+  margin: 0;
+}
+
+.dark .badgeText p {
+  color: rgb(255, 255, 255);
+}
+
+.light .badgeText p {
+  color: rgb(0, 21, 48);
+}
