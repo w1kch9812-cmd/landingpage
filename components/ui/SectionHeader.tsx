@@ -7,18 +7,32 @@ interface SectionHeaderProps {
   sectionName: string;
   sectionNumber: string;
   children: ReactNode;
+  description?: ReactNode;
   variant?: 'light' | 'dark';
+  layout?: 'grid' | 'stacked'; // grid: 기본 그리드 레이아웃, stacked: 세로 나열
 }
 
-export default function SectionHeader({ sectionName, sectionNumber, children, variant = 'light' }: SectionHeaderProps) {
+export default function SectionHeader({ sectionName, sectionNumber, children, description, variant = 'light', layout = 'stacked' }: SectionHeaderProps) {
+  const headerClasses = [
+    styles.header,
+    variant === 'dark' ? styles.dark : '',
+    layout === 'stacked' ? styles.stacked : '',
+  ].filter(Boolean).join(' ');
+
   return (
-    <div className={`${styles.header} ${variant === 'dark' ? styles.dark : ''}`}>
-      <div className={styles.meta}>
+    <div className={headerClasses}>
+      {/* Column 1: Caption */}
+      <div className={styles.caption}>
         <span className={styles.slash}>/</span>
         <span className={styles.name}>{sectionName}</span>
         <span className={styles.number}>({sectionNumber})</span>
       </div>
-      <h2 className={styles.title}>{children}</h2>
+      {/* Column 2-3: Title + Description */}
+      <div className={styles.content}>
+        <h2 className={styles.title}>{children}</h2>
+        {description && <p className={styles.description}>{description}</p>}
+      </div>
+      {/* Column 4: Empty (implicit) */}
     </div>
   );
 }

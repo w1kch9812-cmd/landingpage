@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import SectionHeader, { Muted } from '@/components/ui/SectionHeader';
+import SectionHeader from '@/components/ui/SectionHeader';
+import { FadeUp, BlurReveal } from '@/components/ui/animations';
 import styles from './PrivateListing.module.css';
 
 const ShieldIcon = () => (
@@ -44,24 +45,27 @@ export default function PrivateListing() {
   return (
     <section id="section-private-listing" className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <SectionHeader sectionName="Private Listing" sectionNumber="04" variant="dark">
-            매각 소문, 걱정되시나요? <Muted>철저한 보안 속에 실수요자에게만 공개하세요.</Muted>
+        <FadeUp>
+          <SectionHeader
+            sectionName="Private Listing"
+            sectionNumber="04"
+            description="매물 노출 범위를 직접 선택하세요. 공짱은 사업자 인증을 완료한 검증된 실수요자에게만 정보를 공개하는 '프라이빗 매물' 시스템을 도입하여, 귀사의 비즈니스 기밀을 완벽하게 보호합니다."
+          >
+            매각 소문, 걱정되시나요?
           </SectionHeader>
-          <p className={styles.description}>
-            매물 노출 범위를 직접 선택하세요. 공짱은 사업자 인증을 완료한 검증된 실수요자에게만 정보를 공개하는 '프라이빗 매물' 시스템을 도입하여, 귀사의 비즈니스 기밀을 완벽하게 보호합니다.
-          </p>
-        </div>
+        </FadeUp>
 
         <div className={styles.cards}>
           {features.map((feature, index) => (
-            <div key={index} className={styles.card}>
-              <div className={styles.cardIcon}>{feature.icon}</div>
-              <div className={styles.cardContent}>
-                <p className={styles.cardTitle}>{feature.title}</p>
-                <p className={styles.cardDescription}>{feature.description}</p>
+            <BlurReveal key={index} delay={0.15 * index} blur={8}>
+              <div className={styles.card}>
+                <div className={styles.cardIcon}>{feature.icon}</div>
+                <div className={styles.cardContent}>
+                  <p className={styles.cardTitle}>{feature.title}</p>
+                  <p className={styles.cardDescription}>{feature.description}</p>
+                </div>
               </div>
-            </div>
+            </BlurReveal>
           ))}
         </div>
       </div>

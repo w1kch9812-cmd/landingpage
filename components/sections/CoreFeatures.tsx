@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Badge from '@/components/ui/Badge';
+import SectionHeader from '@/components/ui/SectionHeader';
+import { FadeUp } from '@/components/ui/animations';
 import styles from './CoreFeatures.module.css';
 
 const features = [
@@ -61,86 +62,34 @@ const features = [
 export default function CoreFeatures() {
   const containerRef = useRef<HTMLElement>(null);
 
-  // Body background color interpolation based on scroll position
-  useEffect(() => {
-    const section = containerRef.current;
-    if (!section) return;
-
-    const handleScroll = () => {
-      const rect = section.getBoundingClientRect();
-      const privateListingSection = document.getElementById('section-private-listing');
-      const privateListingRect = privateListingSection?.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Dark zone: from CoreFeatures top to Security bottom
-      const enterStart = windowHeight;
-      const enterEnd = windowHeight * 0.5;
-      const exitStart = windowHeight * 0.5;
-      const exitEnd = 0;
-
-      // 다크 섹션 영역에 있는지 확인
-      const inDarkZone = rect.top < enterStart && (!privateListingRect || privateListingRect.bottom > exitEnd);
-
-      // 다크 섹션 영역 밖이면 Hero/다른 섹션이 배경색 제어하도록 건드리지 않음
-      if (!inDarkZone) return;
-
-      // progress: 0 = white, 1 = dark (rgb(0,21,48))
-      let progress = 0;
-
-      // Entering dark zone (CoreFeatures coming into view)
-      if (rect.top > enterEnd) {
-        progress = (enterStart - rect.top) / (enterStart - enterEnd);
-      }
-      // Inside dark zone
-      else if (!privateListingRect || privateListingRect.bottom >= exitStart) {
-        progress = 1;
-      }
-      // Exiting dark zone (PrivateListing leaving view)
-      else if (privateListingRect.bottom > exitEnd) {
-        progress = privateListingRect.bottom / exitStart;
-      }
-
-      progress = Math.max(0, Math.min(1, progress));
-
-      // Interpolate: white(255,255,255) -> dark(0,21,48)
-      const r = Math.round(255 - progress * 255);
-      const g = Math.round(255 - progress * 234);
-      const b = Math.round(255 - progress * 207);
-
-      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <section id="section-core-features" ref={containerRef} className={styles.section}>
-      <div className={styles.container}>
-        {/* Left: 파티클 Anchor 영역 (sticky) */}
-        <div id="corefeatures-particle-anchor" className={styles.particleAnchor}>
-          <div className={styles.anchorContent}>
-            {/* 파티클이 이 영역 중앙에 위치 - GlobalParticle3D에서 처리 */}
-            <div className={styles.headerInAnchor}>
-              <Badge text="Core Features" variant="dark" />
-              <h2 className={styles.title}>
-                현장을 아는 사람들이 만든,
-                <br />
-                <span className={styles.highlight}>현장에 필요한 기능</span>
-              </h2>
-            </div>
-          </div>
-        </div>
+      {/* 섹션 헤더 - 상단에 분리 */}
+      <div className={styles.headerArea}>
+        <FadeUp>
+          <SectionHeader
+            sectionName="Core Features"
+            sectionNumber="03"
+            description="제조 현장의 니즈를 반영한 맞춤 필터, 물류 최적화 분석, 실거래가 통계, 스마트 알림까지. 공장 부지 선정에 필요한 핵심 기능을 제공합니다."
+          >
+            현장을 아는 사람들이 만든,<br />
+            현장에 필요한 기능
+          </SectionHeader>
+        </FadeUp>
+      </div>
 
-        {/* Right: 스크롤되는 기능 카드들 */}
+      {/* 메인 레이아웃: 좌측 카드 + 우측 파티클 */}
+      <div className={styles.mainLayout}>
+        {/* 좌측: 스크롤되는 기능 카드들 */}
         <div className={styles.featuresScroll}>
           {features.map((feature, index) => (
             <FeatureCard key={feature.id} feature={feature} index={index} />
           ))}
+        </div>
+
+        {/* 우측: 파티클 Anchor 영역 (sticky) */}
+        <div className={styles.particleCell}>
+          <div id="corefeatures-particle-anchor" className={styles.particleAnchor} />
         </div>
       </div>
     </section>

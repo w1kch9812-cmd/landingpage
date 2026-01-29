@@ -26,29 +26,14 @@ function formatNumber(num: number, suffix: string): string {
 
 export default function StatCard({ number, suffix, label, id }: StatCardProps) {
   return (
-    <div className={styles.cardContainer}>
-      <div className={styles.card}>
-        {/* 상단: 숫자 + ID */}
-        <div className={styles.cardTop}>
-          <div className={styles.numberContainer}>
-            <div className={styles.number}>
-              {formatNumber(number, suffix)}
-            </div>
-          </div>
-          {id && (
-            <div className={styles.cardId}>
-              <p>{id}</p>
-            </div>
-          )}
+    <div className={styles.card}>
+      <div className={styles.cardHeader}>
+        <div className={styles.number}>
+          {formatNumber(number, suffix)}
         </div>
-
-        {/* 하단: 라벨 */}
-        <div className={styles.cardBottom}>
-          <div className={styles.cardLabel}>
-            <p>{label}</p>
-          </div>
-        </div>
+        {id && <span className={styles.cardId}>{id}</span>}
       </div>
+      <p className={styles.cardLabel}>{label}</p>
     </div>
   );
 }

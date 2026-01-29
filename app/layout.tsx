@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import SmoothScroll from "@/components/SmoothScroll";
 import ScrollToTop from "@/components/ScrollToTop";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import "./globals.css";
 
 // Hanwha 폰트 패밀리
@@ -90,10 +91,12 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
-        <ScrollToTop />
+        <ThemeProvider>
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
+          <ScrollToTop />
+        </ThemeProvider>
       </body>
     </html>
   );

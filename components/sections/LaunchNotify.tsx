@@ -1,9 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import SectionHeader from '@/components/ui/SectionHeader';
 import CTAButton from '@/components/ui/CTAButton';
+import { FadeUp, SlideIn } from '@/components/ui/animations';
 import styles from './LaunchNotify.module.css';
+
+// Spline을 동적으로 로드 (SSR 비활성화)
+const Spline = dynamic(() => import('@splinetool/react-spline'), {
+  ssr: false,
+  loading: () => <div className={styles.splineLoading} />,
+});
 
 export default function LaunchNotify() {
   const [formData, setFormData] = useState({
@@ -45,17 +53,26 @@ export default function LaunchNotify() {
   return (
     <section id="section-launch-notify" className={styles.section}>
       <div className={styles.darkCard}>
-        <div className={styles.content}>
-          <SectionHeader sectionName="Launch Notify" sectionNumber="07">
-            출시 알림 신청
-          </SectionHeader>
-          <p className={styles.description}>
-            최적의 생산 거점을 찾는 가장 확실한 방법.<br />
-            <span className={styles.highlight}>공짱 2.0 업데이트에 맞춰 가장 먼저 알림 받아보세요.</span>
-          </p>
+        {/* Spline 3D 배경 */}
+        <div className={styles.splineBackground}>
+          <Suspense fallback={<div className={styles.splineLoading} />}>
+            <Spline scene="/spline/glass.splinecode" />
+          </Suspense>
         </div>
 
-        <div className={styles.formWrapper}>
+        <FadeUp>
+          <div className={styles.content}>
+            <SectionHeader
+              sectionName="Launch Notify"
+              sectionNumber="07"
+              description={<>최적의 생산 거점을 찾는 가장 확실한 방법.<br /><span className={styles.highlight}>공짱 2.0 업데이트에 맞춰 가장 먼저 알림 받아보세요.</span></>}
+            >
+              출시 알림 신청
+            </SectionHeader>
+          </div>
+        </FadeUp>
+
+        <SlideIn direction="right" delay={0.2}><div className={styles.formWrapper}>
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.formInputs}>
               <label className={styles.formLabel}>
@@ -94,7 +111,7 @@ export default function LaunchNotify() {
               신청하시면 <a href="https://gongzzang.net/terms" target="_blank" rel="noopener noreferrer">이용약관</a> 및 <a href="https://gongzzang.net/terms" target="_blank" rel="noopener noreferrer">개인정보처리방침</a>에 동의하는 것으로 간주됩니다.
             </p>
           </form>
-        </div>
+        </div></SlideIn>
       </div>
     </section>
   );

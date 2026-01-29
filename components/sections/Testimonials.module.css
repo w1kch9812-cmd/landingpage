@@ -7,17 +7,17 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 120px;
   overflow: hidden;
 }
 
 /* Header Container */
 .headerContainer {
-  padding: 0 8px;
+  padding: 0;
 }
 
 .headerGrid {
-  max-width: 1520px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
@@ -26,40 +26,51 @@
 .sliderWrapper {
   width: 100%;
   overflow: hidden;
-  padding: 40px 0;
+  padding: 20px 0 100px 0;
+  position: relative;
 }
 
 /* Slider - Draggable Container */
 .slider {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 24px;
   width: fit-content;
   padding: 0 40px;
-  cursor: grab;
+  cursor: none;
   user-select: none;
-  min-height: 380px;
+  min-height: 420px;
 }
 
 .slider:active {
-  cursor: grabbing;
+  cursor: none;
 }
 
-/* Card Base */
+/* Card Base - 검은색 배경 */
 .card {
   flex-shrink: 0;
   width: 360px;
-  background: rgb(255, 255, 255);
-  border: 1px solid rgba(0, 21, 48, 0.08);
+  background: rgb(0, 21, 48);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
-  padding: 28px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
+  padding: 40px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  cursor: none;
 }
 
 .card:hover {
-  border-color: rgba(0, 21, 48, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 21, 48, 0.08);
+  background: rgb(0, 113, 255);
+  border-color: rgb(0, 113, 255);
+  transform: scale(1.05);
+  box-shadow: 0 20px 60px rgba(0, 113, 255, 0.3);
+}
+
+/* Card Heights - 내용에 맞게 자동 fit (min-height 제거) */
+.heightSmall,
+.heightMedium,
+.heightLarge {
+  /* 높이는 내용에 따라 자동 결정 */
 }
 
 /* Card Positions - Staggered Layout */
@@ -68,9 +79,17 @@
   transform: translateY(0);
 }
 
+.top:hover {
+  transform: translateY(0) scale(1.05);
+}
+
 .middle {
   align-self: center;
   transform: translateY(40px);
+}
+
+.middle:hover {
+  transform: translateY(40px) scale(1.05);
 }
 
 .bottom {
@@ -78,24 +97,30 @@
   transform: translateY(80px);
 }
 
+.bottom:hover {
+  transform: translateY(80px) scale(1.05);
+}
+
 /* Card Content */
 .cardContent {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  height: 100%;
 }
 
-/* Quote */
+/* Quote - 한화고딕 폰트 */
 .quote {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-hanwha-gothic);
   font-size: 15px;
   font-weight: 400;
   line-height: 170%;
   letter-spacing: -0.02em;
-  color: rgb(0, 21, 48);
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
-  flex: 1;
+}
+
+.card:hover .quote {
+  color: rgba(255, 255, 255, 1);
 }
 
 /* Person Info */
@@ -104,26 +129,37 @@
   align-items: center;
   gap: 12px;
   padding-top: 20px;
-  border-top: 1px solid rgba(0, 21, 48, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Avatar */
+.card:hover .person {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Avatar - 이미지용 */
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgb(230, 235, 245) 0%, rgb(210, 218, 235) 100%);
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .avatarText {
   font-family: var(--font-hanwha);
   font-size: 14px;
   font-weight: 500;
-  color: rgb(0, 21, 48);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Person Info Text */
@@ -138,7 +174,7 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.01em;
-  color: rgb(0, 21, 48);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .role {
@@ -146,7 +182,7 @@
   font-size: 13px;
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: rgba(0, 21, 48, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Tablet */
@@ -158,7 +194,7 @@
   .slider {
     gap: 20px;
     padding: 0 24px;
-    min-height: 340px;
+    min-height: 380px;
   }
 
   .card {
@@ -170,8 +206,16 @@
     transform: translateY(30px);
   }
 
+  .middle:hover {
+    transform: translateY(30px) scale(1.05);
+  }
+
   .bottom {
     transform: translateY(60px);
+  }
+
+  .bottom:hover {
+    transform: translateY(60px) scale(1.05);
   }
 
   .quote {
@@ -186,13 +230,13 @@
   }
 
   .sliderWrapper {
-    padding: 20px 0;
+    padding: 10px 0 60px 0;
   }
 
   .slider {
     gap: 16px;
     padding: 0 16px;
-    min-height: 300px;
+    min-height: 340px;
   }
 
   .card {
@@ -204,8 +248,16 @@
     transform: translateY(20px);
   }
 
+  .middle:hover {
+    transform: translateY(20px) scale(1.05);
+  }
+
   .bottom {
     transform: translateY(40px);
+  }
+
+  .bottom:hover {
+    transform: translateY(40px) scale(1.05);
   }
 
   .quote {

@@ -7,7 +7,8 @@ export type ShapeType =
   | 'city' | 'info' | 'gear' | 'steps' | 'chart'
   | 'lock' | 'building' | 'star' | 'network'
   | 'coin' | 'megaphone' | 'question' | 'envelope'
-  | 'cluster' | 'blackhole' | 'wave';
+  | 'cluster' | 'blackhole' | 'wave' | 'layers'
+  | 'factory' | 'route' | 'notification';
 
 // 건물 데이터 타입
 export interface BuildingData {
@@ -145,6 +146,10 @@ export const shapeGenerators: Record<ShapeType, (count: number) => Float32Array>
   cluster: generateClusterPositions,
   blackhole: generateBlackholePositions,
   wave: generateWavePositions,
+  layers: generateLayersPositions,
+  factory: generateFactoryPositions,
+  route: generateRoutePositions,
+  notification: generateNotificationPositions,
 };
 
 // 박스 표면의 랜덤 점 생성
@@ -940,6 +945,407 @@ export function generateWavePositions(count: number): Float32Array {
     positions[i * 3] = x;
     positions[i * 3 + 1] = y;
     positions[i * 3 + 2] = z;
+  }
+
+  return positions;
+}
+
+/**
+ * 겹쳐진 레이어 형태 - 3개의 얇은 육면체가 대각선으로 겹쳐진 모양
+ * DataCount 섹션에서 사용, 각 레이어는 다른 색상으로 표시됨
+ */
+export function generateLayersPositions(count: number): Float32Array {
+  const positions = new Float32Array(count * 3);
+
+  // 3개의 레이어 설정
+  const numLayers = 3;
+  const layerWidth = 3.2;   // X축 너비
+  const layerHeight = 2.5;  // Z축 높이
+  const layerThickness = 0.25; // Y축 두께 (얇은 육면체)
+  const layerSpacing = 0.8; // 레이어 간 간격
+
+  // 조감도 각도
+  const tiltAngleX = Math.PI * 0.18; // X축 회전
+  const tiltAngleZ = -Math.PI * 0.08; // Z축 회전
+
+  const cosX = Math.cos(tiltAngleX);
+  const sinX = Math.sin(tiltAngleX);
+  const cosZ = Math.cos(tiltAngleZ);
+  const sinZ = Math.sin(tiltAngleZ);
+
+  const particlesPerLayer = Math.floor(count / numLayers);
+
+  for (let layer = 0; layer < numLayers; layer++) {
+    const actualCount = layer === numLayers - 1
+      ? count - particlesPerLayer * (numLayers - 1)
+      : particlesPerLayer;
+
+    // 레이어 오프셋 (대각선으로 배치 - 뒤에서 앞으로)
+    const layerOffsetX = (layer - 1) * layerSpacing * 0.5;
+    const layerOffsetY = (layer - 1) * layerSpacing * 0.7;
+    const layerOffsetZ = (layer - 1) * layerSpacing * 0.2;
+
+    for (let i = 0; i < actualCount; i++) {
+      const idx = (layer * particlesPerLayer + i) * 3;
+      if (idx >= count * 3) break;
+
+      // 얇은 육면체 표면에 파티클 배치
+      const face = Math.random();
+      let localX: number, localY: number, localZ: number;
+
+      if (face < 0.35) {
+        // 위쪽 면 (Y+)
+        localX = (Math.random() - 0.5) * layerWidth;
+        localY = layerThickness / 2;
+        localZ = (Math.random() - 0.5) * layerHeight;
+      } else if (face < 0.7) {
+        // 아래쪽 면 (Y-)
+        localX = (Math.random() - 0.5) * layerWidth;
+        localY = -layerThickness / 2;
+        localZ = (Math.random() - 0.5) * layerHeight;
+      } else if (face < 0.8) {
+        // 앞쪽 면 (Z+)
+        localX = (Math.random() - 0.5) * layerWidth;
+        localY = (Math.random() - 0.5) * layerThickness;
+        localZ = layerHeight / 2;
+      } else if (face < 0.9) {
+        // 뒤쪽 면 (Z-)
+        localX = (Math.random() - 0.5) * layerWidth;
+        localY = (Math.random() - 0.5) * layerThickness;
+        localZ = -layerHeight / 2;
+      } else if (face < 0.95) {
+        // 오른쪽 면 (X+)
+        localX = layerWidth / 2;
+        localY = (Math.random() - 0.5) * layerThickness;
+        localZ = (Math.random() - 0.5) * layerHeight;
+      } else {
+        // 왼쪽 면 (X-)
+        localX = -layerWidth / 2;
+        localY = (Math.random() - 0.5) * layerThickness;
+        localZ = (Math.random() - 0.5) * layerHeight;
+      }
+
+      // 평행사변형 변형 (기울어진 느낌)
+      localX += localZ * 0.15;
+
+      // 조감도 회전 적용
+      // X축 회전
+      const y1 = localY * cosX - localZ * sinX;
+      const z1 = localY * sinX + localZ * cosX;
+
+      // Z축 회전
+      const x2 = localX * cosZ - y1 * sinZ;
+      const y2 = localX * sinZ + y1 * cosZ;
+
+      // 최종 위치 (레이어 오프셋 적용)
+      positions[idx] = x2 + layerOffsetX;
+      positions[idx + 1] = y2 + layerOffsetY;
+      positions[idx + 2] = z1 + layerOffsetZ;
+    }
+  }
+
+  return positions;
+}
+
+/**
+ * 레이어 인덱스를 반환하는 유틸리티 함수
+ * GlobalParticle3D에서 colorIndex attribute 생성 시 사용
+ */
+export function getLayerIndex(particleIndex: number, totalCount: number): number {
+  const numLayers = 3;
+  const particlesPerLayer = Math.floor(totalCount / numLayers);
+  return Math.min(Math.floor(particleIndex / particlesPerLayer), numLayers - 1);
+}
+
+/**
+ * 공장/창고 형태 - 제조 현장 맞춤 필터용
+ * - 메인 건물 (큰 직육면체)
+ * - 크레인/호이스트 구조
+ * - 층고 표시 라인
+ */
+export function generateFactoryPositions(count: number): Float32Array {
+  const positions = new Float32Array(count * 3);
+
+  const mainBuildingCount = Math.floor(count * 0.45);
+  const craneCount = Math.floor(count * 0.25);
+  const heightLineCount = Math.floor(count * 0.15);
+  const equipmentCount = count - mainBuildingCount - craneCount - heightLineCount;
+
+  let idx = 0;
+
+  // 메인 건물 - 넓고 높은 공장 형태
+  const buildingW = 3.0;
+  const buildingH = 2.2;
+  const buildingD = 2.0;
+
+  for (let i = 0; i < mainBuildingCount; i++) {
+    const pos = addNoise(
+      randomPointOnBox(buildingW, buildingH, buildingD, 0, 0, 0),
+      0.02
+    );
+    positions[idx++] = pos[0];
+    positions[idx++] = pos[1];
+    positions[idx++] = pos[2];
+  }
+
+  // 크레인/호이스트 구조 - 상단 레일
+  const craneY = buildingH / 2 - 0.3;
+  const craneWidth = buildingW * 0.8;
+
+  for (let i = 0; i < craneCount; i++) {
+    const section = Math.random();
+    let x: number, y: number, z: number;
+
+    if (section < 0.4) {
+      // 가로 레일
+      x = (Math.random() - 0.5) * craneWidth;
+      y = craneY + (Math.random() - 0.5) * 0.1;
+      z = (Math.random() > 0.5 ? 0.5 : -0.5) * (buildingD * 0.6);
+    } else if (section < 0.7) {
+      // 세로 레일 (이동식)
+      x = (Math.random() - 0.5) * craneWidth;
+      y = craneY + (Math.random() - 0.5) * 0.1;
+      z = (Math.random() - 0.5) * buildingD * 0.6;
+    } else {
+      // 호이스트 (수직 이동 구조)
+      const hoistX = (Math.random() - 0.5) * craneWidth * 0.5;
+      x = hoistX + (Math.random() - 0.5) * 0.15;
+      y = craneY - Math.random() * 1.2;
+      z = (Math.random() - 0.5) * 0.15;
+    }
+
+    const pos = addNoise([x, y, z], 0.02);
+    positions[idx++] = pos[0];
+    positions[idx++] = pos[1];
+    positions[idx++] = pos[2];
+  }
+
+  // 층고 표시 라인 - 수평 점선
+  const numHeightLines = 4;
+  const linesPerHeight = Math.floor(heightLineCount / numHeightLines);
+
+  for (let line = 0; line < numHeightLines; line++) {
+    const lineY = -buildingH / 2 + (line + 1) * (buildingH / (numHeightLines + 1));
+    const actualCount = line === numHeightLines - 1
+      ? heightLineCount - linesPerHeight * (numHeightLines - 1)
+      : linesPerHeight;
+
+    for (let i = 0; i < actualCount; i++) {
+      const x = (Math.random() - 0.5) * buildingW;
+      const y = lineY + (Math.random() - 0.5) * 0.05;
+      const z = buildingD / 2 + 0.05;
+
+      positions[idx++] = x;
+      positions[idx++] = y;
+      positions[idx++] = z;
+    }
+  }
+
+  // 설비/장비 - 바닥에 배치된 박스들
+  for (let i = 0; i < equipmentCount; i++) {
+    const eqX = (Math.random() - 0.5) * buildingW * 0.7;
+    const eqZ = (Math.random() - 0.5) * buildingD * 0.7;
+    const eqY = -buildingH / 2 + Math.random() * 0.4;
+
+    const pos = addNoise([eqX, eqY, eqZ], 0.03);
+    positions[idx++] = pos[0];
+    positions[idx++] = pos[1];
+    positions[idx++] = pos[2];
+  }
+
+  return positions;
+}
+
+/**
+ * 경로/도로 형태 - 물류/입지 최적화용
+ * - 중앙 허브 (현재 위치)
+ * - 방사형 도로
+ * - IC/주요 지점 노드
+ * XY 평면에 배치 (정면에서 보이도록)
+ */
+export function generateRoutePositions(count: number): Float32Array {
+  const positions = new Float32Array(count * 3);
+
+  const hubCount = Math.floor(count * 0.2);
+  const roadCount = Math.floor(count * 0.5);
+  const nodeCount = count - hubCount - roadCount;
+
+  let idx = 0;
+
+  // 중앙 허브 - 현재 위치/공장 (XY 평면에 배치)
+  const hubRadius = 0.5;
+
+  for (let i = 0; i < hubCount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const r = Math.random() * hubRadius;
+    const x = Math.cos(angle) * r;
+    const y = Math.sin(angle) * r;
+    const z = (Math.random() - 0.5) * 0.15; // 약간의 깊이감
+
+    const pos = addNoise([x, y, z], 0.02);
+    positions[idx++] = pos[0];
+    positions[idx++] = pos[1];
+    positions[idx++] = pos[2];
+  }
+
+  // 방사형 도로 - 허브에서 뻗어나가는 경로 (XY 평면)
+  const numRoads = 6;
+  const roadLength = 1.8;
+  const roadWidth = 0.1;
+  const particlesPerRoad = Math.floor(roadCount / numRoads);
+
+  for (let road = 0; road < numRoads; road++) {
+    const baseAngle = (road / numRoads) * Math.PI * 2;
+    const actualCount = road === numRoads - 1
+      ? roadCount - particlesPerRoad * (numRoads - 1)
+      : particlesPerRoad;
+
+    // 약간의 곡률 추가
+    const curvature = (Math.random() - 0.5) * 0.2;
+
+    for (let i = 0; i < actualCount; i++) {
+      const t = Math.random(); // 0 = 허브, 1 = 끝
+      const dist = hubRadius + t * roadLength;
+
+      // 곡선 경로
+      const curveOffset = Math.sin(t * Math.PI) * curvature;
+      const angle = baseAngle + curveOffset;
+
+      const x = Math.cos(angle) * dist + (Math.random() - 0.5) * roadWidth;
+      const y = Math.sin(angle) * dist + (Math.random() - 0.5) * roadWidth;
+      const z = (Math.random() - 0.5) * 0.1;
+
+      const pos = addNoise([x, y, z], 0.01);
+      positions[idx++] = pos[0];
+      positions[idx++] = pos[1];
+      positions[idx++] = pos[2];
+    }
+  }
+
+  // IC/주요 지점 노드 - 도로 끝에 원형 노드 (XY 평면)
+  const numNodes = 6;
+  const nodeRadius = 0.3;
+  const particlesPerNode = Math.floor(nodeCount / numNodes);
+
+  for (let node = 0; node < numNodes; node++) {
+    const baseAngle = (node / numNodes) * Math.PI * 2;
+    const nodeDist = hubRadius + roadLength + 0.1;
+    const nodeX = Math.cos(baseAngle) * nodeDist;
+    const nodeY = Math.sin(baseAngle) * nodeDist;
+
+    const actualCount = node === numNodes - 1
+      ? nodeCount - particlesPerNode * (numNodes - 1)
+      : particlesPerNode;
+
+    for (let i = 0; i < actualCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const r = Math.random() * nodeRadius;
+      const x = nodeX + Math.cos(angle) * r;
+      const y = nodeY + Math.sin(angle) * r;
+      const z = (Math.random() - 0.5) * 0.15;
+
+      const pos = addNoise([x, y, z], 0.02);
+      positions[idx++] = pos[0];
+      positions[idx++] = pos[1];
+      positions[idx++] = pos[2];
+    }
+  }
+
+  return positions;
+}
+
+/**
+ * 알림/벨 형태 - 스마트 매칭 시스템용
+ * - 종 모양 (bell)
+ * - 알림 파동 (notification waves)
+ * - 상단 고리
+ */
+export function generateNotificationPositions(count: number): Float32Array {
+  const positions = new Float32Array(count * 3);
+
+  const bellCount = Math.floor(count * 0.55);
+  const waveCount = Math.floor(count * 0.30);
+  const topCount = count - bellCount - waveCount;
+
+  let idx = 0;
+
+  // 종 모양 - 포물선 회전체
+  const bellHeight = 1.8;
+  const bellMaxRadius = 1.2;
+
+  for (let i = 0; i < bellCount; i++) {
+    const t = Math.random(); // 0 = 상단, 1 = 하단
+
+    // 종 프로파일: 위쪽은 좁고 아래쪽은 넓음
+    const profile = Math.pow(t, 0.6); // 더 급격한 곡선
+    const radius = 0.2 + profile * (bellMaxRadius - 0.2);
+
+    const angle = Math.random() * Math.PI * 2;
+    const y = bellHeight / 2 - t * bellHeight;
+
+    // 표면에만 배치
+    const surfaceR = radius + (Math.random() - 0.5) * 0.08;
+    const x = Math.cos(angle) * surfaceR;
+    const z = Math.sin(angle) * surfaceR * 0.3; // 약간 납작하게
+
+    const pos = addNoise([x, y, z], 0.02);
+    positions[idx++] = pos[0];
+    positions[idx++] = pos[1];
+    positions[idx++] = pos[2];
+  }
+
+  // 알림 파동 - 종 주변으로 퍼지는 원형 파동
+  const numWaves = 3;
+  const particlesPerWave = Math.floor(waveCount / numWaves);
+
+  for (let wave = 0; wave < numWaves; wave++) {
+    const waveRadius = bellMaxRadius + 0.4 + wave * 0.5;
+    const waveY = -bellHeight / 2 + 0.5 - wave * 0.2;
+    const actualCount = wave === numWaves - 1
+      ? waveCount - particlesPerWave * (numWaves - 1)
+      : particlesPerWave;
+
+    for (let i = 0; i < actualCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      // 반원 형태 (위쪽으로만)
+      const arcAngle = Math.random() * Math.PI - Math.PI / 2;
+
+      const r = waveRadius + (Math.random() - 0.5) * 0.1;
+      const x = Math.cos(angle) * r;
+      const y = waveY + Math.sin(arcAngle) * 0.3;
+      const z = Math.sin(angle) * r * 0.3;
+
+      const pos = addNoise([x, y, z], 0.03);
+      positions[idx++] = pos[0];
+      positions[idx++] = pos[1];
+      positions[idx++] = pos[2];
+    }
+  }
+
+  // 상단 고리 및 연결부
+  const topY = bellHeight / 2 + 0.2;
+
+  for (let i = 0; i < topCount; i++) {
+    let x: number, y: number, z: number;
+
+    if (i < topCount * 0.6) {
+      // 고리 (작은 원)
+      const angle = Math.random() * Math.PI * 2;
+      const r = 0.15 + (Math.random() - 0.5) * 0.05;
+      x = Math.cos(angle) * r;
+      y = topY + Math.sin(angle) * r * 0.5 + 0.15;
+      z = (Math.random() - 0.5) * 0.1;
+    } else {
+      // 연결 기둥
+      x = (Math.random() - 0.5) * 0.12;
+      y = bellHeight / 2 + Math.random() * 0.25;
+      z = (Math.random() - 0.5) * 0.08;
+    }
+
+    const pos = addNoise([x, y, z], 0.01);
+    positions[idx++] = pos[0];
+    positions[idx++] = pos[1];
+    positions[idx++] = pos[2];
   }
 
   return positions;

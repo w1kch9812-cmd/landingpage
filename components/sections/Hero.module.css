@@ -8,6 +8,8 @@
   align-items: center;
   overflow: hidden;
   z-index: 20;
+  /* Partners 섹션과의 간격: 80px (기본 gap 320px에서 240px 줄임) */
+  margin-bottom: -240px;
 }
 
 .heroContent {

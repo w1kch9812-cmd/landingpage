@@ -24,10 +24,15 @@ const CityModelDebugUI = dynamic(() => import('@/components/3d/CityModelDebugUI'
   ssr: false,
 });
 
+const Particle3DErrorBoundary = dynamic(() => import('@/components/3d/Particle3DErrorBoundary'), {
+  ssr: false,
+});
+
 export default function LandingPage() {
   const [isPreloaderDone, setIsPreloaderDone] = useState(false);
   const [isParticlesReady, setIsParticlesReady] = useState(false);
   const [revealProgress, setRevealProgress] = useState(0);
+  const [isContentReady, setIsContentReady] = useState(false);
 
   // 프리로더 중 스크롤 비활성화
   useEffect(() => {
@@ -46,7 +51,13 @@ export default function LandingPage() {
   }, []);
 
   const handlePreloaderComplete = useCallback(() => {
+    // 프리로더 완료 후 약간의 지연을 두고 콘텐츠 애니메이션 시작
+    // 이렇게 하면 프리로더 제거와 애니메이션 시작이 분리되어 렉 감소
     setIsPreloaderDone(true);
+    // 다음 프레임에서 콘텐츠 애니메이션 활성화
+    requestAnimationFrame(() => {
+      setIsContentReady(true);
+    });
   }, []);
 
   const handleRevealProgress = useCallback((progress: number) => {
@@ -62,8 +73,11 @@ export default function LandingPage() {
       <div
         className={styles.particleFixed}
         style={{ opacity: contentOpacity }}
+        aria-hidden="true"
       >
-        <GlobalParticle3D onReady={handleParticlesReady} />
+        <Particle3DErrorBoundary>
+          <GlobalParticle3D onReady={handleParticlesReady} />
+        </Particle3DErrorBoundary>
       </div>
 
       {/* 메인 콘텐츠: 프리로더의 원 안으로 보임 */}
@@ -72,7 +86,7 @@ export default function LandingPage() {
         style={{ opacity: contentOpacity }}
       >
         <Navbar />
-        <Hero isPreloaderDone={isPreloaderDone} />
+        <Hero isPreloaderDone={isContentReady} />
         <Partners />
         <DataCount />
         <Community />

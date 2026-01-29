@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import SectionHeader, { Muted } from '@/components/ui/SectionHeader';
+import SectionHeader from '@/components/ui/SectionHeader';
+import { FadeUp, SlideIn } from '@/components/ui/animations';
 import styles from './FAQ.module.css';
 
 const faqs = [
@@ -97,21 +98,31 @@ export default function FAQ() {
       <div className={styles.contentGrid}>
         {/* Left: Header - Columns 1-2 */}
         <div className={styles.headerCell}>
-          <SectionHeader sectionName="FAQ" sectionNumber="06">
-            자주 묻는 <Muted>질문</Muted>
-          </SectionHeader>
+          <FadeUp>
+            <SectionHeader
+              sectionName="FAQ"
+              sectionNumber="06"
+              description="공짱 서비스 이용에 대해 궁금한 점을 확인하세요."
+            >
+              자주 묻는 질문
+            </SectionHeader>
+          </FadeUp>
         </div>
 
         {/* Right: FAQ Accordion - Columns 3-4 */}
-        <div className={styles.faqCell}>
-          {faqs.map((faq, index) => (
-            <FAQItem
-              key={index}
-              faq={faq}
-              isOpen={openIndex === index}
-              onToggle={() => toggleFAQ(index)}
-            />
-          ))}
+        <div className={styles.faqCellWrapper}>
+          <SlideIn direction="right" distance={40}>
+            <div className={styles.faqCell}>
+              {faqs.map((faq, index) => (
+                <FAQItem
+                  key={index}
+                  faq={faq}
+                  isOpen={openIndex === index}
+                  onToggle={() => toggleFAQ(index)}
+                />
+              ))}
+            </div>
+          </SlideIn>
         </div>
       </div>
     </section>

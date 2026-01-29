@@ -5,9 +5,18 @@ import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { useGlobalScrollProgressRef } from '@/hooks/useGlobalScrollProgress';
-import { shapeGenerators, ShapeType } from './shapes';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
-import { getCityModelSettings, subscribeToCityModelSettings, CityModelSettings } from './CityModelDebugUI';
+import { shapeGenerators, ShapeType, getLayerIndex } from './shapes';
+import {
+  getCityModelSettings,
+  subscribeToCityModelSettings,
+  CityModelSettings,
+  getMouseSettings,
+  subscribeToMouseSettings,
+  MouseInteractionSettings,
+  getWaveSettings,
+  subscribeToWaveSettings,
+  WaveSettings,
+} from './CityModelDebugUI';
 
 interface SectionConfig {
   id: string;
@@ -16,6 +25,7 @@ interface SectionConfig {
   scale: number;
   opacity: number;
   anchorId?: string; // DOM 요소 ID를 기준으로 위치를 계산할 경우
+  noRotation?: boolean; // 파티클 회전 비활성화 (히어로 섹션 등)
 }
 
 // 모든 섹션에 대한 파티클 설정
@@ -23,15 +33,15 @@ interface SectionConfig {
 // position: 화면 중앙 기준 (x: 50 = 중앙, y: 50 = 중앙)
 // CoreFeatures 섹션은 4개의 서브섹션으로 분리 (각 항목별 다른 shape)
 const sectionConfigs: SectionConfig[] = [
-  { id: 'section-hero',         shape: 'wave',      position: { x: 50, y: 50 }, scale: 1.0, opacity: 0.95 },
-  { id: 'section-partners',     shape: 'wave',      position: { x: 50, y: 50 }, scale: 0.9, opacity: 0.9 },
-  { id: 'section-data-count',   shape: 'wave',      position: { x: 50, y: 50 }, scale: 0.85, opacity: 0.85 },
+  { id: 'section-hero',         shape: 'wave',      position: { x: 50, y: 50 }, scale: 1.0, opacity: 0.95, noRotation: true },
+  { id: 'section-partners',     shape: 'wave',      position: { x: 50, y: 50 }, scale: 0.9, opacity: 0.9, noRotation: true },
+  { id: 'section-data-count',   shape: 'layers',    position: { x: 50, y: 50 }, scale: 0.8, opacity: 0.9, anchorId: 'datacount-particle-anchor' }, // 겹쳐진 레이어 형태
   { id: 'section-community',    shape: 'chart',     position: { x: 50, y: 50 }, scale: 0.65, opacity: 0.8 },
   // CoreFeatures 서브섹션들 (anchorId로 particleAnchor 위치 참조)
-  { id: 'section-corefeature-1', shape: 'gear',    position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 제조 현장 맞춤 필터 - 톱니바퀴
-  { id: 'section-corefeature-2', shape: 'city',    position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 물류/입지 최적화 - 도시
-  { id: 'section-corefeature-3', shape: 'chart',   position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 실거래가 통계 - 차트
-  { id: 'section-corefeature-4', shape: 'network', position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 스마트 매칭 - 네트워크
+  { id: 'section-corefeature-1', shape: 'factory',      position: { x: 50, y: 50 }, scale: 0.65, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 제조 현장 맞춤 필터 - 공장/창고
+  { id: 'section-corefeature-2', shape: 'route',        position: { x: 50, y: 50 }, scale: 0.7, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 물류/입지 최적화 - 도로/경로
+  { id: 'section-corefeature-3', shape: 'chart',        position: { x: 50, y: 50 }, scale: 0.65, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 실거래가 통계 - 차트 (기존 유지)
+  { id: 'section-corefeature-4', shape: 'notification', position: { x: 50, y: 50 }, scale: 0.65, opacity: 0.85, anchorId: 'corefeatures-particle-anchor' }, // 스마트 매칭 - 벨/알림
   { id: 'section-private-listing', shape: 'lock',   position: { x: 50, y: 50 }, scale: 0.7, opacity: 0.85 },
   { id: 'section-testimonials', shape: 'info',      position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.7 },
   { id: 'section-faq',          shape: 'megaphone', position: { x: 50, y: 50 }, scale: 0.6, opacity: 0.7 },
@@ -96,6 +106,7 @@ const vertexShader = /* glsl */ `
   attribute float aSize;
   attribute vec3 aColor;
   attribute float aPhase;
+  attribute float aIndex; // 파티클 인덱스 추가
   varying float vAlpha;
   varying vec3 vColor;
   varying float vDepth;
@@ -103,6 +114,11 @@ const vertexShader = /* glsl */ `
   uniform float uScale;
   uniform float uGlobalOpacity;
   uniform float uTime;
+  uniform float uLayersFactor; // layers 셰이프 비율 (0~1)
+  uniform float uParticleCount; // 총 파티클 수
+  uniform vec3 uLayerColor0; // Layer 0 색상
+  uniform vec3 uLayerColor1; // Layer 1 색상
+  uniform vec3 uLayerColor2; // Layer 2 색상
 
   void main() {
     // Twinkle: 더 다양한 반짝임 패턴
@@ -111,7 +127,26 @@ const vertexShader = /* glsl */ `
     float twinkle = 0.75 + 0.2 * twinkle1 + 0.05 * twinkle2;
 
     vAlpha = aAlpha * uGlobalOpacity * twinkle;
-    vColor = aColor;
+
+    // 레이어별 색상 계산 (셰이더 내부에서)
+    vec3 layerColor = aColor; // 기본 색상
+    if (uLayersFactor > 0.001) {
+      float particlesPerLayer = uParticleCount / 3.0;
+      float layerIndex = floor(aIndex / particlesPerLayer);
+      layerIndex = clamp(layerIndex, 0.0, 2.0);
+
+      // 레이어별 색상 선택
+      vec3 targetColor = uLayerColor0;
+      if (layerIndex > 1.5) {
+        targetColor = uLayerColor2;
+      } else if (layerIndex > 0.5) {
+        targetColor = uLayerColor1;
+      }
+
+      // 원본 색상에서 레이어 색상으로 보간
+      layerColor = mix(aColor, targetColor, uLayersFactor);
+    }
+    vColor = layerColor;
 
     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
     vDepth = -mvPosition.z;
@@ -133,15 +168,13 @@ const fragmentShader = /* glsl */ `
     vec4 texColor = texture2D(uMap, gl_PointCoord);
     if (texColor.a < 0.01) discard;
 
-    // 부드러운 가장자리 (glow 효과)
+    // 원형 마스크 (부드러운 가장자리)
     vec2 center = gl_PointCoord - 0.5;
     float dist = length(center) * 2.0;
-    float glow = 1.0 - smoothstep(0.3, 1.0, dist);
+    float circle = 1.0 - smoothstep(0.8, 1.0, dist);
 
-    // 깊이에 따른 색상 변화 (멀수록 더 푸르게)
-    vec3 depthTint = mix(vColor, vColor * vec3(0.8, 0.9, 1.1), clamp(vDepth * 0.1, 0.0, 0.3));
-
-    gl_FragColor = vec4(depthTint * glow, texColor.a * vAlpha * glow);
+    // 색상은 그대로 유지, 알파에만 페이드 적용
+    gl_FragColor = vec4(vColor, texColor.a * vAlpha * circle);
   }
 `;
 
@@ -173,9 +206,18 @@ function CleanupOnUnmount() {
 }
 
 // 절제된 카메라 패럴랙스 - 미세한 위치 이동만
+// 카메라는 항상 고정, 파티클 오브젝트 자체를 변형
 interface SmoothCameraProps {
   mouseRef: React.MutableRefObject<MouseState>;
 }
+
+// 기본 카메라 설정 (항상 고정)
+const DEFAULT_CAMERA = {
+  x: 0,
+  y: 0,
+  z: 5.5,
+  fov: 50,
+};
 
 function SmoothCamera({ mouseRef }: SmoothCameraProps) {
   const { camera } = useThree();
@@ -184,6 +226,7 @@ function SmoothCamera({ mouseRef }: SmoothCameraProps) {
   useFrame(() => {
     const mouse = mouseRef.current;
 
+    // 카메라는 항상 고정 위치 (기본값)
     // 목표: 마우스 방향으로 아주 미세하게만 이동 (거의 느끼지 못할 정도)
     const targetX = mouse.active ? mouse.x * 0.02 : 0;
     const targetY = mouse.active ? mouse.y * 0.012 : 0;
@@ -192,9 +235,21 @@ function SmoothCamera({ mouseRef }: SmoothCameraProps) {
     currentRef.current.x += (targetX - currentRef.current.x) * 0.01;
     currentRef.current.y += (targetY - currentRef.current.y) * 0.01;
 
-    // 카메라 적용 (위치만, 회전 없음)
-    camera.position.x = currentRef.current.x;
-    camera.position.y = currentRef.current.y;
+    // 카메라 위치 적용 (기본 위치 + 마우스 오프셋)
+    camera.position.x = DEFAULT_CAMERA.x + currentRef.current.x;
+    camera.position.y = DEFAULT_CAMERA.y + currentRef.current.y;
+    camera.position.z = DEFAULT_CAMERA.z;
+
+    // 카메라는 항상 정면
+    camera.rotation.x = 0;
+    camera.rotation.y = 0;
+    camera.rotation.z = 0;
+
+    // FOV 고정
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.fov = DEFAULT_CAMERA.fov;
+      camera.updateProjectionMatrix();
+    }
   });
 
   return null;
@@ -208,17 +263,32 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
   const circleTextureRef = useRef<THREE.Texture | null>(null);
   const prevStateRef = useRef({ currentIndex: 0, transition: 0 });
   const debugSettingsRef = useRef<CityModelSettings>(getCityModelSettings());
+  const mouseSettingsRef = useRef<MouseInteractionSettings>(getMouseSettings());
+  const waveSettingsRef = useRef<WaveSettings>(getWaveSettings());
 
   // 파티클 물리 시뮬레이션 (위치 오프셋 + 속도)
   const particleOffsetsRef = useRef<Float32Array | null>(null);
   const particleVelocitiesRef = useRef<Float32Array | null>(null);
+  // 마우스 인터랙션용 기본 위치 (애니메이션 적용 전)
+  const basePositionsRef = useRef<Float32Array | null>(null);
+
 
   // 디버그 설정 구독
   useEffect(() => {
-    const unsubscribe = subscribeToCityModelSettings((settings) => {
+    const unsubCity = subscribeToCityModelSettings((settings) => {
       debugSettingsRef.current = settings;
     });
-    return () => { unsubscribe(); };
+    const unsubMouse = subscribeToMouseSettings((settings) => {
+      mouseSettingsRef.current = settings;
+    });
+    const unsubWave = subscribeToWaveSettings((settings) => {
+      waveSettingsRef.current = settings;
+    });
+    return () => {
+      unsubCity();
+      unsubMouse();
+      unsubWave();
+    };
   }, []);
 
   // 텍스처 생성 및 정리
@@ -228,7 +298,13 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
   const circleTexture = circleTextureRef.current;
 
 
-  const { initialPositions, initialAlphas, particleSizes, particleColors, particlePhases } = useMemo(() => {
+  // 원본 색상을 저장할 ref (색상 복원용)
+  const baseColorsRef = useRef<Float32Array | null>(null);
+
+  // 색상 BufferAttribute를 명시적으로 생성하고 저장
+  const colorBufferAttrRef = useRef<THREE.BufferAttribute | null>(null);
+
+  const { initialPositions, initialAlphas, particleSizes, particleColors, particlePhases, particleIndices } = useMemo(() => {
     const firstShape = sectionConfigs[0].shape;
     const entry = shapeDataRef.current[firstShape];
     // 파티클별 랜덤 크기 (0.2 ~ 3.0 범위로 더 다양하게)
@@ -237,56 +313,50 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
     const colors = new Float32Array(particleCount * 3);
     // 파티클별 반짝임 위상 (0~1 랜덤)
     const phases = new Float32Array(particleCount);
+    // 파티클 인덱스 (셰이더에서 레이어 계산용)
+    const indices = new Float32Array(particleCount);
 
     for (let i = 0; i < particleCount; i++) {
       // 크기: 대부분 작고 일부만 큰 파티클 (더 자연스러운 분포)
       const sizeRand = Math.random();
       sizes[i] = sizeRand < 0.7 ? 0.3 + sizeRand * 1.2 : 1.5 + (sizeRand - 0.7) * 5.0;
 
-      // 색상: 밝은 하늘색 → 파란색 → 청록색 그라데이션 (생동감 있는 블루 계열)
+      // 색상: #00EFFE (시안) ↔ #0090FE (파란색) 혼합
+      // #00EFFE = RGB(0, 239, 254) = (0, 0.937, 0.996)
+      // #0090FE = RGB(0, 144, 254) = (0, 0.565, 0.996)
       const colorT = Math.random();
-      if (colorT < 0.4) {
-        // 밝은 하늘색 (Sky Blue)
-        const t = colorT / 0.4;
-        colors[i * 3] = 0.2 + t * 0.15;     // R: 0.2 → 0.35
-        colors[i * 3 + 1] = 0.6 + t * 0.15; // G: 0.6 → 0.75
-        colors[i * 3 + 2] = 0.9 + t * 0.1;  // B: 0.9 → 1.0
-      } else if (colorT < 0.75) {
-        // 선명한 파란색 (Vivid Blue)
-        const t = (colorT - 0.4) / 0.35;
-        colors[i * 3] = 0.1 + t * 0.1;      // R: 0.1 → 0.2
-        colors[i * 3 + 1] = 0.4 + t * 0.2;  // G: 0.4 → 0.6
-        colors[i * 3 + 2] = 0.85 + t * 0.15; // B: 0.85 → 1.0
-      } else {
-        // 청록색 (Cyan/Teal)
-        const t = (colorT - 0.75) / 0.25;
-        colors[i * 3] = 0.1 + t * 0.15;     // R: 0.1 → 0.25
-        colors[i * 3 + 1] = 0.7 + t * 0.2;  // G: 0.7 → 0.9
-        colors[i * 3 + 2] = 0.85 + t * 0.1; // B: 0.85 → 0.95
-      }
+      // 두 색상 사이를 부드럽게 보간
+      colors[i * 3] = 0;                                      // R: 0
+      colors[i * 3 + 1] = 0.565 + colorT * (0.937 - 0.565);   // G: 0.565 → 0.937
+      colors[i * 3 + 2] = 0.996;                              // B: 0.996
 
-      // 밝기 변주 (밝게 유지)
-      const brightness = 0.85 + Math.random() * 0.15;
-      colors[i * 3] *= brightness;
+      // 밝기 변주 (약간의 변화만)
+      const brightness = 0.9 + Math.random() * 0.1;
       colors[i * 3 + 1] *= brightness;
-      colors[i * 3 + 2] *= brightness;
 
       phases[i] = Math.random();
+      indices[i] = i; // 파티클 인덱스 저장
     }
+
+    // 원본 색상 백업 (색상 복원용)
+    baseColorsRef.current = new Float32Array(colors);
+
     return {
       initialPositions: new Float32Array(entry.positions),
       initialAlphas: new Float32Array(entry.alphas),
       particleSizes: sizes,
       particleColors: colors,
       particlePhases: phases,
+      particleIndices: indices,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [particleCount]);
 
-  // 파티클 오프셋 및 속도 초기화
+  // 파티클 오프셋, 속도, 기본 위치 초기화
   if (!particleOffsetsRef.current || particleOffsetsRef.current.length !== particleCount * 3) {
     particleOffsetsRef.current = new Float32Array(particleCount * 3);
     particleVelocitiesRef.current = new Float32Array(particleCount * 3);
+    basePositionsRef.current = new Float32Array(particleCount * 3);
   }
 
   const shaderMaterialRef = useRef<THREE.ShaderMaterial | null>(null);
@@ -300,6 +370,12 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
         uGlobalOpacity: { value: 1.0 },
         uMap: { value: circleTexture },
         uTime: { value: 0 },
+        // 레이어 색상 관련 uniforms
+        uLayersFactor: { value: 0.0 },
+        uParticleCount: { value: particleCount },
+        uLayerColor0: { value: new THREE.Vector3(0.7, 0.95, 0.3) },   // 연두/라임
+        uLayerColor1: { value: new THREE.Vector3(0.3, 0.7, 0.95) },   // 하늘색/시안
+        uLayerColor2: { value: new THREE.Vector3(0.15, 0.35, 0.8) },  // 진한 파랑
       },
       transparent: true,
       depthWrite: false,
@@ -324,8 +400,11 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
     };
   }, []);
 
+  // 초기화 확인용 플래그
+  const initializedRef = useRef(false);
   useFrame((state) => {
     if (!pointsRef.current || !groupRef.current || !modelRotationRef.current) return;
+
 
     // uniforms 업데이트
     if (materialRef.current) {
@@ -350,29 +429,30 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
     const shapeA = shapeData[currentConfig.shape];
     const shapeB = shapeData[nextConfig.shape];
 
-    // 스크롤 중 감지: transition이 0이나 1이 아닌 중간값일 때
-    const isTransitioning = p > 0.01 && p < 0.99;
-
     const geometry = pointsRef.current.geometry;
     const positions = geometry.attributes.position.array as Float32Array;
     const alphas = geometry.attributes.aAlpha.array as Float32Array;
     const phases = geometry.attributes.aPhase.array as Float32Array;
 
-    // 스크롤 전환 중일 때만 노이즈 적용
-    const transitionNoise = isTransitioning ? Math.sin(p * Math.PI) * 0.08 : 0;
-
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
 
-      // 기본 위치 (현재 셰이프 → 다음 셰이프 보간)
-      let x = shapeA.positions[i3] + (shapeB.positions[i3] - shapeA.positions[i3]) * p;
-      let y = shapeA.positions[i3 + 1] + (shapeB.positions[i3 + 1] - shapeA.positions[i3 + 1]) * p;
-      let z = shapeA.positions[i3 + 2] + (shapeB.positions[i3 + 2] - shapeA.positions[i3 + 2]) * p;
+      // 단순 인덱스 매핑 (같은 인덱스 사용)
+      const srcX = shapeA.positions[i3];
+      const srcY = shapeA.positions[i3 + 1];
+      const srcZ = shapeA.positions[i3 + 2];
+      const tgtX = shapeB.positions[i3];
+      const tgtY = shapeB.positions[i3 + 1];
+      const tgtZ = shapeB.positions[i3 + 2];
+
+      // 단순 선형 보간
+      let x = srcX + (tgtX - srcX) * p;
+      let y = srcY + (tgtY - srcY) * p;
+      let z = srcZ + (tgtZ - srcZ) * p;
 
       // 가시 파티클에만 움직임 적용
       if (i < baseCount) {
         const phase = phases[i];
-        const seed = i * 0.1;
 
         // wave 셰이프 여부 확인 (현재 또는 다음이 wave인 경우)
         const isWaveShape = currentConfig.shape === 'wave' || nextConfig.shape === 'wave';
@@ -385,8 +465,9 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
               : 0;
 
         if (isWaveShape && waveFactor > 0.01) {
-          // 🌊 우아하고 섬세한 물결 애니메이션
+          // 🌊 우아하고 섬세한 물결 애니메이션 (디버그 UI 값 사용)
           const wf = waveFactor;
+          const ws = waveSettingsRef.current;
 
           // 기본 위치 저장 (물결 계산용)
           const baseX = x;
@@ -394,35 +475,35 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
 
           // === 주요 파도 (Primary Waves) - 부드럽고 큰 물결 ===
           // 1. 메인 파도: 느린 X축 방향 이동
-          const mainWave = Math.sin(time * 0.4 + baseX * 0.6) * 0.18;
+          const mainWave = Math.sin(time * ws.mainWaveSpeed + baseX * ws.mainWaveScale) * ws.mainWaveHeight;
 
           // 2. 크로스 파도: 느린 Z축 방향 이동 (부드러운 간섭)
-          const crossWave = Math.sin(time * 0.3 + baseZ * 0.5 + 1.0) * 0.12;
+          const crossWave = Math.sin(time * ws.crossWaveSpeed + baseZ * ws.crossWaveScale + 1.0) * ws.crossWaveHeight;
 
           // 3. 대각선 파도: 아주 느린 대각선 이동
-          const diagWave = Math.sin(time * 0.25 + (baseX + baseZ) * 0.4) * 0.08;
+          const diagWave = Math.sin(time * ws.diagWaveSpeed + (baseX + baseZ) * ws.diagWaveScale) * ws.diagWaveHeight;
 
           // === 세부 물결 (Secondary Ripples) - 미세한 잔물결 ===
           // 4. 고주파 잔물결 (매우 미세하게)
-          const ripple1 = Math.sin(time * 0.8 + baseX * 1.2 + phase * 6.28) * 0.025;
-          const ripple2 = Math.cos(time * 0.7 + baseZ * 1.0 + phase * 3.14) * 0.02;
+          const ripple1 = Math.sin(time * ws.ripple1Speed + baseX * ws.ripple1Scale + phase * 6.28) * ws.ripple1Height;
+          const ripple2 = Math.cos(time * ws.ripple2Speed + baseZ * ws.ripple2Scale + phase * 3.14) * ws.ripple2Height;
 
           // 5. 중심에서 퍼지는 원형 파동 (은은하게)
           const dist = Math.sqrt(baseX * baseX + baseZ * baseZ);
-          const radialWave = Math.sin(time * 0.5 - dist * 0.5) * 0.05 * Math.max(0, 1 - dist * 0.1);
+          const radialWave = Math.sin(time * ws.radialWaveSpeed - dist * ws.radialWaveScale) * ws.radialWaveHeight * Math.max(0, 1 - dist * ws.radialWaveFalloff);
 
           // === Y축 물결 합성 ===
           const totalWave = (mainWave + crossWave + diagWave + ripple1 + ripple2 + radialWave) * wf;
           y += totalWave;
 
           // === X, Z축 미세 움직임 (아주 살짝만) ===
-          const swayX = Math.cos(time * 0.35 + baseZ * 0.4) * 0.015 * wf;
-          const swayZ = Math.sin(time * 0.3 + baseX * 0.4) * 0.015 * wf;
+          const swayX = Math.cos(time * ws.swayXSpeed + baseZ * ws.swayXScale) * ws.swayXAmount * wf;
+          const swayZ = Math.sin(time * ws.swayZSpeed + baseX * ws.swayZScale) * ws.swayZAmount * wf;
           x += swayX;
           z += swayZ;
 
           // === 파티클 개별 부유 효과 (은은하게) ===
-          const floatOffset = Math.sin(time * 0.2 + phase * 6.28) * 0.01 * wf;
+          const floatOffset = Math.sin(time * ws.floatSpeed + phase * 6.28) * ws.floatAmount * wf;
           y += floatOffset;
 
         } else {
@@ -447,23 +528,43 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
           z += waveZ + depthPulse;
         }
 
-        // 스크롤 전환 중 추가 노이즈
-        if (transitionNoise > 0.001) {
-          const explosionFactor = transitionNoise * 1.5;
-          x += Math.sin(time * 2.5 + seed) * explosionFactor;
-          y += Math.cos(time * 2.0 + seed * 1.3) * explosionFactor;
-          z += Math.sin(time * 2.2 + seed * 0.7) * explosionFactor * 0.7;
-        }
+      }
+
+      // 기본 위치 저장 (마우스 인터랙션용 - 애니메이션 적용 후 위치)
+      if (basePositionsRef.current && i < baseCount) {
+        basePositionsRef.current[i3] = x;
+        basePositionsRef.current[i3 + 1] = y;
+        basePositionsRef.current[i3 + 2] = z;
       }
 
       positions[i3] = x;
       positions[i3 + 1] = y;
       positions[i3 + 2] = z;
+      // 단순 alpha 보간
       alphas[i] = shapeA.alphas[i] + (shapeB.alphas[i] - shapeA.alphas[i]) * p;
     }
 
     geometry.attributes.position.needsUpdate = true;
     geometry.attributes.aAlpha.needsUpdate = true;
+
+    // Layers shape일 때 레이어별 색상 적용
+    const isCurrentLayers = currentConfig.shape === 'layers';
+    const isNextLayers = nextConfig.shape === 'layers';
+
+    // layers 비율 계산 (0: layers 아님, 1: layers)
+    let layersFactor = 0;
+    if (isCurrentLayers && isNextLayers) {
+      layersFactor = 1.0;
+    } else if (isCurrentLayers) {
+      layersFactor = 1 - p;
+    } else if (isNextLayers) {
+      layersFactor = p;
+    }
+
+    // 셰이더 uniform으로 레이어 색상 비율 전달 (매우 효율적!)
+    if (materialRef.current) {
+      materialRef.current.uniforms.uLayersFactor.value = layersFactor;
+    }
 
     // Scale 계산 (나중에 디버그 스케일과 함께 적용)
     const currentScale = currentConfig.scale;
@@ -542,41 +643,109 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
     const debugScale = 1 + (debug.scale - 1) * cityFactor;
     pointsRef.current.scale.setScalar(targetScale * debugScale);
 
-    // Y 오프셋 적용 (city일 때만 적용)
-    groupRef.current.position.y = groupY + debug.offsetY * cityFactor;
+    // wave shape 비율 계산 (기울기 적용용)
+    const isCurrentWave = currentConfig.shape === 'wave';
+    const isNextWave = nextConfig.shape === 'wave';
+    let waveFactor2 = 0;
+    if (isCurrentWave && isNextWave) {
+      waveFactor2 = 1;
+    } else if (isCurrentWave) {
+      waveFactor2 = 1 - p;
+    } else if (isNextWave) {
+      waveFactor2 = p;
+    }
 
-    // 애니메이션 회전 (스핀)
-    const spinAngle = (state.clock.elapsedTime * 0.12) % (Math.PI * 2);
-    groupRef.current.rotation.x = 0;
+    // wave 형태의 기울기/오프셋 적용 (복원)
+    const ws = waveSettingsRef.current;
+    const waveRotX = ws.objectRotX * degToRad * waveFactor2;
+    const waveRotZ = ws.objectRotZ * degToRad * waveFactor2;
+    const waveOffsetY = ws.objectOffsetY * waveFactor2;
+
+    // Y 오프셋 적용 (city + wave 모두 고려)
+    groupRef.current.position.y = groupY + debug.offsetY * cityFactor - waveOffsetY;
+
+    // 그룹 기울기 적용 (wave 기울기)
+    groupRef.current.rotation.x = waveRotX;
+    groupRef.current.rotation.z = waveRotZ;
+
+    // 애니메이션 회전 - 항상 일정하게 회전
+    const spinSpeed = 0.12;
     groupRef.current.rotation.y = 0;
-    pointsRef.current.rotation.y = spinAngle;
+    pointsRef.current.rotation.y = (time * spinSpeed) % (Math.PI * 2);
 
     // 🖱️ 고급 마우스 인터랙션 - 스프링 물리 시뮬레이션
     const offsets = particleOffsetsRef.current;
     const velocities = particleVelocitiesRef.current;
     if (!offsets || !velocities) return;
 
-    // Three.js 행렬 활용: points의 월드 변환 행렬
-    pointsRef.current.updateMatrixWorld();
-    const worldMatrix = pointsRef.current.matrixWorld;
-    const invMatrix = worldMatrix.clone().invert();
+    // 마우스 설정 가져오기
+    const mouseSettings = mouseSettingsRef.current;
 
-    // 마우스 월드 좌표를 로컬 좌표로 변환
+    // 마우스 인터랙션이 비활성화된 경우 스킵 (단, 기존 오프셋은 복원)
+    if (!mouseSettings.enabled) {
+      // 오프셋 복원 (스프링으로 돌아가기)
+      for (let i = 0; i < baseCount; i++) {
+        const i3 = i * 3;
+        let ox = offsets[i3];
+        let oy = offsets[i3 + 1];
+        let oz = offsets[i3 + 2];
+
+        // 빠르게 복원
+        ox *= 0.9;
+        oy *= 0.9;
+        oz *= 0.9;
+
+        if (Math.abs(ox) < 0.0001) ox = 0;
+        if (Math.abs(oy) < 0.0001) oy = 0;
+        if (Math.abs(oz) < 0.0001) oz = 0;
+
+        offsets[i3] = ox;
+        offsets[i3 + 1] = oy;
+        offsets[i3 + 2] = oz;
+        velocities[i3] = 0;
+        velocities[i3 + 1] = 0;
+        velocities[i3 + 2] = 0;
+
+        positions[i3] += ox;
+        positions[i3 + 1] += oy;
+        positions[i3 + 2] += oz;
+      }
+      geometry.attributes.position.needsUpdate = true;
+      return;
+    }
+
+    // 레이캐스팅으로 마우스 좌표를 파티클 평면에 투영
     const mouse = mouseRef.current;
-    const mouseWorld = new THREE.Vector3(mouse.x, mouse.y, 0);
-    const mouseLocal = mouseWorld.clone().applyMatrix4(invMatrix);
+
+    // NDC 좌표 계산 (화면 좌표 → -1~1)
+    const mouseNdcX = mouse.x / (Math.tan(vFov / 2) * cam.position.z * aspect);
+    const mouseNdcY = mouse.y / (Math.tan(vFov / 2) * cam.position.z);
+
+    // 레이캐스터로 파티클 평면(Z=0)과 교차점 찾기
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(new THREE.Vector2(mouseNdcX, mouseNdcY), cam);
+
+    // Z=0 평면과 교차
+    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+    const intersectPoint = new THREE.Vector3();
+    raycaster.ray.intersectPlane(plane, intersectPoint);
+
+    // points의 로컬 좌표로 변환
+    pointsRef.current.updateMatrixWorld();
+    const invMatrix = pointsRef.current.matrixWorld.clone().invert();
+    const mouseLocal = intersectPoint.applyMatrix4(invMatrix);
 
     // 마우스 속도 (관성 효과용)
     const mouseSpeed = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy);
 
-    // 물리 파라미터 - 섬세하고 우아한 인터랙션
-    const mouseRadius = 1.5 / targetScale;           // 영향 반경 (약간 작게)
+    // 물리 파라미터 - 디버그 UI에서 조절 가능
+    const mouseRadius = mouseSettings.radius / targetScale;
     const mouseRadiusSq = mouseRadius * mouseRadius;
-    const pushForce = 0.025;                         // 부드러운 밀어내는 힘
-    const velocityBoost = Math.min(mouseSpeed * 1, 0.04); // 속도 기반 추가 힘 (약하게)
-    const springStiffness = 0.015;                   // 스프링 강성 (천천히 복귀)
-    const damping = 0.96;                            // 감쇠 (더 오래 유지)
-    const maxVelocity = 0.12;                        // 최대 속도 (제한적)
+    const pushForce = mouseSettings.pushForce;
+    const velocityBoost = Math.min(mouseSpeed * mouseSettings.velocityBoostMultiplier, 0.04);
+    const springStiffness = mouseSettings.springStiffness;
+    const damping = mouseSettings.damping;
+    const maxVelocity = mouseSettings.maxVelocity;
 
     for (let i = 0; i < baseCount; i++) {
       const i3 = i * 3;
@@ -592,9 +761,11 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
       let oz = offsets[i3 + 2];
 
       // 마우스가 활성화된 경우 밀어내기 힘 적용
-      if (mouse.active) {
-        const px = positions[i3] - ox; // 원래 위치
-        const py = positions[i3 + 1] - oy;
+      if (mouse.active && basePositionsRef.current) {
+        // 기본 위치 사용 (애니메이션 후, 오프셋 적용 전)
+        const basePos = basePositionsRef.current;
+        const px = basePos[i3];
+        const py = basePos[i3 + 1];
 
         const dx = px - mouseLocal.x;
         const dy = py - mouseLocal.y;
@@ -625,10 +796,10 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
       // 최대 속도 제한
       const speed = Math.sqrt(vx * vx + vy * vy + vz * vz);
       if (speed > maxVelocity) {
-        const scale = maxVelocity / speed;
-        vx *= scale;
-        vy *= scale;
-        vz *= scale;
+        const scaleV = maxVelocity / speed;
+        vx *= scaleV;
+        vy *= scaleV;
+        vz *= scaleV;
       }
 
       // 속도로 위치 업데이트
@@ -658,32 +829,58 @@ function MorphingParticlesInner({ shapeDataRef, scrollStateRef, particleCount, m
     geometry.attributes.position.needsUpdate = true;
   });
 
+  // BufferGeometry를 명령형으로 생성 (동적 업데이트를 위해)
+  const geometryRef = useRef<THREE.BufferGeometry | null>(null);
+
+  // geometry 초기화 (한 번만)
+  if (!geometryRef.current) {
+    const geom = new THREE.BufferGeometry();
+
+    // position attribute
+    const posAttr = new THREE.BufferAttribute(initialPositions, 3);
+    posAttr.setUsage(THREE.DynamicDrawUsage);
+    geom.setAttribute('position', posAttr);
+
+    // aAlpha attribute
+    const alphaAttr = new THREE.BufferAttribute(initialAlphas, 1);
+    alphaAttr.setUsage(THREE.DynamicDrawUsage);
+    geom.setAttribute('aAlpha', alphaAttr);
+
+    // aSize attribute
+    const sizeAttr = new THREE.BufferAttribute(particleSizes, 1);
+    geom.setAttribute('aSize', sizeAttr);
+
+    // aColor attribute - DynamicDrawUsage로 설정!
+    const colorAttr = new THREE.BufferAttribute(particleColors, 3);
+    colorAttr.setUsage(THREE.DynamicDrawUsage);
+    geom.setAttribute('aColor', colorAttr);
+    colorBufferAttrRef.current = colorAttr;
+
+    // aPhase attribute
+    const phaseAttr = new THREE.BufferAttribute(particlePhases, 1);
+    geom.setAttribute('aPhase', phaseAttr);
+
+    // aIndex attribute (셰이더에서 레이어 계산용)
+    const indexAttr = new THREE.BufferAttribute(particleIndices, 1);
+    geom.setAttribute('aIndex', indexAttr);
+
+    geometryRef.current = geom;
+  }
+
+  // 컴포넌트 언마운트 시 geometry 정리
+  useEffect(() => {
+    return () => {
+      if (geometryRef.current) {
+        geometryRef.current.dispose();
+        geometryRef.current = null;
+      }
+    };
+  }, []);
+
   return (
     <group ref={groupRef}>
       <group ref={modelRotationRef}>
-        <points ref={pointsRef}>
-          <bufferGeometry>
-            <bufferAttribute
-              attach="attributes-position"
-              args={[initialPositions, 3]}
-            />
-            <bufferAttribute
-              attach="attributes-aAlpha"
-              args={[initialAlphas, 1]}
-            />
-            <bufferAttribute
-              attach="attributes-aSize"
-              args={[particleSizes, 1]}
-            />
-            <bufferAttribute
-              attach="attributes-aColor"
-              args={[particleColors, 3]}
-            />
-            <bufferAttribute
-              attach="attributes-aPhase"
-              args={[particlePhases, 1]}
-            />
-          </bufferGeometry>
+        <points ref={pointsRef} geometry={geometryRef.current!}>
           <primitive object={shaderMaterial} ref={materialRef} attach="material" />
         </points>
       </group>
@@ -701,11 +898,52 @@ interface FBXModelData {
 
 let cachedFBXData: FBXModelData | null = null;
 let fbxLoadPromise: Promise<FBXModelData> | null = null;
+let fbxLoadError: Error | null = null;
+
+// 전역 캐시 정리 함수 (페이지 이동 시 호출 가능)
+export function clearFBXCache(): void {
+  cachedFBXData = null;
+  fbxLoadPromise = null;
+  fbxLoadError = null;
+}
+
+// 기본 fallback 데이터 생성 (FBX 로드 실패 시)
+function createFallbackData(): FBXModelData {
+  // 간단한 큐브 형태의 fallback 데이터
+  const size = 2;
+  const edges: number[] = [];
+
+  // 큐브의 12개 엣지
+  const corners = [
+    [-size, -size, -size], [size, -size, -size], [size, size, -size], [-size, size, -size],
+    [-size, -size, size], [size, -size, size], [size, size, size], [-size, size, size]
+  ];
+
+  const edgeIndices = [
+    [0, 1], [1, 2], [2, 3], [3, 0], // front
+    [4, 5], [5, 6], [6, 7], [7, 4], // back
+    [0, 4], [1, 5], [2, 6], [3, 7]  // connecting
+  ];
+
+  for (const [a, b] of edgeIndices) {
+    edges.push(...corners[a], ...corners[b]);
+  }
+
+  return {
+    edgesPositions: new Float32Array(edges),
+    surfacePositions: new Float32Array(edges),
+    normalizeParams: { centerX: 0, centerY: 0, centerZ: 0, scale: 1 }
+  };
+}
 
 // FBX 모델 로드 및 데이터 추출 (한 번만 실행)
 function loadFBXModel(): Promise<FBXModelData> {
   if (cachedFBXData) {
     return Promise.resolve(cachedFBXData);
+  }
+  if (fbxLoadError) {
+    // 이전에 로드 실패한 경우 fallback 반환
+    return Promise.resolve(createFallbackData());
   }
   if (fbxLoadPromise) {
     return fbxLoadPromise;
@@ -713,7 +951,10 @@ function loadFBXModel(): Promise<FBXModelData> {
 
   fbxLoadPromise = new Promise((resolve) => {
     const loader = new FBXLoader();
-    loader.load('/models/city.fbx', (fbx) => {
+
+    loader.load(
+      '/models/city.fbx',
+      (fbx) => {
       const allEdges: Float32Array[] = [];
       const allSurfacePoints: number[] = [];
 
@@ -858,7 +1099,20 @@ function loadFBXModel(): Promise<FBXModelData> {
       };
 
       resolve(cachedFBXData);
-    });
+      },
+      // 로딩 진행 콜백 (선택적)
+      undefined,
+      // 에러 핸들링 콜백
+      (error) => {
+        console.error('FBX 모델 로드 실패:', error);
+        fbxLoadError = error instanceof Error ? error : new Error(String(error));
+        fbxLoadPromise = null;
+        // Fallback 데이터 반환
+        const fallback = createFallbackData();
+        cachedFBXData = fallback;
+        resolve(fallback);
+      }
+    );
   });
 
   return fbxLoadPromise;
@@ -1012,18 +1266,28 @@ export default function GlobalParticle3D({ onReady }: GlobalParticle3DProps) {
   // 마우스 위치 및 속도 추적
   const mouseRef = useRef<MouseState>({ x: 0, y: 0, vx: 0, vy: 0, active: false });
 
+  // Wave 설정 구독 (마우스 좌표 변환용)
+  const waveSettingsForMouseRef = useRef<WaveSettings>(getWaveSettings());
+  useEffect(() => {
+    const unsubWave = subscribeToWaveSettings((settings) => {
+      waveSettingsForMouseRef.current = settings;
+    });
+    return () => { unsubWave(); };
+  }, []);
+
   // 마우스 이벤트 리스너
   useEffect(() => {
-    // 카메라 설정과 일치하는 좌표 변환
-    const cameraZ = 5.5;
-    const fov = 50;
-    const vFov = (fov * Math.PI) / 180;
-
     let lastX = 0;
     let lastY = 0;
     let lastTime = performance.now();
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Wave Settings에서 카메라 설정 가져오기
+      const ws = waveSettingsForMouseRef.current;
+      const cameraZ = ws.cameraZ;
+      const fov = ws.cameraFov;
+      const vFov = (fov * Math.PI) / 180;
+
       // 화면 좌표를 3D 공간 좌표로 변환 (카메라 FOV 기반)
       const aspect = window.innerWidth / window.innerHeight;
       const halfHeight = Math.tan(vFov / 2) * cameraZ;
@@ -1163,7 +1427,10 @@ export default function GlobalParticle3D({ onReady }: GlobalParticle3DProps) {
       }}
     >
       <Canvas
-        camera={{ position: [0, 0, 5.5], fov: 50 }}
+        camera={{
+          position: [DEFAULT_CAMERA.x, DEFAULT_CAMERA.y, DEFAULT_CAMERA.z],
+          fov: DEFAULT_CAMERA.fov
+        }}
         dpr={[1, 1.5]}
         gl={{
           antialias: false,
@@ -1175,10 +1442,19 @@ export default function GlobalParticle3D({ onReady }: GlobalParticle3DProps) {
         style={{ background: 'transparent', pointerEvents: 'none' }}
         frameloop="always"
         onCreated={() => {
-          // 첫 프레임 렌더링 후 ready 콜백 호출
-          requestAnimationFrame(() => {
-            onReadyRef.current?.();
-          });
+          // 파티클 완전 초기화 후 ready 콜백 (GPU 안정화 대기)
+          let frameCount = 0;
+          const waitFrames = () => {
+            frameCount++;
+            if (frameCount >= 30) {
+              setTimeout(() => {
+                onReadyRef.current?.();
+              }, 200);
+            } else {
+              requestAnimationFrame(waitFrames);
+            }
+          };
+          requestAnimationFrame(waitFrames);
         }}
       >
         <CleanupOnUnmount />
@@ -1190,15 +1466,7 @@ export default function GlobalParticle3D({ onReady }: GlobalParticle3DProps) {
           mouseRef={mouseRef}
         />
         <CityWireframe scrollStateRef={scrollStateRef} />
-        <EffectComposer multisampling={0} enableNormalPass={false}>
-          <Bloom
-            intensity={0.8}
-            luminanceThreshold={0.3}
-            luminanceSmoothing={0.9}
-            mipmapBlur
-            levels={3}
-          />
-        </EffectComposer>
+        {/* Bloom 제거됨 */}
       </Canvas>
     </div>
   );

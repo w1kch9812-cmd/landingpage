@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import SectionHeader, { Muted } from '@/components/ui/SectionHeader';
+import SectionHeader from '@/components/ui/SectionHeader';
+import { FadeUp, SlideIn } from '@/components/ui/animations';
 import styles from './Community.module.css';
 
 const communityStats = [
@@ -14,22 +15,29 @@ export default function Community() {
   return (
     <section id="section-community" className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <SectionHeader sectionName="Community" sectionNumber="02">
-            산업부동산 주체가 만들어가는 <Muted>비즈니스 허브</Muted>
+        <FadeUp>
+          <SectionHeader
+            sectionName="Community"
+            sectionNumber="02"
+            description="제조/물류 기업과 산업 전문 부동산이 모여 활발히 거래하고 있습니다. 매월 수십만 명이 찾는 산업부동산의 중심지입니다."
+          >
+            산업부동산 주체가 만들어가는<br />
+            비즈니스 허브
           </SectionHeader>
-        </div>
+        </FadeUp>
 
         <div className={styles.statsGrid}>
           {communityStats.map((stat, index) => (
-            <div key={index} className={styles.statItem}>
-              <div className={styles.statNumber}>
-                {stat.number && <span className={styles.number}>{stat.number}</span>}
-                <span className={styles.suffix}>{stat.suffix}</span>
+            <SlideIn key={index} direction="up" delay={0.1 * index} distance={40}>
+              <div className={styles.statItem}>
+                <p className={styles.statLabel}>{stat.label}</p>
+                <div className={styles.statNumber}>
+                  {stat.number && <span className={styles.number}>{stat.number}</span>}
+                  <span className={styles.suffix}>{stat.suffix}</span>
+                </div>
+                <p className={styles.statDescription}>{stat.description}</p>
               </div>
-              <p className={styles.statLabel}>{stat.label}</p>
-              <p className={styles.statDescription}>{stat.description}</p>
-            </div>
+            </SlideIn>
           ))}
         </div>
 

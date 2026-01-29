@@ -1,82 +1,67 @@
 .section {
   width: 100%;
   min-height: 250vh;
-  background: transparent; /* 다크섹션 내부이므로 투명 */
+  background: transparent;
   position: relative;
-}
-
-.container {
-  display: flex;
+  z-index: 10;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 36px;
 }
 
-/* Left: 파티클 Anchor 영역 (sticky) */
-.particleAnchor {
+/* 섹션 헤더 영역 - 상단에 분리 */
+.headerArea {
+  margin-bottom: 120px;
+}
+
+/* 메인 레이아웃: 좌측 카드 + 우측 파티클 */
+.mainLayout {
+  display: flex;
+  width: 100%;
+}
+
+/* 좌측: 스크롤되는 기능 카드들 */
+.featuresScroll {
+  width: 50%;
+  padding: 0;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 우측: 파티클 앵커 셀 (sticky) */
+.particleCell {
   width: 50%;
   position: sticky;
   top: 0;
   height: 100vh;
+}
+
+.particleAnchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Feature Card - 배경/보더/패딩 제거, 높이 fill */
+.featureCard {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  position: relative;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
-.anchorContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 40px;
-}
-
-.headerInAnchor {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  margin-top: 120px; /* 파티클 아래에 위치 */
-}
-
-.title {
-  font-family: var(--font-hanwha);
-  font-size: 42px;
-  font-weight: 400;
-  line-height: 130%;
-  letter-spacing: -0.03em;
-  color: #ffffff;
-  margin: 0;
-  text-align: center;
-}
-
-.highlight {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-/* Right: 스크롤되는 기능 카드들 */
-.featuresScroll {
-  width: 50%;
-  padding: 100vh 0 50vh 0;
-  padding-left: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Feature Card */
-.featureCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 40px;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .featureCard:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: transparent;
+  border-color: transparent;
 }
 
 .cardHeader {
@@ -90,7 +75,7 @@
   font-family: var(--font-hanwha-gothic);
   font-size: 13px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(26, 26, 26, 0.3);
   letter-spacing: 0.05em;
 }
 
@@ -100,71 +85,76 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(26, 26, 26, 0.08);
   border-radius: 12px;
-  color: #ffffff;
+  color: #1a1a1a;
   transition: all 0.3s ease;
 }
 
 .featureCard:hover .cardIcon {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(26, 26, 26, 0.12);
 }
 
 .cardTitle {
   font-family: var(--font-hanwha);
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 32px;
+  font-weight: 600;
   line-height: 130%;
   letter-spacing: -0.03em;
-  color: #ffffff;
-  margin: 0 0 10px 0;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
 }
 
 .cardSubtitle {
   font-family: var(--font-hanwha-gothic);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 160%;
   letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 12px 0;
+  color: rgba(26, 26, 26, 0.8);
+  margin: 0 0 16px 0;
 }
 
 .cardDescription {
   font-family: var(--font-hanwha-gothic);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 170%;
   letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(26, 26, 26, 0.6);
   margin: 0;
+  max-width: 480px;
 }
 
 /* Tablet */
 @media (max-width: 1199.98px) {
-  .container {
+  .section {
     padding: 0 24px;
   }
 
-  .particleAnchor {
-    width: 45%;
-  }
-
-  .title {
-    font-size: 36px;
+  .headerArea {
+    margin-bottom: 80px;
   }
 
   .featuresScroll {
     width: 55%;
-    padding-left: 32px;
+    padding-right: 32px;
   }
 
-  .featureCard {
-    padding: 32px;
+  .particleCell {
+    width: 45%;
   }
 
   .cardTitle {
-    font-size: 22px;
+    font-size: 28px;
+  }
+
+  .cardSubtitle {
+    font-size: 16px;
+  }
+
+  .cardDescription {
+    font-size: 15px;
   }
 }
 
@@ -172,54 +162,47 @@
 @media (max-width: 809.98px) {
   .section {
     min-height: auto;
-  }
-
-  .container {
-    flex-direction: column;
     padding: 60px 16px;
   }
 
-  .particleAnchor {
-    width: 100%;
-    position: relative;
-    height: auto;
-    min-height: 50vh;
-    padding-bottom: 40px;
+  .headerArea {
+    margin-bottom: 60px;
   }
 
-  .headerInAnchor {
-    margin-top: 80px;
-  }
-
-  .title {
-    font-size: 28px;
+  .mainLayout {
+    flex-direction: column;
   }
 
   .featuresScroll {
     width: 100%;
-    padding: 0;
-    padding-left: 0;
-    gap: 16px;
+    padding-right: 0;
+    gap: 0;
+  }
+
+  .particleCell {
+    display: none;
   }
 
   .featureCard {
-    padding: 28px;
+    min-height: 60vh;
+    padding: 40px 0;
   }
 
   .cardIcon {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
 
   .cardTitle {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .cardSubtitle {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .cardDescription {
-    font-size: 13px;
+    font-size: 14px;
+    max-width: none;
   }
 }
