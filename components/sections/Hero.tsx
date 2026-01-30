@@ -78,13 +78,13 @@ export default function Hero({ isPreloaderDone = true }: HeroProps) {
       }
     });
 
-    // 현재 글자들 exit 애니메이션
+    // 현재 글자들 exit 애니메이션 (동시에 아래로 사라짐)
     tl.to(currentChars, {
-      y: -40,
+      y: 40,
       opacity: 0,
-      duration: 0.25,
-      stagger: 0.02,
-      ease: 'power2.in',
+      duration: 0.2,
+      stagger: 0,
+      ease: 'power3.in',
     });
 
     // 너비 전환 애니메이션 (글자 사라지는 중간에 시작)
@@ -106,13 +106,13 @@ export default function Hero({ isPreloaderDone = true }: HeroProps) {
     // 컨테이너 너비를 auto로 리셋 (다음 전환을 위해)
     gsap.set(container, { width: 'auto' });
 
-    // 새 글자들 등장
+    // 새 글자들 등장 (아래에서 위로 순차적으로 나타남)
     gsap.fromTo(currentChars,
-      { y: 40, opacity: 0 },
+      { y: 30, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 0.35,
+        duration: 0.3,
         stagger: 0.03,
         ease: 'power2.out',
         onComplete: () => {

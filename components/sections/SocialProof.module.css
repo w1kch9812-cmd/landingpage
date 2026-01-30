@@ -1,0 +1,165 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 80px 0;
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  z-index: 10;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.header {
+  text-align: center;
+}
+
+.tagline {
+  font-family: var(--font-pretendard);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* 통계 가로 배치 */
+.statsRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 80px;
+  width: 100%;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.statValue {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+}
+
+.number {
+  font-family: var(--font-pretendard);
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.suffix {
+  font-family: var(--font-pretendard);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.statLabel {
+  font-family: var(--font-pretendard);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin-top: 8px;
+}
+
+.statDescription {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 200px;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .container {
+    padding: 0 48px;
+    gap: 40px;
+  }
+
+  .statsRow {
+    gap: 48px;
+  }
+
+  .number {
+    font-size: 48px;
+  }
+
+  .suffix {
+    font-size: 28px;
+  }
+
+  .statLabel {
+    font-size: 16px;
+  }
+
+  .statDescription {
+    font-size: 13px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 48px 0;
+  }
+
+  .container {
+    padding: 0 24px;
+    gap: 32px;
+  }
+
+  .tagline {
+    font-size: 16px;
+  }
+
+  .statsRow {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .statItem {
+    width: 100%;
+  }
+
+  .number {
+    font-size: 44px;
+  }
+
+  .suffix {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 16px;
+  }
+
+  .statDescription {
+    font-size: 13px;
+    max-width: none;
+  }
+}

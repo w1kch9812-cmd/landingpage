@@ -6,43 +6,45 @@ import SectionHeader from '@/components/ui/SectionHeader';
 import { FadeUp } from '@/components/ui/animations';
 import styles from './CoreFeatures.module.css';
 
-// 맥락별 탭 구성
+// 인프라/솔루션 기반 탭 구성
 const featureTabs = [
   {
-    id: 'discover',
-    label: '탐색 & 검색',
+    id: 'data',
+    label: '산업부동산 데이터 통합',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/>
-        <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" strokeWidth="2"/>
+        <polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="currentColor" strokeWidth="2"/>
+        <line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor" strokeWidth="2"/>
       </svg>
     ),
     color: '#0071ff',
     features: [
       {
-        name: '스마트 필터',
-        title: '공장 전용 60+ 필터',
+        name: '60+ 필터',
+        title: '공장 전용 스마트 필터',
         description: '전력용량, 천정고, 바닥하중, 크레인, 도크, 용도지역까지. 제조·물류 현장에서 실제로 필요한 조건만 모았습니다.',
       },
       {
-        name: '추천 프리셋',
-        title: '업종별 맞춤 프리셋',
-        description: '제조업, 물류, 지식산업센터 등 업종별로 최적화된 검색 조건을 프리셋으로 제공합니다.',
+        name: '6개 레이어',
+        title: '통합 지도 시스템',
+        description: '매물, 실거래가, 경매, 산업단지, 클러스터, 용도지역을 하나의 지도에서 레이어로 확인합니다.',
       },
       {
-        name: '통합 지도',
-        title: '6개 레이어, 하나의 지도',
-        description: '매물, 실거래가, 경매, 산업단지, 클러스터, 용도지역을 하나의 지도에서 레이어로 확인합니다.',
+        name: '업종 프리셋',
+        title: '업종별 맞춤 검색',
+        description: '제조업, 물류, 지식산업센터 등 업종별로 최적화된 검색 조건을 프리셋으로 제공합니다.',
       },
     ],
   },
   {
-    id: 'analyze',
-    label: '분석 & 인사이트',
+    id: 'analysis',
+    label: '매물 분석 자동화',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 3V21H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M7 16L12 11L15 14L21 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
     color: '#ff9500',
@@ -53,8 +55,8 @@ const featureTabs = [
         description: '관심 매물을 최대 3개까지 선택해서 면적, 가격, 시설, 입지 조건을 한눈에 비교할 수 있습니다.',
       },
       {
-        name: '산업 생태계',
-        title: '주변 산업 생태계 분석',
+        name: '생태계 분석',
+        title: '주변 산업 생태계',
         description: '반경 내 어떤 업종이 밀집해 있는지, 협력업체·경쟁사 분포는 어떤지 KSIC 기반으로 분석합니다.',
       },
       {
@@ -70,15 +72,15 @@ const featureTabs = [
     ],
   },
   {
-    id: 'manage',
-    label: '알림 & 관리',
+    id: 'matching',
+    label: '맞춤 매칭 시스템',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <polyline points="22,4 12,14.01 9,11.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-    color: '#a855f7',
+    color: '#10b981',
     features: [
       {
         name: '조건 저장',

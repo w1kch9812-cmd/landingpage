@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/sections/Hero';
 import Partners from '@/components/sections/Partners';
 import PainPoints from '@/components/sections/PainPoints';
+import SocialProof from '@/components/sections/SocialProof';
 import HowItWorks from '@/components/sections/HowItWorks';
 import CoreFeatures from '@/components/sections/CoreFeatures';
 import DataPlatform from '@/components/sections/DataPlatform';
@@ -63,6 +64,9 @@ export default function LandingPage() {
 
         {/* 2. 문제 제기 */}
         <PainPoints />
+
+        {/* 2.5. 사회적 증거: 커뮤니티 규모 */}
+        <SocialProof />
 
         {/* 3. 데이터 (자산): "무엇을 가지고 있는가" */}
         <DataPlatform />
