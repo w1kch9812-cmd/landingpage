@@ -1,6 +1,7 @@
 /* Section */
 .section {
   width: 100%;
+  padding: var(--section-py-desktop) 0;
   background: transparent;
   position: relative;
   z-index: 10;
@@ -8,144 +9,228 @@
 
 /* Container */
 .container {
-  max-width: 1400px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
+  padding: 0 80px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: var(--gap-xl);
 }
 
-/* Header */
-.header {
+/* 시나리오 그리드 */
+.scenariosGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-sm);
+}
+
+.scenarioCard {
+  background: #ffffff;
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-lg);
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--gap-xs);
+  border: 1px solid rgba(0, 21, 48, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
 }
 
-.description {
-  font-family: var(--font-hanwha-gothic);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 170%;
-  letter-spacing: -0.02em;
-  color: rgba(26, 26, 26, 0.6);
-  margin: 0;
-  max-width: 720px;
+.scenarioCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 21, 48, 0.08);
 }
 
-/* Cards - Wafer style */
-.cards {
-  display: flex;
-  flex-direction: row;
-  gap: 4px;
-  background: #f0f3f7;
-  padding: 4px;
-  border-radius: 20px;
-  width: 100%;
-}
-
-/* Card */
-.card {
-  flex: 1;
-  background: rgb(255, 255, 255);
-  border-radius: 16px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.cardIcon {
-  width: 48px;
-  height: 48px;
-  background: rgb(0, 21, 48);
-  border-radius: 12px;
+.scenarioIcon {
+  width: 56px;
+  height: 56px;
+  background: var(--color-text-primary);
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
 }
 
-.cardContent {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cardTitle {
-  font-family: var(--font-hanwha);
-  font-size: 18px;
+.scenarioTitle {
+  font-family: var(--font-pretendard);
+  font-size: 22px;
   font-weight: 600;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   line-height: 140%;
-  color: rgb(0, 21, 48);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
-.cardDescription {
-  font-family: var(--font-hanwha-gothic);
-  font-size: 14px;
+.scenarioDescription {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 160%;
-  color: #757575;
+  line-height: 170%;
+  color: var(--color-text-muted);
   margin: 0;
+}
+
+/* 혜택 섹션 */
+.benefitsSection {
+  background: var(--color-text-primary);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.benefitsTitle {
+  font-family: var(--font-pretendard);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-sm);
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-xs);
+}
+
+.benefitNumber {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 600;
+  color: #0071ff;
+  letter-spacing: -0.02em;
+}
+
+.benefitContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.benefitTitle {
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.benefitDescription {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.02em;
 }
 
 /* Tablet (810px - 1199px) */
 @media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+  }
+
   .container {
-    gap: 48px;
+    padding: 0 48px;
+    gap: var(--gap-xl);
   }
 
-  .card {
-    padding: 24px;
+  .scenariosGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
 
-  .cardTitle {
-    font-size: 16px;
+  .scenarioCard {
+    padding: var(--card-padding-md);
+  }
+
+  .scenarioTitle {
+    font-size: 20px;
+  }
+
+  .benefitsSection {
+    padding: var(--card-padding-md);
+  }
+
+  .benefitsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 
 /* Mobile (< 810px) */
 @media (max-width: 809.98px) {
-  .container {
-    gap: 40px;
+  .section {
+    padding: var(--section-py-mobile) 0;
   }
 
-  .header {
+  .container {
+    padding: 0 24px;
+    gap: var(--gap-lg);
+  }
+
+  .scenariosGrid {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
-  .description {
-    font-size: 15px;
+  .scenarioCard {
+    padding: var(--card-padding-sm);
+    gap: 16px;
   }
 
-  .cards {
-    flex-direction: column;
+  .scenarioIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
   }
 
-  .card {
-    padding: 24px;
-  }
-
-  .cardIcon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-  }
-
-  .cardIcon svg {
+  .scenarioIcon svg {
     width: 20px;
     height: 20px;
   }
 
-  .cardTitle {
-    font-size: 16px;
+  .scenarioTitle {
+    font-size: 18px;
   }
 
-  .cardDescription {
+  .scenarioDescription {
+    font-size: 14px;
+  }
+
+  .benefitsSection {
+    padding: var(--card-padding-sm);
+    gap: var(--gap-sm);
+  }
+
+  .benefitsTitle {
+    font-size: 20px;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .benefitItem {
+    gap: 12px;
+  }
+
+  .benefitTitle {
+    font-size: 15px;
+  }
+
+  .benefitDescription {
     font-size: 13px;
   }
 }

@@ -15,7 +15,7 @@
 }
 
 .number {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 32px;
   font-weight: 400;
   letter-spacing: -0.07em;
@@ -23,7 +23,7 @@
 }
 
 .cardId {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 10px;
   font-weight: 400;
   letter-spacing: -0.06em;
@@ -34,12 +34,22 @@
 }
 
 .cardLabel {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 140%;
   color: rgb(0, 21, 48);
+  margin: 0;
+}
+
+.cardDescription {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 160%;
+  color: #757575;
   margin: 0;
 }
 
@@ -58,5 +68,9 @@
 
   .cardLabel {
     font-size: 15px;
+  }
+
+  .cardDescription {
+    font-size: 13px;
   }
 }

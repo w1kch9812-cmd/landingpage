@@ -4,20 +4,20 @@
   position: relative;
   z-index: 10;
   background: transparent;
-  padding: 0;
+  padding: var(--section-py-desktop) 0;
   display: flex;
   flex-direction: column;
-  gap: 120px;
+  gap: var(--gap-xl);
   overflow: hidden;
 }
 
 /* Header Container */
 .headerContainer {
-  padding: 0;
+  padding: 0 80px;
 }
 
 .headerGrid {
-  max-width: 1400px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
   width: 100%;
 }
@@ -34,34 +34,34 @@
 .slider {
   display: flex;
   align-items: flex-end;
-  gap: 24px;
+  gap: var(--gap-sm);
   width: fit-content;
-  padding: 0 40px;
-  cursor: none;
+  padding: 0 80px;
+  cursor: grab;
   user-select: none;
   min-height: 420px;
 }
 
 .slider:active {
-  cursor: none;
+  cursor: grabbing;
 }
 
 /* Card Base - 검은색 배경 */
 .card {
   flex-shrink: 0;
   width: 360px;
-  background: rgb(0, 21, 48);
+  background: var(--color-text-primary);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 40px;
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding-lg);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: auto;
-  cursor: none;
+  cursor: grab;
 }
 
 .card:hover {
-  background: rgb(0, 113, 255);
-  border-color: rgb(0, 113, 255);
+  background: #0071ff;
+  border-color: #0071ff;
   transform: scale(1.05);
   box-shadow: 0 20px 60px rgba(0, 113, 255, 0.3);
 }
@@ -105,12 +105,30 @@
 .cardContent {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--gap-xs);
+}
+
+/* Highlight Badge */
+.highlight {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #0071ff;
+  background: rgba(0, 113, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 100px;
+  width: fit-content;
+}
+
+.card:hover .highlight {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 /* Quote - 한화고딕 폰트 */
 .quote {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 15px;
   font-weight: 400;
   line-height: 170%;
@@ -128,7 +146,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-top: 20px;
+  padding-top: var(--gap-xs);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -156,7 +174,7 @@
 }
 
 .avatarText {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 14px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.8);
@@ -170,7 +188,7 @@
 }
 
 .name {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -178,7 +196,7 @@
 }
 
 .role {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 13px;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -188,18 +206,23 @@
 /* Tablet */
 @media (min-width: 810px) and (max-width: 1199.98px) {
   .section {
-    gap: 50px;
+    padding: var(--section-py-tablet) 0;
+    gap: var(--gap-lg);
+  }
+
+  .headerContainer {
+    padding: 0 48px;
   }
 
   .slider {
     gap: 20px;
-    padding: 0 24px;
+    padding: 0 48px;
     min-height: 380px;
   }
 
   .card {
     width: 320px;
-    padding: 24px;
+    padding: var(--card-padding-sm);
   }
 
   .middle {
@@ -226,7 +249,12 @@
 /* Mobile */
 @media (max-width: 809.98px) {
   .section {
-    gap: 40px;
+    padding: var(--section-py-mobile) 0;
+    gap: var(--gap-md);
+  }
+
+  .headerContainer {
+    padding: 0 24px;
   }
 
   .sliderWrapper {
@@ -235,7 +263,7 @@
 
   .slider {
     gap: 16px;
-    padding: 0 16px;
+    padding: 0 24px;
     min-height: 340px;
   }
 

@@ -1,86 +1,64 @@
 /* Section */
 .section {
   width: 100%;
-  min-height: 100vh;
   background: transparent;
   position: relative;
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: var(--section-py-desktop) 80px;
 }
 
 /* Dark Card */
 .darkCard {
   width: 100%;
-  min-height: calc(100vh - 16px);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
   background-color: rgb(255, 255, 255);
-  border-radius: 16px;
+  border-radius: var(--radius-card);
   border: 1px solid rgba(0, 21, 48, 0.12);
-  padding: 64px;
+  padding: var(--gap-xl);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  gap: var(--gap-xl);
   align-items: center;
   position: relative;
   z-index: 1;
   overflow: hidden;
 }
 
-/* Spline 3D Background */
-.splineBackground {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.splineBackground > div {
-  width: 100%;
-  height: 100%;
-}
-
-.splineLoading {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-}
-
 /* Left Content */
 .content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--gap-xs);
   position: relative;
   z-index: 1;
 }
 
 /* Heading */
 .headingTitle {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 40px;
   font-weight: 600;
   line-height: 130%;
   letter-spacing: -0.04em;
-  color: rgb(0, 21, 48);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 /* Description */
 .description {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 16px;
   font-weight: 400;
   line-height: 160%;
   letter-spacing: -0.02em;
-  color: rgba(0, 21, 48, 0.6);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .highlight {
-  color: rgb(0, 21, 48);
+  color: var(--color-text-primary);
 }
 
 /* Right Form Wrapper (Wafer) */
@@ -89,7 +67,7 @@
   flex-direction: column;
   background: rgba(0, 21, 48, 0.05);
   padding: 4px;
-  border-radius: 20px;
+  border-radius: var(--radius-card);
   position: relative;
   z-index: 1;
 }
@@ -97,18 +75,18 @@
 /* Form */
 .form {
   background-color: rgb(255, 255, 255);
-  border-radius: 16px;
-  padding: 32px;
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding-md);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--gap-xs);
 }
 
 /* Form Inputs */
 .formInputs {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--gap-xs);
 }
 
 .formLabel {
@@ -118,11 +96,11 @@
 }
 
 .labelText {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: rgb(0, 21, 48);
+  color: var(--color-text-primary);
 }
 
 .input {
@@ -130,17 +108,17 @@
   padding: 14px 16px;
   border: none;
   background-color: rgb(245, 245, 245);
-  border-radius: 10px;
-  font-family: var(--font-hanwha);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-pretendard);
   font-size: 15px;
   font-weight: 500;
-  color: rgb(0, 21, 48);
+  color: var(--color-text-primary);
   outline: none;
   transition: box-shadow 0.2s ease;
 }
 
 .input:focus {
-  box-shadow: 0 0 0 2px rgba(5, 113, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(0, 113, 255, 0.15);
 }
 
 .input::placeholder {
@@ -149,26 +127,30 @@
 
 /* Terms Text */
 .termsText {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 12px;
   font-weight: 400;
   line-height: 150%;
   letter-spacing: -0.02em;
-  color: rgba(0, 21, 48, 0.5);
+  color: var(--color-text-muted);
   margin: 0;
   text-align: center;
 }
 
 .termsText a {
-  color: rgba(0, 21, 48, 0.5);
+  color: var(--color-text-muted);
   text-decoration: underline;
 }
 
 /* Tablet (810px - 1199px) */
 @media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 48px;
+  }
+
   .darkCard {
-    padding: 48px;
-    gap: 48px;
+    padding: var(--gap-lg);
+    gap: var(--gap-lg);
   }
 
   .headingTitle {
@@ -176,16 +158,20 @@
   }
 
   .form {
-    padding: 28px;
+    padding: var(--card-padding-sm);
   }
 }
 
 /* Mobile (< 810px) */
 @media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 24px;
+  }
+
   .darkCard {
     grid-template-columns: 1fr;
-    padding: 32px 24px;
-    gap: 32px;
+    padding: var(--card-padding-md);
+    gap: var(--gap-md);
   }
 
   .headingTitle {
@@ -197,12 +183,7 @@
   }
 
   .form {
-    padding: 24px;
-    gap: 16px;
-  }
-
-  /* 모바일에서 Spline 숨김 (성능 고려) */
-  .splineBackground {
-    display: none;
+    padding: var(--card-padding-sm);
+    gap: var(--gap-xs);
   }
 }

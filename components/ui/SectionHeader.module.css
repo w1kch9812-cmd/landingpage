@@ -1,92 +1,87 @@
-/* Section Header - 4 Column Grid Layout */
+/* Section Header - Default Stacked Layout */
 .header {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 24px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
   width: 100%;
 }
 
-/* Column 1: Caption (/ Section Name (01)) */
+/* Caption (/ Section Name (01)) */
 .caption {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-top: 8px; /* 제목과 수직 정렬 */
 }
 
 .slash {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.03em;
-  color: rgb(10, 10, 10);
+  color: var(--color-text-primary);
 }
 
 .name {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.03em;
-  color: rgb(10, 10, 10);
+  color: var(--color-text-primary);
 }
 
 .number {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 14px;
   font-weight: 400;
   letter-spacing: -0.03em;
-  color: rgb(117, 117, 117);
+  color: var(--color-text-muted);
 }
 
 /* Column 2-3: Content (Title + Description) */
 .content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--gap-xs);
 }
 
 .title {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 48px;
   font-weight: 600;
   line-height: 130%;
   letter-spacing: -0.04em;
-  color: rgb(18, 18, 18);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .description {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 18px;
   font-weight: 400;
   line-height: 170%;
   letter-spacing: -0.02em;
-  color: rgb(117, 117, 117);
+  color: var(--color-text-muted);
   margin: 0;
   max-width: 560px;
 }
 
 /* Muted text within title */
 .muted {
-  color: rgb(117, 117, 117);
+  color: var(--color-text-muted);
 }
 
 /* Column 4: Empty space (implicit in grid) */
 
-/* Stacked layout - 세로 나열 (헤더 옆에 콘텐츠가 있는 경우) */
-.stacked {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Grid layout - 그리드 배치가 필요한 경우 */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: var(--gap-sm);
+  align-items: start;
 }
 
-.stacked .caption {
-  padding-top: 0;
-}
-
-.stacked .content {
-  gap: 16px;
+.grid .caption {
+  padding-top: 8px;
 }
 
 /* Dark variant for dark backgrounds */
@@ -113,7 +108,7 @@
 
 /* Tablet */
 @media (min-width: 810px) and (max-width: 1199.98px) {
-  .header {
+  .grid {
     grid-template-columns: 1fr 2fr 0.5fr;
     gap: 20px;
   }
@@ -132,7 +127,7 @@
   .header {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--gap-xs);
   }
 
   .caption {
@@ -141,7 +136,7 @@
   }
 
   .content {
-    gap: 16px;
+    gap: var(--gap-xs);
   }
 
   .slash,

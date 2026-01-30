@@ -16,7 +16,7 @@ export default function SectionHeader({ sectionName, sectionNumber, children, de
   const headerClasses = [
     styles.header,
     variant === 'dark' ? styles.dark : '',
-    layout === 'stacked' ? styles.stacked : '',
+    layout === 'grid' ? styles.grid : '',
   ].filter(Boolean).join(' ');
 
   return (

@@ -1,0 +1,253 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 160px 80px;
+  background: transparent;
+  z-index: 10;
+}
+
+.sectionIntro {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.stepBadge {
+  display: inline-block;
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  color: #0071ff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-family: var(--font-pretendard);
+  font-size: 36px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  margin: 0;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  position: relative;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.stepCard {
+  background: #f8f9fa;
+  border-radius: 24px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stepCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.1);
+}
+
+.stepHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.stepNumber {
+  font-family: var(--font-pretendard);
+  font-size: 48px;
+  font-weight: 600;
+  color: #0071ff;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stepTitles {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.stepTitle {
+  font-family: var(--font-pretendard);
+  font-size: 24px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.stepSubtitle {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  color: #666;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.stepDescription {
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 400;
+  color: #555;
+  margin: 0;
+  line-height: 1.7;
+  letter-spacing: -0.02em;
+}
+
+.featureList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  letter-spacing: -0.02em;
+}
+
+.featureItem svg {
+  color: #0071ff;
+  flex-shrink: 0;
+}
+
+/* 연결선 (데스크탑용 장식) */
+.connectorLine {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(40px);
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 113, 255, 0.2), transparent);
+}
+
+.arrow {
+  color: rgba(0, 113, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 120px 48px;
+  }
+
+  .container {
+    gap: 64px;
+  }
+
+  .stepsGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .stepCard {
+    padding: 32px;
+  }
+
+  .stepNumber {
+    font-size: 40px;
+  }
+
+  .stepTitle {
+    font-size: 22px;
+  }
+
+  .stepDescription {
+    font-size: 15px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .container {
+    gap: 48px;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .stepCard {
+    padding: 28px;
+    gap: 20px;
+  }
+
+  .stepNumber {
+    font-size: 36px;
+  }
+
+  .stepTitle {
+    font-size: 20px;
+  }
+
+  .stepSubtitle {
+    font-size: 14px;
+  }
+
+  .stepDescription {
+    font-size: 15px;
+  }
+
+  .featureList {
+    gap: 10px;
+    padding-top: 20px;
+  }
+
+  .featureItem {
+    font-size: 13px;
+  }
+
+  .connectorLine {
+    display: none;
+  }
+}

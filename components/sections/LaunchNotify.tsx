@@ -1,17 +1,10 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React, { useState } from 'react';
 import SectionHeader from '@/components/ui/SectionHeader';
 import CTAButton from '@/components/ui/CTAButton';
 import { FadeUp, SlideIn } from '@/components/ui/animations';
 import styles from './LaunchNotify.module.css';
-
-// Spline을 동적으로 로드 (SSR 비활성화)
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
-  ssr: false,
-  loading: () => <div className={styles.splineLoading} />,
-});
 
 export default function LaunchNotify() {
   const [formData, setFormData] = useState({
@@ -53,13 +46,6 @@ export default function LaunchNotify() {
   return (
     <section id="section-launch-notify" className={styles.section}>
       <div className={styles.darkCard}>
-        {/* Spline 3D 배경 */}
-        <div className={styles.splineBackground}>
-          <Suspense fallback={<div className={styles.splineLoading} />}>
-            <Spline scene="/spline/glass.splinecode" />
-          </Suspense>
-        </div>
-
         <FadeUp>
           <div className={styles.content}>
             <SectionHeader

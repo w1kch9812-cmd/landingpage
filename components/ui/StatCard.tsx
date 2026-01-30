@@ -7,6 +7,7 @@ interface StatCardProps {
   number: number;
   suffix: string;
   label: string;
+  description?: string;
   id?: string;
 }
 
@@ -24,7 +25,7 @@ function formatNumber(num: number, suffix: string): string {
   return `${num.toLocaleString()}${suffix}`;
 }
 
-export default function StatCard({ number, suffix, label, id }: StatCardProps) {
+export default function StatCard({ number, suffix, label, description, id }: StatCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
@@ -34,6 +35,7 @@ export default function StatCard({ number, suffix, label, id }: StatCardProps) {
         {id && <span className={styles.cardId}>{id}</span>}
       </div>
       <p className={styles.cardLabel}>{label}</p>
+      {description && <p className={styles.cardDescription}>{description}</p>}
     </div>
   );
 }

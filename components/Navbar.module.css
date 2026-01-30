@@ -36,7 +36,7 @@
 }
 
 .logoText {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 28px;
   font-weight: 400;
   color: var(--color-text-primary);
@@ -65,7 +65,7 @@
 }
 
 .navLink {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 16px;
   font-weight: 500;
   color: var(--color-text-primary);

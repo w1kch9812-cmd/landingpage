@@ -10,68 +10,76 @@ import styles from './Testimonials.module.css';
 
 const testimonials = [
   {
-    quote: '매물 계약 직전, 공짱에서 \'경매\' 물건 보고 3억 아꼈습니다. 같은 조건의 물건을 훨씬 저렴하게 확보할 수 있었습니다.',
+    quote: '계약 직전, 공짱에서 같은 조건의 경매 물건을 발견했습니다. 3억 원을 아끼고 더 넓은 부지까지 확보했어요. 일반 매물만 봤으면 큰 손해를 볼 뻔했습니다.',
     name: '김OO 대표',
-    role: '금속가공업',
+    role: '금속가공업 · 경기 화성',
+    highlight: '3억 원 절감',
     position: 'top',
     height: 'large',
-    avatar: '', // /images/avatars/avatar-1.jpg
+    avatar: '',
   },
   {
-    quote: '매물 정보 유출 걱정이 없어 마음이 놓입니다.',
+    quote: '공장 매각을 비밀리에 진행해야 했는데, 프라이빗 매물 시스템 덕분에 직원들 모르게 매수자를 찾을 수 있었습니다. 정보 유출 걱정 없이 진행했어요.',
     name: '이OO 실장',
-    role: '물류업',
+    role: '물류업 · 인천',
+    highlight: '비밀 매각 성공',
     position: 'middle',
-    height: 'small',
-    avatar: '', // /images/avatars/avatar-2.jpg
+    height: 'medium',
+    avatar: '',
   },
   {
-    quote: '구축 공장만 보러 다녔는데, \'신규 산단 분양\'이 답이었네요. 공짱에서 신규 분양 정보를 한눈에 볼 수 있어 좋았습니다.',
+    quote: '2년간 구축 공장만 찾아다녔는데, 공짱에서 신규 산단 분양 정보를 보고 방향을 바꿨어요. 입주 업종, 분양가, 인프라까지 한눈에 비교하니 결정이 쉬웠습니다.',
     name: '박OO 이사',
-    role: '식품제조업',
-    position: 'bottom',
-    height: 'medium',
-    avatar: '', // /images/avatars/avatar-3.jpg
-  },
-  {
-    quote: '전력량 확인하느라 부동산에 전화 돌리던 일, 이제 안 합니다.',
-    name: '최OO 팀장',
-    role: '전자부품 제조업',
-    position: 'top',
-    height: 'small',
-    avatar: '', // /images/avatars/avatar-4.jpg
-  },
-  {
-    quote: '원하는 조건 저장해두고, 본업에만 집중했습니다. 매물이 나오면 바로 알림이 와서 놓치는 일이 없었습니다.',
-    name: '정OO 대표',
-    role: '기계제조업',
-    position: 'middle',
-    height: 'medium',
-    avatar: '', // /images/avatars/avatar-5.jpg
-  },
-  {
-    quote: '여러 산단을 비교하는 게 이렇게 쉬울 줄 몰랐습니다. 분양가, 인허가 조건까지 한눈에 파악할 수 있어 시간이 절약됩니다.',
-    name: '한OO 부장',
-    role: '화학제조업',
+    role: '식품제조업 · 충북 청주',
+    highlight: '신규 산단 입주',
     position: 'bottom',
     height: 'large',
-    avatar: '', // /images/avatars/avatar-6.jpg
+    avatar: '',
   },
   {
-    quote: '실제 현장 방문 전 충분한 검토가 가능했습니다.',
-    name: '송OO 대표',
-    role: '자동차부품 제조업',
+    quote: '매물마다 전화해서 전력량, 층고, 호이스트 물어보던 시절이 있었어요. 이제는 검색 한 번으로 끝. 헛걸음 횟수가 확 줄었습니다.',
+    name: '최OO 팀장',
+    role: '전자부품 제조업 · 경기 평택',
+    highlight: '현장 방문 70% 감소',
     position: 'top',
-    height: 'small',
-    avatar: '', // /images/avatars/avatar-7.jpg
+    height: 'medium',
+    avatar: '',
   },
   {
-    quote: '경쟁사보다 한 발 빠르게 좋은 입지를 확보할 수 있었습니다. 실시간 알림 덕분에 놓치지 않았습니다.',
-    name: '윤OO 상무',
-    role: '플라스틱 제조업',
+    quote: '원하는 조건을 저장해두고 본업에 집중했어요. 3개월 만에 딱 맞는 매물이 등록됐고, 알림 받자마자 바로 계약했습니다. 타이밍을 놓치지 않았어요.',
+    name: '정OO 대표',
+    role: '기계제조업 · 경남 창원',
+    highlight: '조건 100% 매칭',
     position: 'middle',
+    height: 'large',
+    avatar: '',
+  },
+  {
+    quote: '5개 산단을 직접 발품 팔아 비교하려면 한 달은 걸렸을 거예요. 공짱에서 분양가, 입주 조건, 규제사항을 하루 만에 파악했습니다.',
+    name: '한OO 부장',
+    role: '화학제조업 · 전남 여수',
+    highlight: '비교 분석 시간 95% 단축',
+    position: 'bottom',
     height: 'medium',
-    avatar: '', // /images/avatars/avatar-8.jpg
+    avatar: '',
+  },
+  {
+    quote: '실거래가 데이터로 적정 가격을 파악하고 협상에 임했더니, 호가보다 8% 낮은 가격에 계약할 수 있었습니다. 데이터의 힘이에요.',
+    name: '송OO 대표',
+    role: '자동차부품 제조업 · 울산',
+    highlight: '호가 대비 8% 절감',
+    position: 'top',
+    height: 'medium',
+    avatar: '',
+  },
+  {
+    quote: '경쟁사가 눈독 들이던 물건이었는데, 알림 덕분에 먼저 연락해서 계약했습니다. IC 10분 거리, 물류비 연 2억 절감 예상됩니다.',
+    name: '윤OO 상무',
+    role: '플라스틱 제조업 · 충남 천안',
+    highlight: '물류비 연 2억 절감',
+    position: 'middle',
+    height: 'large',
+    avatar: '',
   },
 ];
 
@@ -93,6 +101,9 @@ const TestimonialCard = ({ testimonial }: { testimonial: typeof testimonials[0] 
   return (
     <div className={`${styles.card} ${positionClass} ${heightClass}`} data-cursor-hover>
       <div className={styles.cardContent}>
+        {testimonial.highlight && (
+          <span className={styles.highlight}>{testimonial.highlight}</span>
+        )}
         <p className={styles.quote}>{testimonial.quote}</p>
         <div className={styles.person}>
           <div className={styles.avatar}>

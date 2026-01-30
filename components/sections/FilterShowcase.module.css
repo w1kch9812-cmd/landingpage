@@ -1,0 +1,351 @@
+/* Section */
+.section {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  padding: 160px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Main Content - 2 Column */
+.content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Filter Section */
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Tab Preview */
+.tabPreview {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.tabBar {
+  display: flex;
+  gap: 0;
+  background: rgba(0, 21, 48, 0.05);
+  padding: 4px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 16px;
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 21, 48, 0.5);
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.activeTab {
+  background: rgba(0, 113, 255, 0.15);
+  color: #0071ff;
+}
+
+.tabContent {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tabLabel {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 21, 48, 0.5);
+}
+
+.filterItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filterItem {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 500;
+  color: #0071ff;
+  background: rgba(0, 113, 255, 0.08);
+  border: 1px solid rgba(0, 113, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+/* Presets */
+.presets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.presetsLabel {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0, 21, 48, 0.6);
+}
+
+.presetGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.presetCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 21, 48, 0.06);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.presetCard:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 113, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 21, 48, 0.08);
+}
+
+.presetIcon {
+  font-size: 20px;
+}
+
+.presetInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.presetName {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  color: #001530;
+}
+
+.presetDesc {
+  font-family: var(--font-pretendard);
+  font-size: 11px;
+  color: rgba(0, 21, 48, 0.5);
+}
+
+/* Flow Section */
+.flowSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 113, 255, 0.12);
+  border-radius: 16px;
+}
+
+.flowTitle {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  color: #0071ff;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 113, 255, 0.15);
+}
+
+.flowStep {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+}
+
+.stepNumber {
+  font-family: var(--font-pretendard);
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(0, 113, 255, 0.4);
+  min-width: 18px;
+}
+
+.stepIcon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.stepTitle {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 600;
+  color: #001530;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.stepDescription {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  color: rgba(0, 21, 48, 0.6);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Flow Connector */
+.flowConnector {
+  display: flex;
+  justify-content: center;
+  padding-left: 26px;
+  height: 20px;
+  position: relative;
+}
+
+.flowConnector::before {
+  content: '';
+  position: absolute;
+  left: 26px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 113, 255, 0.2);
+}
+
+.connectorDot {
+  width: 5px;
+  height: 5px;
+  background: #0071ff;
+  border-radius: 50%;
+  position: absolute;
+  left: 23px;
+}
+
+/* Tablet */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 100px 0;
+  }
+
+  .container {
+    padding: 0 32px;
+    gap: 40px;
+  }
+
+  .content {
+    grid-template-columns: 1fr 280px;
+    gap: 24px;
+  }
+
+  .presetGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+    gap: 32px;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .tabBar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab {
+    padding: 8px 14px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .tabContent {
+    padding: 16px;
+  }
+
+  .filterItem {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .presetGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .presetCard {
+    padding: 12px 14px;
+  }
+
+  .presetIcon {
+    font-size: 18px;
+  }
+
+  .presetName {
+    font-size: 12px;
+  }
+
+  .presetDesc {
+    font-size: 10px;
+  }
+
+  .flowSection {
+    padding: 20px;
+  }
+
+  .flowStep {
+    padding: 12px 0;
+  }
+
+  .stepIcon {
+    font-size: 20px;
+  }
+
+  .stepTitle {
+    font-size: 13px;
+  }
+
+  .stepDescription {
+    font-size: 11px;
+  }
+}

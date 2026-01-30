@@ -11,19 +11,19 @@ export default function CustomCursor({ containerRef }: CustomCursorProps) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const positionRef = useRef({ x: 0, y: 0 });
-  const targetRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      targetRef.current = { x: e.clientX, y: e.clientY };
+      // 즉각적으로 마우스 위치로 이동
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+      }
 
       if (!isVisible) {
         setIsVisible(true);
-        positionRef.current = { x: e.clientX, y: e.clientY };
       }
     };
 
@@ -49,29 +49,12 @@ export default function CustomCursor({ containerRef }: CustomCursorProps) {
     container.addEventListener('mousedown', handleMouseDown);
     container.addEventListener('mouseup', handleMouseUp);
 
-    // 애니메이션 루프
-    let animationId: number;
-    const animate = () => {
-      const lerp = 0.15;
-      positionRef.current.x += (targetRef.current.x - positionRef.current.x) * lerp;
-      positionRef.current.y += (targetRef.current.y - positionRef.current.y) * lerp;
-
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate(${positionRef.current.x}px, ${positionRef.current.y}px) translate(-50%, -50%)`;
-      }
-
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
     return () => {
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseenter', handleMouseEnter);
       container.removeEventListener('mouseleave', handleMouseLeave);
       container.removeEventListener('mousedown', handleMouseDown);
       container.removeEventListener('mouseup', handleMouseUp);
-
-      cancelAnimationFrame(animationId);
     };
   }, [containerRef, isVisible]);
 

@@ -1,130 +1,158 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import SectionHeader from '@/components/ui/SectionHeader';
 import { FadeUp } from '@/components/ui/animations';
 import styles from './CoreFeatures.module.css';
 
-const features = [
+// 맥락별 탭 구성
+const featureTabs = [
   {
-    id: 1,
-    title: '제조 현장 맞춤 필터',
-    subtitle: '"기계가 들어갈 공간인가?"를 먼저 확인하세요.',
-    description: '호이스트, 크레인, 동력(전력), 층고 등 생산 설비에 필수적인 스펙으로 매물을 찾을 수 있습니다.',
+    id: 'discover',
+    label: '탐색 & 검색',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="6" width="20" height="12" rx="2" />
-        <path d="M12 12h.01" />
-        <path d="M17 12h.01" />
-        <path d="M7 12h.01" />
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="2"/>
+        <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
       </svg>
     ),
+    color: '#0071ff',
+    features: [
+      {
+        name: '스마트 필터',
+        title: '공장 전용 60+ 필터',
+        description: '전력용량, 천정고, 바닥하중, 크레인, 도크, 용도지역까지. 제조·물류 현장에서 실제로 필요한 조건만 모았습니다.',
+      },
+      {
+        name: '추천 프리셋',
+        title: '업종별 맞춤 프리셋',
+        description: '제조업, 물류, 지식산업센터 등 업종별로 최적화된 검색 조건을 프리셋으로 제공합니다.',
+      },
+      {
+        name: '통합 지도',
+        title: '6개 레이어, 하나의 지도',
+        description: '매물, 실거래가, 경매, 산업단지, 클러스터, 용도지역을 하나의 지도에서 레이어로 확인합니다.',
+      },
+    ],
   },
   {
-    id: 2,
-    title: '물류/입지 최적화 분석',
-    subtitle: '"물류비 절감은 입지에서 시작됩니다."',
-    description: '대형 트레일러 진입 가능 여부, 진입도로 폭, 고속도로 IC와의 거리 등 입지 경쟁력을 따져보세요.',
+    id: 'analyze',
+    label: '분석 & 인사이트',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 3V21H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M7 16L12 11L15 14L21 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
+    color: '#ff9500',
+    features: [
+      {
+        name: '비교 분석',
+        title: '최대 3개 매물 비교',
+        description: '관심 매물을 최대 3개까지 선택해서 면적, 가격, 시설, 입지 조건을 한눈에 비교할 수 있습니다.',
+      },
+      {
+        name: '산업 생태계',
+        title: '주변 산업 생태계 분석',
+        description: '반경 내 어떤 업종이 밀집해 있는지, 협력업체·경쟁사 분포는 어떤지 KSIC 기반으로 분석합니다.',
+      },
+      {
+        name: '인프라 분석',
+        title: '유틸리티 & 인력 수급',
+        description: '전기·가스·용수 비용, 주변 인력 수급 현황까지. 입주 전 운영 환경을 사전에 파악하세요.',
+      },
+      {
+        name: '투자 점수',
+        title: 'AI 기반 투자 적합도',
+        description: '입지, 시설, 가격, 시장 동향을 종합 분석하여 투자 적합도 점수를 제공합니다.',
+      },
+    ],
   },
   {
-    id: 3,
-    title: '투명한 실거래가 통계',
-    subtitle: '"다른 부동산을 걷어낸 진짜 시세를 확인하세요."',
-    description: '산업부동산 전용 실거래가만을 추출하여, 정확한 시장 가격 흐름과 적정 매매가를 제시합니다.',
+    id: 'manage',
+    label: '알림 & 관리',
     icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 3v18h18" />
-        <path d="m19 9-5 5-4-4-3 3" />
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
-  },
-  {
-    id: 4,
-    title: '스마트 매칭 시스템',
-    subtitle: '"원하는 조건의 공장, 놓치지 마세요."',
-    description: '희망하는 스펙과 입지 조건을 저장하면, 부합하는 신규 매물 등록 시 즉시 알림을 발송합니다.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-      </svg>
-    ),
+    color: '#a855f7',
+    features: [
+      {
+        name: '조건 저장',
+        title: '검색 조건 저장',
+        description: '자주 사용하는 검색 조건을 저장해두고 언제든 불러와 사용하세요. 최대 20개 프리셋 저장 가능.',
+      },
+      {
+        name: '실시간 알림',
+        title: '조건 매칭 알림',
+        description: '저장한 조건에 맞는 신규 매물이 등록되면 즉시 알림을 받습니다. 새 매물을 놓치지 마세요.',
+      },
+    ],
   },
 ];
 
 export default function CoreFeatures() {
-  const containerRef = useRef<HTMLElement>(null);
+  const [activeTab, setActiveTab] = useState('discover');
+  const currentTab = featureTabs.find(t => t.id === activeTab) || featureTabs[0];
 
   return (
-    <section id="section-core-features" ref={containerRef} className={styles.section}>
-      {/* 섹션 헤더 - 상단에 분리 */}
-      <div className={styles.headerArea}>
+    <section id="section-core-features" className={styles.section}>
+      <div className={styles.container}>
         <FadeUp>
           <SectionHeader
             sectionName="Core Features"
             sectionNumber="03"
-            description="제조 현장의 니즈를 반영한 맞춤 필터, 물류 최적화 분석, 실거래가 통계, 스마트 알림까지. 공장 부지 선정에 필요한 핵심 기능을 제공합니다."
+            description="제조 현장의 니즈를 반영한 60+ 필터, 매물 비교, 산업 생태계 분석까지. 다방·직방에서는 검색조차 안 되는 것들입니다."
           >
-            현장을 아는 사람들이 만든,<br />
-            현장에 필요한 기능
+            공짱만의<br />
+            핵심 기능
           </SectionHeader>
         </FadeUp>
-      </div>
 
-      {/* 메인 레이아웃: 좌측 카드 + 우측 파티클 */}
-      <div className={styles.mainLayout}>
-        {/* 좌측: 스크롤되는 기능 카드들 */}
-        <div className={styles.featuresScroll}>
-          {features.map((feature, index) => (
-            <FeatureCard key={feature.id} feature={feature} index={index} />
+        {/* 탭 네비게이션 */}
+        <div className={styles.tabNav}>
+          {featureTabs.map((tab) => (
+            <button
+              key={tab.id}
+              className={`${styles.tabButton} ${activeTab === tab.id ? styles.activeTab : ''}`}
+              onClick={() => setActiveTab(tab.id)}
+              style={{ '--tab-color': tab.color } as React.CSSProperties}
+            >
+              <span className={styles.tabIcon}>{tab.icon}</span>
+              <span className={styles.tabLabel}>{tab.label}</span>
+            </button>
           ))}
         </div>
 
-        {/* 우측: 파티클 Anchor 영역 (sticky) */}
-        <div className={styles.particleCell}>
-          <div id="corefeatures-particle-anchor" className={styles.particleAnchor} />
-        </div>
+        {/* 기능 카드 리스트 */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            className={styles.featureList}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {currentTab.features.map((feature, index) => (
+              <motion.div
+                key={feature.name}
+                className={styles.featureCard}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.08 }}
+              >
+                <span className={styles.featureBadge}>{feature.name}</span>
+                <h3 className={styles.featureTitle}>{feature.title}</h3>
+                <p className={styles.featureDescription}>{feature.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
-  );
-}
-
-interface FeatureCardProps {
-  feature: (typeof features)[0];
-  index: number;
-}
-
-function FeatureCard({ feature, index }: FeatureCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ['start end', 'center center'],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 1, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
-
-  return (
-    <motion.div
-      ref={cardRef}
-      id={`section-corefeature-${index + 1}`}
-      className={styles.featureCard}
-      style={{ opacity, y }}
-    >
-      <div className={styles.cardHeader}>
-        <div className={styles.cardIcon}>{feature.icon}</div>
-        <span className={styles.cardNumber}>{String(index + 1).padStart(2, '0')}</span>
-      </div>
-      <h3 className={styles.cardTitle}>{feature.title}</h3>
-      <p className={styles.cardSubtitle}>{feature.subtitle}</p>
-      <p className={styles.cardDescription}>{feature.description}</p>
-    </motion.div>
   );
 }

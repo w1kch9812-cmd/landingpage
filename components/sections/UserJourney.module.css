@@ -1,0 +1,356 @@
+/* Section */
+.section {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  padding: 160px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* Journey Flow */
+.journeyFlow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Step Card */
+.stepCard {
+  flex: 1;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.stepCard:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 113, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 21, 48, 0.08);
+}
+
+.stepNumber {
+  font-family: var(--font-pretendard);
+  font-size: 11px;
+  font-weight: 700;
+  color: #0071ff;
+  background: rgba(0, 113, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 12px;
+}
+
+.stepIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.1);
+  border-radius: 12px;
+  color: #0071ff;
+  margin-bottom: 16px;
+}
+
+.stepIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stepTitle {
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 600;
+  color: #001530;
+  margin: 0 0 8px 0;
+}
+
+.stepDescription {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  color: rgba(0, 21, 48, 0.6);
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+.stepDetails {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stepDetails li {
+  font-family: var(--font-pretendard);
+  font-size: 11px;
+  color: rgba(0, 21, 48, 0.5);
+}
+
+.stepDetails li::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #0071ff;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Connector Arrow */
+.connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: rgba(0, 113, 255, 0.4);
+  flex-shrink: 0;
+  margin-top: 80px;
+}
+
+.connector svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Summary Bar */
+.summaryBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 32px 48px;
+  background: rgba(0, 113, 255, 0.05);
+  border: 1px solid rgba(0, 113, 255, 0.12);
+  border-radius: 16px;
+}
+
+.summaryItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.summaryIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.1);
+  border-radius: 10px;
+  color: #0071ff;
+}
+
+.summaryIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.summaryText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summaryValue {
+  font-family: var(--font-pretendard);
+  font-size: 18px;
+  font-weight: 700;
+  color: #0071ff;
+}
+
+.summaryLabel {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  color: rgba(0, 21, 48, 0.6);
+}
+
+.summaryDivider {
+  width: 1px;
+  height: 48px;
+  background: rgba(0, 21, 48, 0.1);
+}
+
+/* Tablet */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 100px 0;
+  }
+
+  .container {
+    padding: 0 32px;
+    gap: 48px;
+  }
+
+  .journeyFlow {
+    gap: 12px;
+  }
+
+  .stepCard {
+    max-width: 180px;
+    padding: 20px 12px;
+  }
+
+  .stepIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .stepIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .stepTitle {
+    font-size: 14px;
+  }
+
+  .stepDescription {
+    font-size: 12px;
+  }
+
+  .connector {
+    width: 24px;
+    margin-top: 70px;
+  }
+
+  .connector svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .summaryBar {
+    gap: 32px;
+    padding: 24px 32px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+    gap: 40px;
+  }
+
+  .journeyFlow {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stepCard {
+    max-width: 100%;
+    width: 100%;
+    flex-direction: row;
+    text-align: left;
+    padding: 16px 20px;
+    gap: 16px;
+  }
+
+  .stepCard:hover {
+    transform: none;
+  }
+
+  .stepNumber {
+    position: absolute;
+    top: -8px;
+    left: 16px;
+    margin-bottom: 0;
+  }
+
+  .stepCard {
+    position: relative;
+    padding-top: 24px;
+  }
+
+  .stepIcon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .stepContent {
+    flex: 1;
+  }
+
+  .stepTitle {
+    font-size: 15px;
+  }
+
+  .stepDescription {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .stepDetails {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .stepDetails li {
+    font-size: 10px;
+  }
+
+  .connector {
+    transform: rotate(90deg);
+    width: 24px;
+    height: 24px;
+    margin-top: 0;
+  }
+
+  .connector svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .summaryBar {
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 20px;
+  }
+
+  .summaryItem {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .summaryDivider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .summaryValue {
+    font-size: 16px;
+  }
+
+  .summaryLabel {
+    font-size: 12px;
+  }
+}

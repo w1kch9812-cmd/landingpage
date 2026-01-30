@@ -2,42 +2,63 @@
 
 import React from 'react';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { FadeUp, BlurReveal } from '@/components/ui/animations';
+import { FadeUp, SlideIn } from '@/components/ui/animations';
 import styles from './PrivateListing.module.css';
 
-const ShieldIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-    <path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,26.07,47.48,26.56a8,8,0,0,0,5.18,0c1.49-.49,24.42-7.7,47.48-26.56C200.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.43,129.43,0,0,1,128,223.62a128.86,128.86,0,0,1-39.4-22.2C61.66,179.16,48,149.07,48,112V56H208Z" />
-  </svg>
-);
-
-const LockIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-    <path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-80-96a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Z" />
-  </svg>
-);
-
-const EyeOffIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-    <path d="M53.92,34.62A8,8,0,1,0,42.08,45.38L61.32,66.55C25,88.84,9.38,123.2,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208a127.11,127.11,0,0,0,52.07-10.83l22,24.21a8,8,0,1,0,11.84-10.76Zm47.33,75.84,41.67,45.85a32,32,0,0,1-41.67-45.85ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.16,133.16,0,0,1,25,128c4.69-8.79,19.66-33.39,47.35-49.38l18,19.75a48,48,0,0,0,63.66,70l14.73,16.2A112,112,0,0,1,128,192Zm6-95.43a8,8,0,0,1,3-15.72,48.16,48.16,0,0,1,38.77,42.64,8,8,0,0,1-7.22,8.71,6.39,6.39,0,0,1-.75,0,8,8,0,0,1-8-7.26A32.09,32.09,0,0,0,134,96.57Zm113.28,34.69c-.42.94-10.55,23.37-33.36,43.8a8,8,0,1,1-10.67-11.92A132.77,132.77,0,0,0,231.05,128a133.15,133.15,0,0,0-23.12-30.77C185.67,75.19,158.78,64,128,64a118.37,118.37,0,0,0-19.36,1.57A8,8,0,1,1,106,49.79,134,134,0,0,1,128,48c34.88,0,66.57,13.26,91.66,38.35,18.83,18.83,27.3,37.62,27.65,38.41A8,8,0,0,1,247.31,131.26Z" />
-  </svg>
-);
-
-const features = [
+const scenarios = [
   {
-    icon: <ShieldIcon />,
-    title: '완벽한 정보 보호',
-    description: '검증된 실수요자만 매물 정보에 접근할 수 있습니다.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+        <circle cx="9" cy="7" r="4" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    title: '직원들의 동요가 걱정될 때',
+    description: '공장 매각 소문이 퍼지면 핵심 인력이 이탈할 수 있습니다. 프라이빗 매물로 등록하면 사업자 인증을 완료한 실수요자만 매물 정보를 확인할 수 있어, 내부 정보 유출을 원천 차단합니다.',
   },
   {
-    icon: <LockIcon />,
-    title: '검증된 기업 매칭',
-    description: '공개 범위를 직접 선택하여 노출을 제한할 수 있습니다.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+    title: '거래처와의 관계가 민감할 때',
+    description: '주요 납품처나 협력업체에 매각 의사가 알려지면 거래 관계에 영향을 줄 수 있습니다. 비공개 매물 시스템으로 원하는 시점까지 정보를 보호하세요.',
   },
   {
-    icon: <EyeOffIcon />,
-    title: '내부 동요 방지',
-    description: '매각 의사가 외부에 노출되지 않도록 보호합니다.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    ),
+    title: '경쟁사에 알리고 싶지 않을 때',
+    description: '사업 확장이나 이전 계획이 경쟁사에 노출되면 전략적 불이익이 생길 수 있습니다. 공개 범위를 직접 설정하여 원하는 대상에게만 매물 정보를 공개할 수 있습니다.',
+  },
+];
+
+const benefits = [
+  {
+    number: '01',
+    title: '사업자 인증 필수',
+    description: '실수요자만 매물 정보 열람',
+  },
+  {
+    number: '02',
+    title: '열람 이력 추적',
+    description: '누가 언제 봤는지 확인 가능',
+  },
+  {
+    number: '03',
+    title: '공개 범위 설정',
+    description: '업종/지역별 선택적 노출',
+  },
+  {
+    number: '04',
+    title: '즉시 공개 전환',
+    description: '원할 때 바로 전체 공개 가능',
   },
 ];
 
@@ -49,25 +70,43 @@ export default function PrivateListing() {
           <SectionHeader
             sectionName="Private Listing"
             sectionNumber="04"
-            description="매물 노출 범위를 직접 선택하세요. 공짱은 사업자 인증을 완료한 검증된 실수요자에게만 정보를 공개하는 '프라이빗 매물' 시스템을 도입하여, 귀사의 비즈니스 기밀을 완벽하게 보호합니다."
+            description="공장을 내놓고 싶지만, 직원들과 거래처에 알려질까 걱정되시나요? 공짱의 프라이빗 매물 시스템으로 안전하게 매각을 진행하세요."
           >
-            매각 소문, 걱정되시나요?
+            매각 소문, 걱정되시나요?<br />
+            비밀리에 진행하세요
           </SectionHeader>
         </FadeUp>
 
-        <div className={styles.cards}>
-          {features.map((feature, index) => (
-            <BlurReveal key={index} delay={0.15 * index} blur={8}>
-              <div className={styles.card}>
-                <div className={styles.cardIcon}>{feature.icon}</div>
-                <div className={styles.cardContent}>
-                  <p className={styles.cardTitle}>{feature.title}</p>
-                  <p className={styles.cardDescription}>{feature.description}</p>
-                </div>
+        {/* 시나리오 카드 */}
+        <div className={styles.scenariosGrid}>
+          {scenarios.map((scenario, index) => (
+            <SlideIn key={index} direction="up" delay={0.1 * index} distance={40}>
+              <div className={styles.scenarioCard}>
+                <div className={styles.scenarioIcon}>{scenario.icon}</div>
+                <h3 className={styles.scenarioTitle}>{scenario.title}</h3>
+                <p className={styles.scenarioDescription}>{scenario.description}</p>
               </div>
-            </BlurReveal>
+            </SlideIn>
           ))}
         </div>
+
+        {/* 혜택 리스트 */}
+        <FadeUp delay={0.3}>
+          <div className={styles.benefitsSection}>
+            <h4 className={styles.benefitsTitle}>프라이빗 매물 시스템</h4>
+            <div className={styles.benefitsGrid}>
+              {benefits.map((benefit, index) => (
+                <div key={index} className={styles.benefitItem}>
+                  <span className={styles.benefitNumber}>{benefit.number}</span>
+                  <div className={styles.benefitContent}>
+                    <span className={styles.benefitTitle}>{benefit.title}</span>
+                    <span className={styles.benefitDescription}>{benefit.description}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeUp>
       </div>
     </section>
   );

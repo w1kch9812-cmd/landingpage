@@ -7,7 +7,7 @@ interface CTAButtonProps {
   children: React.ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'accent';
+  variant?: 'primary' | 'secondary' | 'accent' | 'outline';
   size?: 'small' | 'medium' | 'large';
   fullWidth?: boolean;
   type?: 'button' | 'submit';

@@ -1,0 +1,455 @@
+/* Section */
+.section {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  padding: 160px 0;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+/* Solar System */
+.solarSystem {
+  position: relative;
+  width: 100%;
+  max-width: 750px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Background Gradient */
+.bgGradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 113, 255, 0.06) 0%,
+    rgba(0, 113, 255, 0.03) 30%,
+    transparent 60%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Connection Dots */
+.connectionDots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.connectionDot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 113, 255, 0.4);
+  border-radius: 50%;
+}
+
+.connectionDot:nth-child(1) {
+  top: 15%;
+  left: 20%;
+}
+
+.connectionDot:nth-child(2) {
+  top: 25%;
+  right: 15%;
+}
+
+.connectionDot:nth-child(3) {
+  bottom: 20%;
+  left: 15%;
+}
+
+.connectionDot:nth-child(4) {
+  bottom: 30%;
+  right: 25%;
+}
+
+/* Orbit Container */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Orbit Line */
+.orbitLine {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 50%;
+}
+
+/* Orbit Items Container */
+.orbitItems {
+  position: absolute;
+  inset: 0;
+}
+
+/* Orbit Item Wrapper */
+.orbitItemWrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+
+/* Orbit Item */
+.orbitItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  cursor: default;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.orbitItem:hover {
+  transform: scale(1.15);
+}
+
+/* Item Sizes */
+.itemLarge {
+  width: 70px;
+  height: 70px;
+}
+
+.itemMedium {
+  width: 56px;
+  height: 56px;
+}
+
+.itemSmall {
+  width: 46px;
+  height: 46px;
+}
+
+/* Item Text */
+.itemText {
+  font-family: var(--font-pretendard);
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.itemLarge .itemText {
+  font-size: 13px;
+}
+
+.itemMedium .itemText {
+  font-size: 11px;
+}
+
+.itemSmall .itemText {
+  font-size: 10px;
+}
+
+/* Center - 공짱 */
+.center {
+  position: relative;
+  z-index: 5;
+  width: 110px;
+  height: 110px;
+  background: linear-gradient(135deg, #0071ff 0%, #0055cc 100%);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerLogo {
+  font-family: var(--font-pretendard);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  padding: 24px 40px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 16px;
+}
+
+.legendGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legendTitle {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(0, 21, 48, 0.5);
+  text-transform: uppercase;
+}
+
+.legendItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendName {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0, 21, 48, 0.7);
+}
+
+.legendDivider {
+  width: 1px;
+  height: 60px;
+  background: rgba(0, 21, 48, 0.1);
+  align-self: center;
+}
+
+/* Stats Row */
+.statsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 32px 56px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 113, 255, 0.15);
+  border-radius: 20px;
+}
+
+.statBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statNumber {
+  font-family: var(--font-pretendard);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0071ff;
+}
+
+.statLabel {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 21, 48, 0.6);
+}
+
+.statDivider {
+  width: 1px;
+  height: 48px;
+  background: rgba(0, 21, 48, 0.1);
+}
+
+/* Tablet */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 100px 0;
+  }
+
+  .container {
+    padding: 0 32px;
+    gap: 48px;
+  }
+
+  .solarSystem {
+    max-width: 600px;
+  }
+
+  .center {
+    width: 90px;
+    height: 90px;
+  }
+
+  .centerLogo {
+    font-size: 22px;
+  }
+
+  .itemLarge {
+    width: 60px;
+    height: 60px;
+  }
+
+  .itemMedium {
+    width: 48px;
+    height: 48px;
+  }
+
+  .itemSmall {
+    width: 40px;
+    height: 40px;
+  }
+
+  .itemLarge .itemText {
+    font-size: 12px;
+  }
+
+  .itemMedium .itemText {
+    font-size: 10px;
+  }
+
+  .itemSmall .itemText {
+    font-size: 9px;
+  }
+
+  .legend {
+    gap: 24px;
+    padding: 20px 24px;
+  }
+
+  .legendItems {
+    gap: 8px;
+  }
+
+  .legendName {
+    font-size: 12px;
+  }
+
+  .statsRow {
+    gap: 32px;
+    padding: 24px 36px;
+  }
+
+  .statNumber {
+    font-size: 28px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+    gap: 32px;
+  }
+
+  .solarSystem {
+    max-width: 340px;
+  }
+
+  .center {
+    width: 70px;
+    height: 70px;
+  }
+
+  .centerLogo {
+    font-size: 18px;
+  }
+
+  .itemLarge {
+    width: 48px;
+    height: 48px;
+  }
+
+  .itemMedium {
+    width: 40px;
+    height: 40px;
+  }
+
+  .itemSmall {
+    width: 34px;
+    height: 34px;
+  }
+
+  .itemLarge .itemText {
+    font-size: 10px;
+  }
+
+  .itemMedium .itemText {
+    font-size: 9px;
+  }
+
+  .itemSmall .itemText {
+    font-size: 8px;
+  }
+
+  .connectionDots {
+    display: none;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .legendDivider {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 21, 48, 0.1);
+  }
+
+  .legendItems {
+    gap: 10px;
+  }
+
+  .legendName {
+    font-size: 12px;
+  }
+
+  .statsRow {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 24px 20px;
+    width: 100%;
+  }
+
+  .statDivider {
+    display: none;
+  }
+
+  .statNumber {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 12px;
+  }
+}

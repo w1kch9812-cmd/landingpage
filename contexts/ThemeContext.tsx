@@ -22,15 +22,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<ThemeMode>('light');
   const [backgroundColor, setBackgroundColor] = useState('#ffffff');
 
-  // CSS 변수를 통한 배경색 관리
+  // CSS 변수를 통한 배경색 관리 (body 인라인 스타일 제거)
   useEffect(() => {
     document.documentElement.style.setProperty('--dynamic-bg-color', backgroundColor);
-    document.body.style.backgroundColor = backgroundColor;
-    document.body.style.transition = 'background-color 0.4s ease';
   }, [backgroundColor]);
 
-  const transitionToColor = useCallback((color: string, duration = 400) => {
-    document.body.style.transition = `background-color ${duration}ms ease`;
+  const transitionToColor = useCallback((color: string) => {
     setBackgroundColor(color);
   }, []);
 

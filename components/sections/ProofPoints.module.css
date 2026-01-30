@@ -1,0 +1,527 @@
+/* Section */
+.section {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  padding: var(--section-py-desktop) 0;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+/* Metrics Grid */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-sm);
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-md);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.metricCard:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 113, 255, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 21, 48, 0.08);
+}
+
+.metricIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: #0071ff;
+}
+
+.metricIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.metricValue {
+  font-family: var(--font-pretendard);
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0071ff;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.metricDescription {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Community Section */
+.communitySection {
+  background: rgba(0, 113, 255, 0.05);
+  border: 1px solid rgba(0, 113, 255, 0.1);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-lg);
+}
+
+.communityTitle {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin: 0 0 var(--gap-md) 0;
+}
+
+.communityGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-md);
+}
+
+.communityItem {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.communityNumber {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.number {
+  font-family: var(--font-pretendard);
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #0071ff;
+}
+
+.suffix {
+  font-family: var(--font-pretendard);
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #0071ff;
+}
+
+.communityLabel {
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.communityDesc {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Comparison Section */
+.comparisonSection {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding-lg);
+}
+
+.comparisonTitle {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin: 0 0 var(--gap-md) 0;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: var(--gap-md);
+  align-items: start;
+}
+
+.comparisonColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.columnHeader {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 21, 48, 0.1);
+}
+
+.beforeBadge {
+  background: rgba(255, 100, 100, 0.15);
+  color: #ff6b6b;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.afterBadge {
+  background: rgba(0, 113, 255, 0.15);
+  color: #0071ff;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.comparisonItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(0, 21, 48, 0.03);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.comparisonItem:hover {
+  background: rgba(0, 21, 48, 0.06);
+}
+
+.afterItem {
+  background: rgba(0, 113, 255, 0.08);
+}
+
+.afterItem:hover {
+  background: rgba(0, 113, 255, 0.12);
+}
+
+.beforeIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 100, 100, 0.15);
+  border-radius: 50%;
+  color: #ff6b6b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.afterIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.15);
+  border-radius: 50%;
+  color: #0071ff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.comparisonText {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: rgba(0, 21, 48, 0.85);
+}
+
+.comparisonDivider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.dividerLine {
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 21, 48, 0.15) 50%, transparent 100%);
+}
+
+.dividerArrow {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.1);
+  border-radius: 50%;
+  color: #0071ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* CTA Section */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(0, 113, 255, 0.08) 0%, rgba(0, 212, 170, 0.05) 100%);
+  border: 1px solid rgba(0, 113, 255, 0.15);
+  border-radius: var(--radius-card);
+  text-align: center;
+}
+
+.ctaText {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Tablet */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+  }
+
+  .container {
+    padding: 0 48px;
+    gap: var(--gap-lg);
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .metricCard {
+    padding: var(--card-padding-sm);
+  }
+
+  .metricValue {
+    font-size: 36px;
+  }
+
+  .communitySection {
+    padding: var(--card-padding-md);
+  }
+
+  .communityGrid {
+    gap: var(--gap-sm);
+  }
+
+  .number {
+    font-size: 40px;
+  }
+
+  .suffix {
+    font-size: 28px;
+  }
+
+  .comparisonSection {
+    padding: var(--card-padding-md);
+  }
+
+  .comparisonGrid {
+    gap: var(--gap-sm);
+  }
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 0;
+  }
+
+  .container {
+    padding: 0 24px;
+    gap: var(--gap-md);
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .metricCard {
+    padding: 20px 16px;
+    gap: 10px;
+  }
+
+  .metricIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+  }
+
+  .metricIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .metricValue {
+    font-size: 32px;
+  }
+
+  .metricLabel {
+    font-size: 13px;
+  }
+
+  .metricDescription {
+    font-size: 12px;
+  }
+
+  .communitySection {
+    padding: var(--card-padding-sm);
+  }
+
+  .communityTitle {
+    font-size: 17px;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .communityGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .communityItem {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 16px;
+  }
+
+  .number {
+    font-size: 36px;
+  }
+
+  .suffix {
+    font-size: 24px;
+  }
+
+  .communityLabel {
+    font-size: 14px;
+  }
+
+  .communityDesc {
+    font-size: 12px;
+  }
+
+  .comparisonSection {
+    padding: var(--card-padding-sm);
+  }
+
+  .comparisonTitle {
+    font-size: 17px;
+    margin-bottom: var(--gap-sm);
+  }
+
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .comparisonDivider {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .dividerLine {
+    width: auto;
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 21, 48, 0.15) 50%, transparent 100%);
+  }
+
+  .dividerArrow {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    transform: rotate(90deg);
+  }
+
+  .comparisonItem {
+    padding: 12px;
+  }
+
+  .comparisonText {
+    font-size: 13px;
+  }
+
+  .ctaSection {
+    padding: 32px 20px;
+    gap: 20px;
+  }
+
+  .ctaText {
+    font-size: 17px;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+}

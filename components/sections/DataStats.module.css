@@ -1,0 +1,868 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 160px 80px;
+  background: transparent;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* 메인 통계 그리드 */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.08);
+}
+
+.statValue {
+  font-family: var(--font-pretendard);
+  font-size: 56px;
+  font-weight: 700;
+  color: #0071ff;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+}
+
+.statSuffix {
+  font-size: 32px;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.statLabel {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  letter-spacing: -0.02em;
+}
+
+.statDescription {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+/* 상세 정보 그리드 */
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.detailCard {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.detailTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  margin: 0 0 28px 0;
+  letter-spacing: -0.02em;
+}
+
+.detailTitle svg {
+  color: #0071ff;
+}
+
+/* 데이터 소스 그리드 */
+.sourceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.sourceItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.sourceName {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  letter-spacing: -0.02em;
+}
+
+.sourceType {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 500;
+  color: #0071ff;
+  letter-spacing: -0.02em;
+  padding: 4px 10px;
+  background: rgba(0, 113, 255, 0.08);
+  border-radius: 6px;
+}
+
+/* 커버리지 리스트 */
+.coverageList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.coverageItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.coverageHighlight {
+  background: linear-gradient(135deg, rgba(0, 113, 255, 0.08) 0%, rgba(0, 113, 255, 0.04) 100%);
+  border: 1px solid rgba(0, 113, 255, 0.15);
+}
+
+.coverageRegion {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  letter-spacing: -0.02em;
+}
+
+.coverageCount {
+  font-family: var(--font-pretendard);
+  font-size: 18px;
+  font-weight: 700;
+  color: #0071ff;
+  letter-spacing: -0.02em;
+}
+
+.coverageNote {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 400;
+  color: #999;
+  margin: 16px 0 0 0;
+  letter-spacing: -0.02em;
+}
+
+/* 업데이트 주기 바 */
+.updateBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 28px 48px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.updateItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.updateDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.updateLabel {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  letter-spacing: -0.02em;
+}
+
+.updateFreq {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: -0.02em;
+  padding: 4px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.updateDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* 서브 섹션 타이틀 */
+.subSectionTitle {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  margin: 0 0 24px 0;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+/* 효율성 섹션 */
+.efficiencySection {
+  background: rgba(0, 113, 255, 0.05);
+  border: 1px solid rgba(0, 113, 255, 0.1);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+.efficiencyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.efficiencyCard {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.efficiencyCard:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 21, 48, 0.08);
+}
+
+.efficiencyIcon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.1);
+  border-radius: 10px;
+  color: #0071ff;
+  margin-bottom: 4px;
+}
+
+.efficiencyIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.efficiencyValue {
+  font-family: var(--font-pretendard);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0071ff;
+  line-height: 1;
+}
+
+.efficiencyLabel {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.efficiencyDescription {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* 커뮤니티 섹션 */
+.communitySection {
+  background: #ffffff;
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+.communityGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.communityItem {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.communityNumber {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.number {
+  font-family: var(--font-pretendard);
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #0071ff;
+}
+
+.suffix {
+  font-family: var(--font-pretendard);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #0071ff;
+}
+
+.communityLabel {
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.communityDesc {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Before/After 비교 섹션 */
+.comparisonSection {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 21, 48, 0.08);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.comparisonColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.columnHeader {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 21, 48, 0.1);
+}
+
+.beforeBadge {
+  background: rgba(255, 100, 100, 0.15);
+  color: #ff6b6b;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.afterBadge {
+  background: rgba(0, 113, 255, 0.15);
+  color: #0071ff;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.comparisonItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  background: rgba(0, 21, 48, 0.03);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.comparisonItem:hover {
+  background: rgba(0, 21, 48, 0.06);
+}
+
+.afterItem {
+  background: rgba(0, 113, 255, 0.08);
+}
+
+.afterItem:hover {
+  background: rgba(0, 113, 255, 0.12);
+}
+
+.beforeIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 100, 100, 0.15);
+  border-radius: 50%;
+  color: #ff6b6b;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.afterIcon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.15);
+  border-radius: 50%;
+  color: #0071ff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.comparisonText {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+  color: rgba(0, 21, 48, 0.85);
+}
+
+.comparisonDivider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0;
+}
+
+.dividerLine {
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 21, 48, 0.15) 50%, transparent 100%);
+}
+
+.dividerArrow {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 113, 255, 0.1);
+  border-radius: 50%;
+  color: #0071ff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* CTA 섹션 */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(0, 113, 255, 0.08) 0%, rgba(0, 212, 170, 0.05) 100%);
+  border: 1px solid rgba(0, 113, 255, 0.15);
+  border-radius: 24px;
+  text-align: center;
+}
+
+.ctaText {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 120px 48px;
+  }
+
+  .container {
+    gap: 64px;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .statCard {
+    padding: 32px 24px;
+  }
+
+  .statValue {
+    font-size: 48px;
+  }
+
+  .statSuffix {
+    font-size: 28px;
+  }
+
+  .detailsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .detailCard {
+    padding: 32px;
+  }
+
+  .updateBar {
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 24px 32px;
+  }
+
+  .updateDivider {
+    display: none;
+  }
+
+  .efficiencySection {
+    padding: 32px;
+  }
+
+  .efficiencyGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .efficiencyValue {
+    font-size: 28px;
+  }
+
+  .communitySection {
+    padding: 32px;
+  }
+
+  .communityGrid {
+    gap: 20px;
+  }
+
+  .number {
+    font-size: 36px;
+  }
+
+  .suffix {
+    font-size: 24px;
+  }
+
+  .comparisonSection {
+    padding: 32px;
+  }
+
+  .comparisonGrid {
+    gap: 20px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .container {
+    gap: 48px;
+  }
+
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .statCard {
+    padding: 28px 20px;
+    gap: 8px;
+  }
+
+  .statValue {
+    font-size: 36px;
+  }
+
+  .statSuffix {
+    font-size: 22px;
+  }
+
+  .statLabel {
+    font-size: 16px;
+  }
+
+  .statDescription {
+    font-size: 13px;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .detailCard {
+    padding: 28px;
+  }
+
+  .detailTitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .sourceGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .sourceItem {
+    padding: 12px 16px;
+  }
+
+  .sourceName {
+    font-size: 14px;
+  }
+
+  .sourceType {
+    font-size: 12px;
+  }
+
+  .coverageItem {
+    padding: 12px 16px;
+  }
+
+  .coverageRegion {
+    font-size: 14px;
+  }
+
+  .coverageCount {
+    font-size: 16px;
+  }
+
+  .updateBar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .updateDivider {
+    display: none;
+  }
+
+  .updateItem {
+    width: 100%;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+  }
+
+  .updateFreq {
+    background: #ffffff;
+  }
+
+  .subSectionTitle {
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+
+  .efficiencySection {
+    padding: 24px;
+  }
+
+  .efficiencyGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .efficiencyCard {
+    padding: 20px 16px;
+  }
+
+  .efficiencyIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .efficiencyIcon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .efficiencyValue {
+    font-size: 26px;
+  }
+
+  .efficiencyLabel {
+    font-size: 13px;
+  }
+
+  .efficiencyDescription {
+    font-size: 11px;
+  }
+
+  .communitySection {
+    padding: 24px;
+  }
+
+  .communityGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .communityItem {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 16px;
+  }
+
+  .number {
+    font-size: 32px;
+  }
+
+  .suffix {
+    font-size: 20px;
+  }
+
+  .communityLabel {
+    font-size: 14px;
+  }
+
+  .communityDesc {
+    font-size: 12px;
+  }
+
+  .comparisonSection {
+    padding: 24px;
+  }
+
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .comparisonDivider {
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .dividerLine {
+    width: auto;
+    height: 1px;
+    flex: 1;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 21, 48, 0.15) 50%, transparent 100%);
+  }
+
+  .dividerArrow {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    transform: rotate(90deg);
+  }
+
+  .comparisonItem {
+    padding: 12px;
+  }
+
+  .comparisonText {
+    font-size: 13px;
+  }
+
+  .ctaSection {
+    padding: 32px 20px;
+    gap: 20px;
+  }
+
+  .ctaText {
+    font-size: 17px;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+}

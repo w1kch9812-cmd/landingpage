@@ -2,14 +2,25 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   z-index: 20;
-  /* Partners 섹션과의 간격: 80px (기본 gap 320px에서 240px 줄임) */
-  margin-bottom: -240px;
+  padding: 8px;
+}
+
+/* 섹션 프레임 */
+.sectionFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #001530;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .heroContent {
@@ -18,35 +29,83 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
   max-width: 1200px;
   padding: 0 80px;
   text-align: center;
 }
 
 .heroTitle {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-size: 68px;
   font-weight: 600;
-  color: var(--color-text-primary);
+  color: #ffffff;
   margin: 0;
   line-height: 1.2;
 }
 
+.titleLine {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* 너비 측정용 숨겨진 요소 */
+.measureText {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.rotatingWordWrapper {
+  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+
+.rotatingWord {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.rotatingChar {
+  display: inline-block;
+  color: #ffffff;
+  will-change: transform, opacity;
+}
+
+/* 따옴표 스타일 */
+.quoteOpen,
+.quoteClose {
+  display: inline-block;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.quoteOpen {
+  margin-right: 2px;
+}
+
+.quoteClose {
+  margin-left: 2px;
+}
+
 .heroDescription {
-  font-family: var(--font-hanwha-gothic);
+  font-family: var(--font-pretendard);
   font-size: 20px;
   font-weight: 400;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.7);
   margin: 0;
+  line-height: 1.6;
 }
 
 /* Tablet (810px - 1199px) */
 @media (min-width: 810px) and (max-width: 1199.98px) {
-  .hero {
-    min-height: 550px;
-  }
-
   .heroContent {
     padding: 0 48px;
   }
@@ -62,12 +121,13 @@
 
 /* Mobile (< 810px) */
 @media (max-width: 809.98px) {
-  .hero {
-    min-height: 450px;
+  .sectionFrame {
+    border-radius: 12px;
   }
 
   .heroContent {
     padding: 0 24px;
+    gap: 20px;
   }
 
   .heroTitle {

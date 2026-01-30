@@ -1,0 +1,535 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: 160px 80px;
+  background: transparent;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* 연결 블록 */
+.transitionBlock {
+  text-align: center;
+  padding: 48px 32px;
+  background: linear-gradient(180deg, rgba(0, 113, 255, 0.03) 0%, rgba(0, 113, 255, 0.08) 100%);
+  border-radius: 24px;
+  border: 1px solid rgba(0, 113, 255, 0.1);
+}
+
+.transitionText {
+  font-family: var(--font-pretendard);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+.transitionText strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* 프라이빗 섹션 */
+.privateSection {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* 시나리오 그리드 */
+.scenariosGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.scenarioCard {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(0, 21, 48, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.scenarioCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 21, 48, 0.08);
+}
+
+.scenarioIcon {
+  width: 56px;
+  height: 56px;
+  background: rgb(0, 21, 48);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.scenarioTitle {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 140%;
+  color: rgb(0, 21, 48);
+  margin: 0;
+}
+
+.scenarioDescription {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 170%;
+  color: #666;
+  margin: 0;
+}
+
+/* 혜택 섹션 */
+.benefitsSection {
+  background: rgb(0, 21, 48);
+  border-radius: 24px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.benefitsTitle {
+  font-family: var(--font-pretendard);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.benefitNumber {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 600;
+  color: #0071ff;
+  letter-spacing: -0.02em;
+}
+
+.benefitContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.benefitTitle {
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.benefitDescription {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: -0.02em;
+}
+
+/* 신뢰 섹션 */
+.trustSection {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.sectionTag {
+  display: inline-flex;
+  padding: 8px 16px;
+  background: rgba(0, 113, 255, 0.08);
+  color: #0071ff;
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-pretendard);
+  font-size: 36px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  margin: 0;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.description {
+  font-family: var(--font-pretendard);
+  font-size: 17px;
+  font-weight: 400;
+  color: #666;
+  margin: 0;
+  line-height: 1.7;
+  letter-spacing: -0.02em;
+  max-width: 600px;
+}
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.trustCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trustCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+
+.trustIcon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 113, 255, 0.1) 0%, rgba(0, 113, 255, 0.05) 100%);
+  border-radius: 12px;
+  color: #0071ff;
+}
+
+.trustIcon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.trustTitle {
+  font-family: var(--font-pretendard);
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(0, 21, 48);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.trustDescription {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+}
+
+.certificationBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px 40px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  flex-wrap: wrap;
+}
+
+.certLabel {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.certList {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.certItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.certCode {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 700;
+  color: #0071ff;
+  letter-spacing: 0.02em;
+}
+
+.certName {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: -0.02em;
+}
+
+.certNote {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 400;
+  color: #999;
+  letter-spacing: -0.02em;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: 120px 48px;
+  }
+
+  .container {
+    gap: 100px;
+  }
+
+  .privateSection {
+    gap: 40px;
+  }
+
+  .scenariosGrid {
+    gap: 20px;
+  }
+
+  .scenarioCard {
+    padding: 28px;
+  }
+
+  .scenarioTitle {
+    font-size: 18px;
+  }
+
+  .benefitsSection {
+    padding: 32px;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .trustSection {
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .trustGrid {
+    gap: 20px;
+  }
+
+  .trustCard {
+    padding: 24px;
+  }
+
+  .certificationBar {
+    gap: 24px;
+    padding: 20px 32px;
+  }
+
+  .certList {
+    gap: 16px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: 80px 24px;
+  }
+
+  .container {
+    gap: 80px;
+  }
+
+  .privateSection {
+    gap: 32px;
+  }
+
+  .scenariosGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .scenarioCard {
+    padding: 24px;
+    gap: 12px;
+  }
+
+  .scenarioIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .scenarioIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scenarioTitle {
+    font-size: 17px;
+  }
+
+  .scenarioDescription {
+    font-size: 14px;
+  }
+
+  .benefitsSection {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .benefitsTitle {
+    font-size: 18px;
+  }
+
+  .benefitsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .benefitItem {
+    gap: 10px;
+  }
+
+  .benefitTitle {
+    font-size: 15px;
+  }
+
+  .benefitDescription {
+    font-size: 13px;
+  }
+
+  .trustSection {
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .trustGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .trustCard {
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .trustIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .trustIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .trustTitle {
+    font-size: 15px;
+  }
+
+  .trustDescription {
+    font-size: 13px;
+  }
+
+  .certificationBar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .certList {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .certItem {
+    padding: 6px 12px;
+  }
+
+  .certCode {
+    font-size: 14px;
+  }
+
+  .certName {
+    font-size: 12px;
+  }
+}
+
+/* Very small mobile */
+@media (max-width: 480px) {
+  .trustGrid {
+    grid-template-columns: 1fr;
+  }
+}

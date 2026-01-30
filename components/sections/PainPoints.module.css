@@ -1,0 +1,169 @@
+/* Section */
+.section {
+  position: relative;
+  width: 100%;
+  padding: var(--section-py-desktop) 0;
+  background: transparent;
+  z-index: 10;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+/* Pain Points List */
+.painList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid rgba(0, 21, 48, 0.1);
+}
+
+.painItem {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 32px;
+  align-items: start;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(0, 21, 48, 0.1);
+  transition: background 0.2s ease;
+}
+
+.painItem:hover {
+  background: rgba(0, 113, 255, 0.02);
+  margin: 0 -24px;
+  padding: 32px 24px;
+}
+
+.painNumber {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding-top: 4px;
+}
+
+.painContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.painTitle {
+  font-family: var(--font-pretendard);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.painDescription {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  max-width: 600px;
+}
+
+.painSolution {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.solutionBadge {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  color: #0071ff;
+  background: rgba(0, 113, 255, 0.08);
+  padding: 8px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+  }
+
+  .container {
+    padding: 0 48px;
+    gap: var(--gap-lg);
+  }
+
+  .painItem {
+    grid-template-columns: 50px 1fr auto;
+    gap: 24px;
+    padding: 28px 0;
+  }
+
+  .painItem:hover {
+    margin: 0 -20px;
+    padding: 28px 20px;
+  }
+
+  .painTitle {
+    font-size: 18px;
+  }
+
+  .painDescription {
+    font-size: 14px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 0;
+  }
+
+  .container {
+    padding: 0 24px;
+    gap: var(--gap-lg);
+  }
+
+  .painItem {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px 0;
+  }
+
+  .painItem:hover {
+    margin: 0 -16px;
+    padding: 24px 16px;
+  }
+
+  .painNumber {
+    font-size: 13px;
+    padding-top: 0;
+  }
+
+  .painTitle {
+    font-size: 17px;
+  }
+
+  .painDescription {
+    font-size: 14px;
+  }
+
+  .painSolution {
+    padding-top: 8px;
+  }
+
+  .solutionBadge {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}

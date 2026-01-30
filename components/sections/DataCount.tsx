@@ -11,24 +11,28 @@ const stats = [
     number: 7000000,
     suffix: '+',
     label: '국토부 실거래가 데이터',
+    description: '2006년부터 현재까지 전국 산업용 부동산의 모든 실거래 내역을 분석합니다.',
     id: 'Transactions'
   },
   {
     number: 39800000,
     suffix: '+',
     label: '전국 필지 정보',
+    description: '토지 용도, 규제 사항, 개별공시지가 등 상세 정보를 제공합니다.',
     id: 'Parcels'
   },
   {
     number: 1200,
     suffix: '+',
     label: '산업단지 현황',
+    description: '입주 가능 업종, 분양가, 인프라 현황까지 한눈에 비교하세요.',
     id: 'Districts'
   },
   {
     number: 0,
     suffix: 'Daily',
     label: '경매/공매 물건',
+    description: '법원 경매, 캠코 공매 물건을 매일 업데이트하여 기회를 놓치지 않습니다.',
     id: 'Auction'
   },
 ];
@@ -54,24 +58,28 @@ export default function DataCount() {
               number={stats[0].number}
               suffix={stats[0].suffix}
               label={stats[0].label}
+              description={stats[0].description}
               id={stats[0].id}
             />
             <StatCard
               number={stats[1].number}
               suffix={stats[1].suffix}
               label={stats[1].label}
+              description={stats[1].description}
               id={stats[1].id}
             />
             <StatCard
               number={stats[2].number}
               suffix={stats[2].suffix}
               label={stats[2].label}
+              description={stats[2].description}
               id={stats[2].id}
             />
             <StatCard
               number={stats[3].number}
               suffix={stats[3].suffix}
               label={stats[3].label}
+              description={stats[3].description}
               id={stats[3].id}
             />
           </StaggerChildren>

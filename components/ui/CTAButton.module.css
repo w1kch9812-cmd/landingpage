@@ -35,7 +35,7 @@
 
 /* Text */
 .text {
-  font-family: var(--font-hanwha);
+  font-family: var(--font-pretendard);
   font-weight: 500;
   color: rgb(255, 255, 255);
   letter-spacing: -0.02em;
@@ -168,6 +168,33 @@
 
 .accent:hover .iconWrapper {
   background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Outline Variant */
+.outline {
+  background-color: transparent;
+  border: 1px solid rgba(0, 21, 48, 0.2);
+  box-shadow: none;
+}
+
+.outline:hover {
+  background-color: rgba(0, 21, 48, 0.05);
+  border-color: rgba(0, 21, 48, 0.3);
+  box-shadow: none;
+}
+
+.outline .text {
+  color: rgb(0, 21, 48);
+}
+
+.outline .iconWrapper {
+  background-color: rgba(0, 21, 48, 0.05);
+  border-color: rgba(0, 21, 48, 0.15);
+  color: rgb(0, 21, 48);
+}
+
+.outline:hover .iconWrapper {
+  background-color: rgba(0, 21, 48, 0.1);
 }
 
 /* Full Width */
