@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { List, X } from '@phosphor-icons/react';
 import styles from './Navbar.module.css';
 
 function Logo({ className }: { className?: string }) {
@@ -23,21 +22,12 @@ function Logo({ className }: { className?: string }) {
   );
 }
 
-interface NavItem {
-  label: string;
-  sectionId: string;
-}
-
-const navItems: NavItem[] = [];
-
 interface NavbarProps {
   style?: React.CSSProperties;
 }
 
-
 export default function Navbar({ style }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,23 +49,8 @@ export default function Navbar({ style }: NavbarProps) {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const targetTop = scrollTop + rect.top;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      setMobileMenuOpen(false);
     }
   }, []);
-
-  const toggleMobileMenu = useCallback(() => {
-    setMobileMenuOpen(prev => !prev);
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileMenuOpen) {
-        setMobileMenuOpen(false);
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [mobileMenuOpen]);
 
   return (
     <nav
@@ -92,48 +67,16 @@ export default function Navbar({ style }: NavbarProps) {
         <Logo className={styles.logoImage} />
       </button>
 
-      <div
-        className={`${styles.navMenu} ${mobileMenuOpen ? styles.open : ''}`}
-        role="menubar"
-        aria-label="주요 메뉴"
+      <button
+        className={styles.ctaButton}
+        onClick={() => scrollToSection('section-launch-notify')}
+        aria-label="출시 알림 신청 섹션으로 이동"
       >
-        {navItems.map((item) => (
-          <button
-            key={item.sectionId}
-            onClick={() => scrollToSection(item.sectionId)}
-            className={styles.navLink}
-            role="menuitem"
-          >
-            <span className={styles.linkTextWrapper}>
-              <span className={styles.linkText}>{item.label}</span>
-              <span className={styles.linkTextHover}>{item.label}</span>
-            </span>
-          </button>
-        ))}
-      </div>
-
-      <div className={styles.navActions}>
-        <button
-          className={styles.ctaButton}
-          onClick={() => scrollToSection('section-launch-notify')}
-          aria-label="출시 알림 신청 섹션으로 이동"
-        >
-          <span className={styles.ctaTextWrapper}>
-            <span className={styles.ctaText}>출시 알림 받기</span>
-            <span className={styles.ctaTextHover}>출시 알림 받기</span>
-          </span>
-        </button>
-
-        <button
-          className={styles.mobileMenuButton}
-          onClick={toggleMobileMenu}
-          aria-label={mobileMenuOpen ? '메뉴 닫기' : '메뉴 열기'}
-          aria-expanded={mobileMenuOpen}
-          aria-controls="mobile-menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <List size={24} />}
-        </button>
-      </div>
+        <span className={styles.ctaTextWrapper}>
+          <span className={styles.ctaText}>출시 알림 받기</span>
+          <span className={styles.ctaTextHover}>출시 알림 받기</span>
+        </span>
+      </button>
     </nav>
   );
 }
