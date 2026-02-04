@@ -1,0 +1,161 @@
+/* Section Header - Default Stacked Layout */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  width: 100%;
+}
+
+/* Caption (/ Section Name (01)) */
+.caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.decorator {
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.name {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.number {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--color-text-muted);
+}
+
+/* Column 2-3: Content (Title + Description) */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+.title {
+  font-family: var(--font-pretendard);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 130%;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.description {
+  font-family: var(--font-pretendard);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: -0.02em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* Muted text within title */
+.muted {
+  color: var(--color-text-muted);
+}
+
+/* Column 4: Empty space (implicit in grid) */
+
+/* Grid layout - 그리드 배치가 필요한 경우 */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: var(--gap-sm);
+  align-items: start;
+}
+
+.grid .caption {
+  padding-top: 8px;
+}
+
+/* Dark variant for dark backgrounds */
+.dark .decorator {
+  background: rgb(255, 255, 255);
+}
+
+.dark .name {
+  color: rgb(255, 255, 255);
+}
+
+.dark .number {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dark .title {
+  color: rgb(255, 255, 255);
+}
+
+.dark .description {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.dark .muted {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Tablet */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .grid {
+    grid-template-columns: 1fr 2fr 0.5fr;
+    gap: 20px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+}
+
+/* Mobile - Stack vertically */
+@media (max-width: 809.98px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+  }
+
+  .caption {
+    gap: 6px;
+    padding-top: 0;
+  }
+
+  .content {
+    gap: var(--gap-xs);
+  }
+
+  .decorator {
+    width: 6px;
+    height: 6px;
+  }
+
+  .name,
+  .number {
+    font-size: 13px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+}

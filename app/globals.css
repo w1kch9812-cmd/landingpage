@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* ======================
+   Global Reset & Base Styles
+   ====================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* ======================
+       Color Design Tokens
+       ====================== */
+
+    /* Primary Colors */
+    --color-primary: #333d4b;
+    --color-primary-rgb: 0, 21, 48;
+    --color-white: #ffffff;
+    --color-background: #f3f4f6;
+    --color-background-gradient: linear-gradient(180deg, #ffffff 0%, #f8f8f8 97%);
+
+    /* Accent Colors */
+    --color-accent: #0071ff;
+    --color-accent-rgb: 0, 113, 255;
+    --color-accent-hover: #0062e0;
+    --color-success: #10b981;
+
+    /* Text Colors */
+    --color-text-primary: var(--color-primary);
+    --color-text-muted: rgba(var(--color-primary-rgb), 0.6);
+    --color-text-subtle: rgba(var(--color-primary-rgb), 0.4);
+
+    /* Dark Theme (for dark sections) */
+    --color-text-on-dark: var(--color-white);
+    --color-text-muted-on-dark: rgba(255, 255, 255, 0.7);
+    --color-text-subtle-on-dark: rgba(255, 255, 255, 0.5);
+
+    /* Border Colors */
+    --color-border: rgba(var(--color-primary-rgb), 0.08);
+    --color-border-hover: rgba(var(--color-primary-rgb), 0.15);
+    --color-border-on-dark: rgba(255, 255, 255, 0.08);
+    --color-border-hover-on-dark: rgba(255, 255, 255, 0.12);
+
+    /* Background Colors */
+    --color-bg-card: rgba(255, 255, 255, 0.03);
+    --color-bg-card-hover: rgba(255, 255, 255, 0.05);
+    --color-bg-overlay: rgba(255, 255, 255, 0.5);
+    --color-background-dark: #111111;
+    --color-background-darker: #0a0a0f;
+    --color-background-alt: #f8fafc;
+    --color-background-section: #f3f4f6;
+
+    /* Card Shadow - Smooth layered shadow */
+    --shadow-card: rgba(161, 161, 170, 0.15) 0px 4px 16px -6px, rgba(161, 161, 170, 0.05) 0px 4.03105px 1.61242px -0.625px, rgba(161, 161, 170, 0.05) 0px 9.5543px 3.82172px -1.25px, rgba(161, 161, 170, 0.05) 0px 17.428px 6.97121px -1.875px, rgba(161, 161, 170, 0.04) 0px 28.9741px 11.5896px -2.5px, rgba(161, 161, 170, 0.04) 0px 46.7908px 18.7163px -3.125px, rgba(161, 161, 170, 0.03) 0px 76.5918px 30.6367px -3.75px, rgba(161, 161, 170, 0.02) 0px 131.886px 52.7544px -4.375px, rgba(161, 161, 170, 0) 0px 240px 96px -5px;
+
+    /* ======================
+       Spacing & Layout Tokens
+       ====================== */
+
+    /* Navbar Height */
+    --navbar-height: 120px;
+    --navbar-height-tablet: 88px;
+    --navbar-height-mobile: 68px;
+
+    /* Section Horizontal Padding */
+    --section-padding-desktop: 0 80px;
+    --section-padding-tablet: 0 48px;
+    --section-padding-mobile: 0 24px;
+
+    /* Section Vertical Padding - STANDARDIZED */
+    --section-py-desktop: 120px;
+    --section-py-tablet: 80px;
+    --section-py-mobile: 60px;
+
+    /* Container Max Width - STANDARDIZED */
+    --container-max-width: 1520px;
+
+    /* Component Gaps - Use consistent scale */
+    --gap-xs: 16px;
+    --gap-sm: 24px;
+    --gap-md: 32px;
+    --gap-lg: 48px;
+    --gap-xl: 64px;
+    --gap-2xl: 80px;
+
+    /* Card Padding - STANDARDIZED */
+    --card-padding-lg: 40px;
+    --card-padding-md: 32px;
+    --card-padding-sm: 24px;
+
+    /* ======================
+       Border Radius Tokens - STANDARDIZED
+       ====================== */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-card: 20px;
+    --radius-full: 9999px;
+
+    /* ======================
+       Additional UI Colors
+       ====================== */
+    --color-white-rgb: 255, 255, 255;
+    --color-border-light: #eeeeee;
+    --color-bg-muted: #f0f3f7;
+    --color-bg-subtle: #f5f5f5;
+    --color-secondary-blue: #3b82f6;
+    --color-secondary-blue-rgb: 59, 130, 246;
+
+    /* ======================
+       Transition Tokens
+       ====================== */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    font-family: var(--font-pretendard), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* 한글 텍스트 어색한 줄바꿈 방지 */
+h1, h2, h3, h4, h5, h6,
+p, span, li, a, label,
+.title, .subtitle, .description,
+[class*="Text"], [class*="title"], [class*="desc"] {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure {
+    margin: 0;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ======================
+   Font Utility Classes
+   ====================== */
+
+.font-pretendard {
+    font-family: var(--font-pretendard);
+}
+
+/* ======================
+   Display P3 Color Support
+   ====================== */
+
+@supports (color: color(display-p3 1 1 1)) {
+    :root {
+        color-scheme: light dark;
+    }
+}
+
+@supports (aspect-ratio: 1) {
+    body {
+        --framer-aspect-ratio-supported: auto;
+    }
+}
+
+/* ======================
+   Form Input Focus States
+   ====================== */
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 10, 10, 0.1);
+    border-color: rgb(10, 10, 10);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(10, 10, 10, 0.4);
+    transition: color 0.2s ease;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: rgba(10, 10, 10, 0.3);
+}
+
+/* ======================
+   Button Active States
+   ====================== */
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* ======================
+   Selection Style
+   ====================== */
+
+::selection {
+    background-color: rgba(10, 10, 10, 0.1);
+    color: rgb(10, 10, 10);
+}
+

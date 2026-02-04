@@ -1,0 +1,310 @@
+/* Section */
+.section {
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background: var(--color-background);
+  padding: var(--section-py-desktop) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+  overflow: clip;
+}
+
+/* Header Container - 다른 섹션과 동일한 구조 */
+.headerContainer {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  width: 100%;
+}
+
+/* Slider Wrapper - overflow visible for glow effects */
+.sliderWrapper {
+  width: 100%;
+  overflow: clip;
+  overflow-clip-margin: 40px;
+  padding: 20px 0 100px 0;
+  position: relative;
+}
+
+/* Slider - Draggable Container */
+.slider {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap-sm);
+  width: fit-content;
+  padding: 0 80px;
+  cursor: grab;
+  user-select: none;
+  min-height: 420px;
+}
+
+.slider:active {
+  cursor: grabbing;
+}
+
+/* Card Base - 검은색 배경 */
+.card {
+  flex-shrink: 0;
+  width: 360px;
+  background: var(--color-background-dark);
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--card-padding-lg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.card:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: scale(1.05);
+  box-shadow: 0 20px 60px rgba(var(--color-accent-rgb), 0.3);
+}
+
+/* Card Heights - 내용에 맞게 자동 fit (min-height 제거) */
+.heightSmall,
+.heightMedium,
+.heightLarge {
+  /* 높이는 내용에 따라 자동 결정 */
+}
+
+/* Card Positions - Staggered Layout */
+.top {
+  align-self: flex-start;
+  transform: translateY(0);
+}
+
+.top:hover {
+  transform: translateY(0) scale(1.05);
+}
+
+.middle {
+  align-self: center;
+  transform: translateY(40px);
+}
+
+.middle:hover {
+  transform: translateY(40px) scale(1.05);
+}
+
+.bottom {
+  align-self: flex-end;
+  transform: translateY(80px);
+}
+
+.bottom:hover {
+  transform: translateY(80px) scale(1.05);
+}
+
+/* Card Content */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+}
+
+/* Highlight Badge */
+.highlight {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.15);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+}
+
+.card:hover .highlight {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Quote - 한화고딕 폰트 */
+.quote {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 170%;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+.card:hover .quote {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Person Info */
+.person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: var(--gap-xs);
+  border-top: 1px solid var(--color-border-on-dark);
+}
+
+.card:hover .person {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Avatar - 이미지용 */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarText {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Person Info Text */
+.personInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-family: var(--font-pretendard);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.role {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Tablet */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+    gap: var(--gap-lg);
+  }
+
+  .headerContainer {
+    padding: 0 48px;
+  }
+
+  .slider {
+    gap: 20px;
+    padding: 0 48px;
+    min-height: 380px;
+  }
+
+  .card {
+    width: 320px;
+    padding: var(--card-padding-sm);
+  }
+
+  .middle {
+    transform: translateY(30px);
+  }
+
+  .middle:hover {
+    transform: translateY(30px) scale(1.05);
+  }
+
+  .bottom {
+    transform: translateY(60px);
+  }
+
+  .bottom:hover {
+    transform: translateY(60px) scale(1.05);
+  }
+
+  .quote {
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 0;
+    gap: var(--gap-md);
+  }
+
+  .headerContainer {
+    padding: 0 24px;
+  }
+
+  .sliderWrapper {
+    padding: 10px 0 60px 0;
+  }
+
+  .slider {
+    gap: 16px;
+    padding: 0 24px;
+    min-height: 340px;
+  }
+
+  .card {
+    width: 280px;
+    padding: 20px;
+  }
+
+  .middle {
+    transform: translateY(20px);
+  }
+
+  .middle:hover {
+    transform: translateY(20px) scale(1.05);
+  }
+
+  .bottom {
+    transform: translateY(40px);
+  }
+
+  .bottom:hover {
+    transform: translateY(40px) scale(1.05);
+  }
+
+  .quote {
+    font-size: 13px;
+    line-height: 160%;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .avatarText {
+    font-size: 13px;
+  }
+
+  .name {
+    font-size: 13px;
+  }
+
+  .role {
+    font-size: 12px;
+  }
+}

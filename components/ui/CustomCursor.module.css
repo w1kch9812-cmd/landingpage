@@ -1,0 +1,70 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.cursorInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgb(0, 113, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  transform: scale(0.15);
+}
+
+.hovering .cursorInner {
+  transform: scale(1);
+  background: rgb(0, 113, 255);
+}
+
+.dragging .cursorInner {
+  transform: scale(0.9);
+  background: rgb(0, 90, 200);
+}
+
+.cursorText {
+  font-family: var(--font-pretendard);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-transform: uppercase;
+}
+
+.hovering .cursorText {
+  opacity: 1;
+}
+
+.dragging .cursorText {
+  opacity: 1;
+}
+
+/* 모바일에서 커서 숨김 */
+@media (max-width: 809.98px) {
+  .cursor {
+    display: none;
+  }
+}
+
+/* 터치 디바이스에서 커서 숨김 */
+@media (hover: none) and (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}

@@ -1,0 +1,227 @@
+/* Section */
+.section {
+  width: 100%;
+  background: var(--color-background);
+  position: relative;
+  z-index: 10;
+  padding: var(--section-py-desktop) 0;
+}
+
+/* Content Grid - 4 Columns (2+2 Split) */
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap-sm);
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  width: 100%;
+}
+
+/* Header Cell - Columns 1-2 */
+.headerCell {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 40px;
+}
+
+.particleAnchor {
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  margin-top: 20px;
+}
+
+.title {
+  font-family: var(--font-pretendard);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 130%;
+  letter-spacing: -0.04em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.primaryText {
+  color: var(--color-accent);
+}
+
+.mutedText {
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: -0.02em;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* FAQ Cell Wrapper - Columns 3-4 */
+.faqCellWrapper {
+  grid-column: span 2;
+}
+
+/* FAQ Cell (Wafer) */
+.faqCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--color-bg-muted);
+  padding: 4px;
+  border-radius: var(--radius-card);
+}
+
+/* FAQ Item */
+.faqItem {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.faqItemOpen {
+  /* no shadow */
+}
+
+/* FAQ Question */
+.faqQuestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 22px var(--gap-sm);
+  gap: var(--gap-xs);
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.questionText {
+  flex: 1;
+  color: var(--color-text-primary);
+  font-family: var(--font-pretendard);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+/* Icon */
+.icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  color: var(--color-text-primary);
+}
+
+.iconRotated {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+/* FAQ Answer */
+.faqAnswer {
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.answerContent {
+  padding: 0 var(--gap-sm) 22px var(--gap-sm);
+}
+
+.answerContent p {
+  color: var(--color-text-muted);
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7em;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+  }
+
+  .contentGrid {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0 48px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .headerCell {
+    padding-right: var(--gap-sm);
+  }
+
+  .questionText {
+    font-size: 15px;
+  }
+
+  .answerContent p {
+    font-size: 14px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 0;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: var(--gap-md);
+    padding: 0 24px;
+  }
+
+  .headerCell {
+    grid-column: span 1;
+    padding-right: 0;
+  }
+
+  .faqCellWrapper {
+    grid-column: span 1;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .faqQuestion {
+    padding: 18px 20px;
+  }
+
+  .questionText {
+    font-size: 15px;
+  }
+
+  .answerContent {
+    padding: 0 20px 18px 20px;
+  }
+
+  .answerContent p {
+    font-size: 14px;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+}

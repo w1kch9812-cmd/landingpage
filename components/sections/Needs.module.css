@@ -1,0 +1,197 @@
+/* Section */
+.section {
+  position: relative;
+  width: 100%;
+  padding: var(--section-py-desktop) 0;
+  background: var(--color-background);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+/* Marquee Container */
+.marqueeContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 0;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* Marquee Track */
+.marqueeTrack {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+}
+
+.trackLeft {
+  animation: scrollLeft 60s linear infinite;
+}
+
+.trackRight {
+  animation: scrollRight 60s linear infinite;
+}
+
+@keyframes scrollLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollRight {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Question Card */
+.needsCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  transition: all var(--transition-normal);
+}
+
+.needsCard:hover {
+  border-color: rgba(var(--color-accent-rgb), 0.2);
+  box-shadow: 0 4px 20px rgba(var(--color-primary-rgb), 0.08);
+  transform: translateY(-2px);
+}
+
+/* Card Icon */
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* Card Text */
+.cardText {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+  }
+
+  .container {
+    padding: 0 48px;
+    gap: var(--gap-lg);
+  }
+
+  .marqueeContainer {
+    gap: 12px;
+    padding: 20px 0;
+  }
+
+  .marqueeTrack {
+    gap: 12px;
+  }
+
+  .needsCard {
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .cardIcon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .cardText {
+    font-size: 14px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 0;
+  }
+
+  .container {
+    padding: 0 24px;
+    gap: var(--gap-md);
+  }
+
+  .marqueeContainer {
+    gap: 10px;
+    padding: 16px 0;
+  }
+
+  .marqueeTrack {
+    gap: 10px;
+  }
+
+  .trackLeft {
+    animation-duration: 40s;
+  }
+
+  .trackRight {
+    animation-duration: 40s;
+  }
+
+  .needsCard {
+    padding: 8px 14px;
+    gap: 8px;
+  }
+
+  .cardIcon {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .cardText {
+    font-size: 13px;
+  }
+}

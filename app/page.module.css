@@ -1,0 +1,35 @@
+/* Landing Page Container */
+.landingPage {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 파티클 배경 - 고정, UI 뒤에 표시됨 */
+.particleFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hero 위로 올라오는 섹션들 래퍼 */
+.sectionsWrapper {
+  position: relative;
+  background: var(--color-background);
+  margin-top: 100vh; /* Hero 높이만큼 공간 확보 */
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .sectionsWrapper {
+    margin-top: 80vh;
+  }
+}
+

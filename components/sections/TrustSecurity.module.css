@@ -1,0 +1,177 @@
+.section {
+  position: relative;
+  width: 100%;
+  padding: var(--section-py-desktop) 0;
+  background: var(--color-background);
+  z-index: 10;
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+}
+
+/* 시나리오 그리드 */
+.scenariosGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.scenarioCard {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  height: 100%;
+}
+
+.scenarioCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(var(--color-primary-rgb), 0.08);
+}
+
+.scenarioIcon {
+  width: 52px;
+  height: 52px;
+  background: var(--color-primary);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.scenarioTitle {
+  font-family: var(--font-pretendard);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.scenarioDescription {
+  font-family: var(--font-pretendard);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin: 0;
+  flex: 1;
+}
+
+/* 솔루션 태그 - 카드 하단 */
+.solutionTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(var(--color-accent-rgb), 0.08);
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.solutionTag svg {
+  flex-shrink: 0;
+}
+
+.solutionTag span {
+  font-family: var(--font-pretendard);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Tablet (810px - 1199px) */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .section {
+    padding: var(--section-py-tablet) 0;
+  }
+
+  .container {
+    padding: 0 48px;
+    gap: var(--gap-lg);
+  }
+
+  .scenariosGrid {
+    gap: 20px;
+  }
+
+  .scenarioCard {
+    padding: 28px;
+  }
+
+  .scenarioTitle {
+    font-size: 17px;
+  }
+
+  .solutionTag {
+    padding: 6px 12px;
+  }
+
+  .solutionTag span {
+    font-size: 12px;
+  }
+}
+
+/* Mobile (< 810px) */
+@media (max-width: 809.98px) {
+  .section {
+    padding: var(--section-py-mobile) 0;
+  }
+
+  .container {
+    padding: 0 24px;
+    gap: var(--gap-lg);
+  }
+
+  .scenariosGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .scenarioCard {
+    padding: 24px;
+    gap: 12px;
+  }
+
+  .scenarioIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .scenarioIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .scenarioTitle {
+    font-size: 17px;
+  }
+
+  .scenarioDescription {
+    font-size: 14px;
+  }
+
+  .solutionTag {
+    padding: 6px 12px;
+  }
+
+  .solutionTag span {
+    font-size: 12px;
+  }
+}

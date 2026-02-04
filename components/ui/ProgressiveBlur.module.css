@@ -1,0 +1,24 @@
+.container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity var(--transition-normal);
+}
+
+.top {
+  top: 0;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: auto;
+}

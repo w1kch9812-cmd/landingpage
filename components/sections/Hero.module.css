@@ -1,0 +1,333 @@
+.hero {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1;
+  padding: 12px;
+  background: var(--color-background);
+}
+
+.sectionFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(
+    180deg,
+    #280e01 0%,
+    #182644 12%,
+    #5a769f 24%,
+    #87a1c4 36%,
+    #c1d3e6 48%,
+    #e4edf6 60%,
+    #f2f6fa 75%,
+    #ffffff 100%
+  );
+  isolation: isolate;
+}
+
+/* 메쉬 그라데이션 배경 */
+.meshGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* 그라데이션 블롭들 - 브랜드 컬러 (#0071ff) 기반 - 더 크고 진하게 */
+.gradientBlob1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: -30%;
+  bottom: -40%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 113, 255, 0.5) 0%,
+    rgba(0, 113, 255, 0.3) 25%,
+    rgba(59, 130, 246, 0.15) 45%,
+    transparent 65%
+  );
+  filter: blur(50px);
+  animation: float1 20s ease-in-out infinite;
+}
+
+.gradientBlob2 {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  right: -20%;
+  top: -30%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.45) 0%,
+    rgba(99, 179, 255, 0.25) 30%,
+    rgba(147, 197, 253, 0.1) 50%,
+    transparent 65%
+  );
+  filter: blur(45px);
+  animation: float2 25s ease-in-out infinite;
+}
+
+.gradientBlob3 {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  left: 20%;
+  top: 10%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.6) 30%,
+    transparent 55%
+  );
+  filter: blur(35px);
+  animation: float3 18s ease-in-out infinite;
+}
+
+.gradientBlob4 {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  right: 0%;
+  bottom: 0%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(147, 197, 253, 0.5) 0%,
+    rgba(191, 219, 254, 0.3) 35%,
+    transparent 60%
+  );
+  filter: blur(40px);
+  animation: float4 22s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  20% { transform: translate(8%, -8%) scale(1.1) rotate(2deg); }
+  40% { transform: translate(-5%, 5%) scale(0.95) rotate(-1deg); }
+  60% { transform: translate(10%, 3%) scale(1.08) rotate(3deg); }
+  80% { transform: translate(-8%, -6%) scale(0.92) rotate(-2deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate(-10%, 8%) scale(0.9) rotate(-3deg); }
+  50% { transform: translate(6%, -10%) scale(1.12) rotate(2deg); }
+  75% { transform: translate(-8%, 5%) scale(0.95) rotate(-1deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+@keyframes float3 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(12%, 8%) scale(1.15) rotate(4deg); }
+  66% { transform: translate(-6%, -10%) scale(0.88) rotate(-3deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+@keyframes float4 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  30% { transform: translate(-12%, -8%) scale(0.85) rotate(-4deg); }
+  60% { transform: translate(8%, 12%) scale(1.1) rotate(2deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+/* 파티클 컨테이너 */
+.particleContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: auto;
+  z-index: -1;
+}
+
+/* 콘텐츠 래퍼 */
+.heroContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  padding: 0 80px;
+  padding-bottom: 60px;
+  margin-top: auto;
+  gap: 80px;
+  pointer-events: none; /* Spline 마우스 이벤트 통과 */
+}
+
+.heroTitle {
+  font-family: var(--font-pretendard);
+  font-size: 72px;
+  font-weight: 700;
+  color: #aaaaaa;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  text-align: left;
+  pointer-events: auto; /* 텍스트 선택 가능 */
+  mix-blend-mode: difference;
+}
+
+.titleLine,
+.titleLine1 {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  flex-wrap: wrap;
+}
+
+/* 모바일에서만 줄바꿈 */
+.mobileBreak {
+  display: none;
+}
+
+/* 너비 측정용 숨겨진 요소 */
+.measureText {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.rotatingWordWrapper {
+  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+  vertical-align: baseline;
+}
+
+.rotatingWord {
+  display: inline-flex;
+  white-space: nowrap;
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.rotatingWord.active {
+  position: relative;
+  pointer-events: auto;
+}
+
+.rotatingChar {
+  display: inline-block;
+  color: #aaaaaa;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* 따옴표 스타일 */
+.quoteOpen,
+.quoteClose {
+  display: inline-block;
+  color: #aaaaaa;
+  font-weight: 700;
+  font-size: inherit;
+}
+
+.quoteOpen {
+  margin-right: 4px;
+}
+
+.quoteClose {
+  margin-left: 4px;
+}
+
+.heroDescription {
+  position: relative;
+  font-family: var(--font-pretendard);
+  font-size: 24px;
+  font-weight: 700;
+  color: #aaaaaa;
+  margin: 0;
+  line-height: 1.7;
+  max-width: 420px;
+  text-align: left;
+  pointer-events: auto; /* 텍스트 선택 가능 */
+  mix-blend-mode: difference;
+}
+
+/* Tablet */
+@media (max-width: 1199.98px) {
+  .heroContent {
+    padding: 0 48px;
+    padding-bottom: 48px;
+    gap: 32px;
+  }
+
+  .heroTitle {
+    font-size: 52px;
+  }
+
+  .heroDescription {
+    font-size: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 809.98px) {
+  .hero {
+    padding: 0;
+    height: 80vh;
+  }
+
+  .sectionFrame {
+    border-radius: 0;
+  }
+
+  .heroContent {
+    padding: 0 24px;
+    padding-bottom: 40px;
+    align-items: flex-start;
+  }
+
+  .heroTitle {
+    font-size: 32px;
+  }
+
+  .titleLine,
+  .titleLine1 {
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+
+  .mobileBreak {
+    display: block;
+    width: 100%;
+    height: 0;
+  }
+
+  .heroDescription {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  .heroContent {
+    gap: 24px;
+  }
+
+  .gradientBlob1,
+  .gradientBlob2,
+  .gradientBlob3,
+  .gradientBlob4 {
+    filter: blur(40px);
+  }
+}
