@@ -224,10 +224,10 @@ export default function SocialProof() {
           <SectionHeader
             sectionName="Status"
             sectionNumber="04"
-            description="국내 최대 규모의 산업부동산 데이터베이스와 함께하세요."
+            description="데이터를 기반으로 수많은 기업 회원이 최적의 부지를 찾고 있습니다."
           >
-            이미 많은 기업들이<br />
-            공짱과 함께하고 있습니다
+            숫자가 증명하는<br />
+            대한민국 최대 산업 데이터 파트너
           </SectionHeader>
         </FadeUp>
 
