@@ -28,14 +28,7 @@ interface NavItem {
   sectionId: string;
 }
 
-const navItems: NavItem[] = [
-  { label: '니즈', sectionId: 'section-needs' },
-  { label: '핵심기능', sectionId: 'section-core-features' },
-  { label: '프라이빗 매물', sectionId: 'section-trust-security' },
-  { label: '현황', sectionId: 'section-social-proof' },
-  { label: '고객사례', sectionId: 'section-testimonials' },
-  { label: 'FAQ', sectionId: 'section-faq' },
-];
+const navItems: NavItem[] = [];
 
 interface NavbarProps {
   style?: React.CSSProperties;
