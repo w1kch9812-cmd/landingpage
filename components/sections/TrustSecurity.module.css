@@ -71,26 +71,44 @@
   flex: 1;
 }
 
-/* 솔루션 태그 - 카드 하단 */
-.solutionTag {
-  display: inline-flex;
+/* Features Bar */
+.featuresBar {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: rgba(var(--color-accent-rgb), 0.08);
-  border-radius: var(--radius-full);
-  color: var(--color-accent);
-  margin-top: auto;
-  align-self: flex-start;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 32px;
+  background: #0a1628;
+  border-radius: var(--radius-card);
 }
 
-.solutionTag svg {
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  padding: 0 24px;
+  position: relative;
+}
+
+.featureItem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.featureItem svg {
   flex-shrink: 0;
 }
 
-.solutionTag span {
+.featureItem span {
   font-family: var(--font-pretendard);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.02em;
 }
@@ -118,12 +136,17 @@
     font-size: 17px;
   }
 
-  .solutionTag {
-    padding: 6px 12px;
+  .featuresBar {
+    padding: 20px 24px;
+    gap: 12px;
   }
 
-  .solutionTag span {
-    font-size: 12px;
+  .featureItem {
+    padding: 0 16px;
+  }
+
+  .featureItem span {
+    font-size: 14px;
   }
 }
 
@@ -167,11 +190,21 @@
     font-size: 14px;
   }
 
-  .solutionTag {
-    padding: 6px 12px;
+  .featuresBar {
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 12px;
   }
 
-  .solutionTag span {
-    font-size: 12px;
+  .featureItem {
+    padding: 8px 0;
+  }
+
+  .featureItem:not(:last-child)::after {
+    display: none;
+  }
+
+  .featureItem span {
+    font-size: 14px;
   }
 }

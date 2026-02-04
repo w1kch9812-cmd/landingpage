@@ -18,7 +18,6 @@ const privateScenarios = [
     ),
     title: '직원들의 동요가 걱정될 때',
     description: '공장 매각 소문이 퍼지면 핵심 인력이 이탈할 수 있습니다. 프라이빗 매물로 등록하면 사업자 인증을 완료한 실수요자만 매물 정보를 확인할 수 있습니다.',
-    solution: '사업자 인증 필수',
   },
   {
     id: 'scenario-partner',
@@ -29,7 +28,6 @@ const privateScenarios = [
     ),
     title: '거래처와의 관계가 민감할 때',
     description: '주요 납품처나 협력업체에 매각 의사가 알려지면 거래 관계에 영향을 줄 수 있습니다. 비공개 매물 시스템으로 원하는 시점까지 정보를 보호하세요.',
-    solution: '공개 범위 설정',
   },
   {
     id: 'scenario-competitor',
@@ -41,8 +39,12 @@ const privateScenarios = [
     ),
     title: '경쟁사에 알리고 싶지 않을 때',
     description: '사업 확장이나 이전 계획이 경쟁사에 노출되면 전략적 불이익이 생길 수 있습니다. 공개 범위를 직접 설정하여 원하는 대상에게만 매물 정보를 공개할 수 있습니다.',
-    solution: '즉시 공개 전환',
   },
+];
+
+const features = [
+  { label: '사업자 인증 필수' },
+  { label: '공개 범위 설정' },
 ];
 
 export default function TrustSecurity() {
@@ -66,15 +68,22 @@ export default function TrustSecurity() {
               <div className={styles.scenarioIcon}>{scenario.icon}</div>
               <h3 className={styles.scenarioTitle}>{scenario.title}</h3>
               <p className={styles.scenarioDescription}>{scenario.description}</p>
-              <div className={styles.solutionTag}>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M11.5 3.5L5.5 10.5L2.5 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span>{scenario.solution}</span>
-              </div>
             </SlideIn>
           ))}
         </div>
+
+        <SlideIn direction="up" delay={0.3} distance={40}>
+          <div className={styles.featuresBar}>
+            {features.map((feature, index) => (
+              <div key={index} className={styles.featureItem}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M13 4L6 12L3 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span>{feature.label}</span>
+              </div>
+            ))}
+          </div>
+        </SlideIn>
       </div>
     </section>
   );
