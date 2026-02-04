@@ -87,19 +87,6 @@
   align-items: center;
   gap: 8px;
   color: #ffffff;
-  padding: 0 24px;
-  position: relative;
-}
-
-.featureItem:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.3);
 }
 
 .featureItem svg {

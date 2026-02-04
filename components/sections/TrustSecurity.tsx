@@ -43,8 +43,7 @@ const privateScenarios = [
 ];
 
 const features = [
-  { label: '사업자 인증 필수' },
-  { label: '공개 범위 설정' },
+  { label: '사업자 인증을 완료한 실수요자에게만 공개되도록 설정할 수 있습니다' },
 ];
 
 export default function TrustSecurity() {
